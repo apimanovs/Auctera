@@ -1,0 +1,6 @@
+@Auctera.Host_HostAddress = http://localhost:5243
+
+GET {{Auctera.Host_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

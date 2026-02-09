@@ -1,0 +1,68 @@
+﻿using Auctera.Auctions.API.Controllers;
+using Auctera.Auctions.Application.Interfaces;
+using Auctera.Auctions.Infrastructure.Repository;
+using Auctera.Bids.API.Controllers;
+using Auctera.Items.API.Controllers;
+using Auctera.Items.Application.Interfaces;
+using Auctera.Persistance;
+using Auctera.Realtime.Extensions;
+using Auctera.Shared.Domain.Time;
+using Auctera.Shared.Infrastructure.Dispatcher;
+using Auctera.Shared.Infrastructure.Interfaces;
+using Auctera.Shared.Infrastructure.Time;
+
+using Aucters.Items.Infrastructure.Repository;
+
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(AuctionsController).Assembly)
+    .AddApplicationPart(typeof(EngineController).Assembly)
+    .AddApplicationPart(typeof(ItemController).Assembly)
+    .AddApplicationPart(typeof(BidsController).Assembly);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddAucteraRealtime();
+
+builder.Services.AddDbContext<AucteraDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Auctera.Items.Application.Marker.MediatRAssemblyMarker).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Auctera.Bids.Application.Marker.MediatRAssemblyMarker).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Auctera.Auctions.Application.Marker.MediatRAssemblyMarker).Assembly);
+
+});
+
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<ILotRepository, LotRepository>();
+builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+builder.Services.AddScoped<IClock, SystemClock>();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors("RealtimeCors");
+app.UseAuthorization();
+
+app.MapAucteraRealtime();
+app.MapControllers();
+
+app.Run();

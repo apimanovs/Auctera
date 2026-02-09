@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>369a5571-99e7-43ff-9c1b-03066af2a5e9</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="14.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <ProjectReference Include="..\..\database\Auctera.Persistance\Auctera.Persistance.csproj" />
+    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.API\Auctera.Auctions.API.csproj" />
+    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
+    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Infrastructure\Auctera.Auctions.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Infrastructure\Auctera.Bids.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\items\Auctera.Items.API\Auctera.Items.API.csproj" />
+    <ProjectReference Include="..\..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
+    <ProjectReference Include="..\..\modules\items\Aucters.Items.Infrastructure\Aucters.Items.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\realtime\Auctera.Realtime\Auctera.Realtime.csproj" />
+    <ProjectReference Include="..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

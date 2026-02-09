@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
+    <ProjectReference Include="..\Auctera.Persistance\Auctera.Persistance.csproj" />
+    <ProjectReference Include="..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
+    <ProjectReference Include="..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

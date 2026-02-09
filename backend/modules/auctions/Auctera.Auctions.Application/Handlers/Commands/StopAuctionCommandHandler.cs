@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Auctera.Auctions.Application.Commands;
+using Auctera.Auctions.Application.Interfaces;
+using Auctera.Shared.Domain.Time;
+using Auctera.Shared.Infrastructure.Interfaces;
+
+using MediatR;
+
+namespace Auctera.Auctions.Application.Handlers.Commands;
+public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionCommand>
+{
+    private readonly IAuctionRepository _auctionRepository;
+    private readonly IDomainEventDispatcher _domainEventHandler;
+    private readonly IClock _clock;
+
+    public StopAuctionCommandHandler(IAuctionRepository auctionRepository, IClock clock)
+    {
+        _auctionRepository = auctionRepository;
+        _clock = clock;
+    }
+
+    public async Task Handle(StopAuctionCommand request, CancellationToken cancellationToken)
+    {
+        var auction = await _auctionRepository.GetAuctionById(request.AuctionId, cancellationToken);
+
+        if (auction == null)
+        {
+            throw new InvalidOperationException("Auction not found.");
+        }
+
+        auction.StopAuction(_clock.UtcNow);
+        await _auctionRepository.SaveAuctionAsync(auction, cancellationToken);
+        await _domainEventHandler.DispatchAsync(auction.DomainEvents, cancellationToken);
+    }
+}
