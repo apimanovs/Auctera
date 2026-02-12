@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Auctera.Bids.Application.Interfaces;
-using Auctera.Auctions.Application.Interfaces;
-using Auctera.Auctions.Domain;
+﻿using Auctera.Auctions.Application.Interfaces;
 using Auctera.Bids.Application.Commands;
 using Auctera.Shared.Domain.Time;
 using Auctera.Shared.Domain.ValueObjects;

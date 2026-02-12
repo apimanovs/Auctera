@@ -1,12 +1,12 @@
 ﻿using Auctera.Shared.Domain.Abstractions;
 using Auctera.Shared.Domain.Enums;
 using Auctera.Shared.Domain.ValueObjects;
-using Auctera.Items.Domain;
 
 namespace Auctera.Bids.Domain;
 
 public class Bid : Entity<Guid>
 {
+    public Guid Id { get; set; }
     public Guid BidderId { get; private set; }
     public Guid AuctionId { get; private set; }
     public Money Amount { get; private set; }

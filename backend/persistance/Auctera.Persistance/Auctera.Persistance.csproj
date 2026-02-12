@@ -13,8 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
-    <ProjectReference Include="..\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
-    <ProjectReference Include="..\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
+    <ProjectReference Include="..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
   </ItemGroup>
 </Project>

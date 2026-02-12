@@ -1,5 +1,4 @@
 ﻿using Auctera.Auctions.Application.Models;
-using Auctera.Shared.Domain.Enums;
 
 using MediatR;
 

@@ -10,8 +10,7 @@ using Auctera.Shared.Domain.Time;
 using Auctera.Shared.Infrastructure.Dispatcher;
 using Auctera.Shared.Infrastructure.Interfaces;
 using Auctera.Shared.Infrastructure.Time;
-
-using Aucters.Items.Infrastructure.Repository;
+using Auctera.Items.Infrastructure.Repository;
 
 using Microsoft.EntityFrameworkCore;
 

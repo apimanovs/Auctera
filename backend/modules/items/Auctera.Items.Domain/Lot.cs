@@ -2,7 +2,6 @@
 using Auctera.Shared.Domain.Abstractions;
 using Auctera.Shared.Domain.ValueObjects;
 
-
 namespace Auctera.Items.Domain;
 
 public sealed class Lot : Entity<Guid>

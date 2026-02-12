@@ -8,23 +8,23 @@ using MediatR;
 
 namespace Auctera.Auctions.Application.Handlers.Commands;
 
-public sealed class CreateAuctionCommandHandler : IRequestHandler<CreateAuctionCommand, Guid>
+public sealed class CreateAuctionCommandHandler
+    (
+        IAuctionRepository auctionRepository,
+        ILotRepository lotRepository,
+        IDomainEventDispatcher domainEventDispatcher
+    ) : IRequestHandler<CreateAuctionCommand, Guid>
 {
-    private readonly IAuctionRepository _auctionRepository;
-    private readonly IDomainEventDispatcher _domainEventHandler;
-    private readonly ILotRepository _lotRepository;
-
-    public CreateAuctionCommandHandler(IAuctionRepository auctionRepository, ILotRepository lotRepository)
-    {
-        _auctionRepository = auctionRepository;
-        _lotRepository = lotRepository;
-    }
+    private readonly IAuctionRepository _auctionRepository = auctionRepository;
+    private readonly IDomainEventDispatcher _domainEventHandler = domainEventDispatcher;
+    private readonly ILotRepository _lotRepository = lotRepository;
 
     public async Task<Guid> Handle(CreateAuctionCommand cmd, CancellationToken ct)
     {
         var lot = await _lotRepository.GetLotById(cmd.LotId, ct);
 
         var auction = new Auction(Guid.NewGuid());
+
         auction.AddLot(lot);
 
         await _auctionRepository.AddAuctionAsync(auction, ct);

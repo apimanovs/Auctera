@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Auctera.Items.Application.Marker;
+﻿namespace Auctera.Items.Application.Marker;
 
 public sealed class MediatRAssemblyMarker { }

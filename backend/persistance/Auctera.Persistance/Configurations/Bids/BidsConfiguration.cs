@@ -1,6 +1,6 @@
 ﻿using Auctera.Bids.Domain;
-using Microsoft.EntityFrameworkCore;
 
+using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Persistance.Configurations.Bids;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Auctera.Items.Domain;
+﻿using Auctera.Items.Domain;
 
 namespace Auctera.Items.Application.Interfaces;
 public interface ILotRepository

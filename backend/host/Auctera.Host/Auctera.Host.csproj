@@ -10,25 +10,26 @@
 
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="14.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
-		  <PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\..\database\Auctera.Persistance\Auctera.Persistance.csproj" />
-    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.API\Auctera.Auctions.API.csproj" />
-    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
-    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Infrastructure\Auctera.Auctions.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
-    <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Infrastructure\Auctera.Bids.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\modules\items\Auctera.Items.API\Auctera.Items.API.csproj" />
-    <ProjectReference Include="..\..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
-    <ProjectReference Include="..\..\modules\items\Aucters.Items.Infrastructure\Aucters.Items.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\realtime\Auctera.Realtime\Auctera.Realtime.csproj" />
-    <ProjectReference Include="..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
-  </ItemGroup>
+	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.API\Auctera.Auctions.API.csproj" />
+	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
+	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.API\Auctera.Bids.API.csproj" />
+	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Application\Auctera.Bids.Application.csproj" />
+	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\items\Auctera.Items.API\Auctera.Items.API.csproj" />
+	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
+	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\items\Aucters.Items.Infrastructure\Auctera.Items.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
+	  <ProjectReference Include="..\..\realtime\Auctera.Realtime\Auctera.Realtime.csproj" />
+	  <ProjectReference Include="..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
+	  <ProjectReference Include="..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
+	</ItemGroup>
 
 </Project>

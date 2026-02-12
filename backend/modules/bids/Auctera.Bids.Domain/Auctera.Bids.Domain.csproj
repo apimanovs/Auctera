@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
-    <ProjectReference Include="..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
-    <ProjectReference Include="..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
   </ItemGroup>
 
 </Project>

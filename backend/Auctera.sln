@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Items.Domain", "mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Items.Application", "modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj", "{7049D69C-B2F7-4D44-BCC6-28CEBAE99B35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aucters.Items.Infrastructure", "modules\items\Aucters.Items.Infrastructure\Aucters.Items.Infrastructure.csproj", "{35D65525-8C37-4846-8660-1E44FB0DEDB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Items.Infrastructure", "modules\items\Aucters.Items.Infrastructure\Auctera.Items.Infrastructure.csproj", "{35D65525-8C37-4846-8660-1E44FB0DEDB7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{E73BCE43-CA26-494D-9F09-A34EE6EC03C4}"
 EndProject
@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Bids.API", "modules
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "persistance", "persistance", "{89E5CEB2-8E13-4610-A189-D71C5DFB8525}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Persistance", "database\Auctera.Persistance\Auctera.Persistance.csproj", "{C085E66C-67C1-48AA-BBD2-46784CB0535C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Persistance", "persistance\Auctera.Persistance\Auctera.Persistance.csproj", "{C085E66C-67C1-48AA-BBD2-46784CB0535C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Realtime", "realtime\Auctera.Realtime\Auctera.Realtime.csproj", "{A7C61373-0AA6-4B87-AA20-53A57AAEEC69}"
 EndProject

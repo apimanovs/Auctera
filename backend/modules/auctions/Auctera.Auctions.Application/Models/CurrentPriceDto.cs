@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Auctera.Auctions.Application.Models;
 
-using Auctera.Shared.Domain.ValueObjects;
-
-namespace Auctera.Auctions.Application.Models;
 public sealed class CurrentPriceDto
 {
     public Guid AuctionId { get; init; }

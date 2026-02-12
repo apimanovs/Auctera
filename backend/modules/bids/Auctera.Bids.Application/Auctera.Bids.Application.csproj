@@ -8,13 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.12" />
+	<PackageReference Include="MediatR" Version="14.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
+    <ProjectReference Include="..\..\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
     <ProjectReference Include="..\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
-    <ProjectReference Include="..\Auctera.Persistance\Auctera.Persistance.csproj" />
-    <ProjectReference Include="..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
-    <ProjectReference Include="..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

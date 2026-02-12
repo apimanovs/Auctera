@@ -3,7 +3,7 @@ using Auctera.Persistance;
 
 using Auctera.Items.Application.Interfaces;
 
-namespace Aucters.Items.Infrastructure.Repository;
+namespace Auctera.Items.Infrastructure.Repository;
 public class LotRepository : ILotRepository
 {
     private readonly AucteraDbContext _context;
