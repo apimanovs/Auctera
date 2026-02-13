@@ -7,7 +7,6 @@ namespace Auctera.Items.Domain;
 public sealed class Lot : Entity<Guid>
 {
     public Guid SellerId { get; private set; }
-    public Guid? AuctionId { get; private set; }
 
     public string Title { get; private set; }
     public string Description { get; private set; }
@@ -20,7 +19,6 @@ public sealed class Lot : Entity<Guid>
     public Lot(
         Guid id,
         Guid sellerId,
-        Guid auctionId,
         string title,
         string description,
         Money price
@@ -42,16 +40,10 @@ public sealed class Lot : Entity<Guid>
         }
 
         SellerId = sellerId;
-        AuctionId = auctionId;
         Title = title;
         Description = description;
         Price = price ?? throw new ArgumentNullException(nameof(price));
         Status = LotStatus.Draft;
-    }
-
-    public void AssignToAuction(Guid auctionId)
-    {
-        AuctionId = auctionId;
     }
 
     public void Publish()

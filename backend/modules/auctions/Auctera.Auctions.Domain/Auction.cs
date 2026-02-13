@@ -94,7 +94,6 @@ public sealed class Auction : AggregateRoot<Guid>
         ));
     }
 
-
     public void CancelAuction()
     {
         if (Status == AuctionStatus.Finished)
@@ -186,11 +185,6 @@ public sealed class Auction : AggregateRoot<Guid>
             throw new InvalidOperationException("Only published lots can be added to auction.");
         }
 
-        if (lot.AuctionId != null)
-        {
-            throw new InvalidOperationException("Lot is already assigned to an auction.");
-        }
-
         if (Lots.Contains(lot))
         {
             throw new InvalidOperationException("Lot is already added to this auction.");
@@ -201,7 +195,6 @@ public sealed class Auction : AggregateRoot<Guid>
             throw new InvalidOperationException("Auction can have only one lot.");
         }
 
-        lot.AssignToAuction(Id);
         _lots.Add(lot);
     }
 

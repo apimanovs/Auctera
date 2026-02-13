@@ -16,9 +16,6 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
         builder.Property(l => l.SellerId)
             .IsRequired();
 
-        builder.Property(l => l.AuctionId)
-            .IsRequired();
-
         builder.Property(lot => lot.Title)
             .IsRequired()
             .HasMaxLength(200);

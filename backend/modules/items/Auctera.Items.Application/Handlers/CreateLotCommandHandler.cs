@@ -19,7 +19,6 @@ public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, 
         Lot lot = new(
             Guid.NewGuid(),
             request.SellerId,
-            request.AuctionId,
             request.Title,
             request.Description,
             request.Price

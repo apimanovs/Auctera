@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Auctera.Shared.Domain.Abstractions;
+
+using MediatR;
 
 namespace Auctera.Auctions.Domain.Events;
 
-public sealed class AuctionEndedDomainEvent : INotification
+public sealed class AuctionEndedDomainEvent : IDomainEvent
 {
     public Guid AuctionId { get; }
     public Guid WinnerId { get; }
