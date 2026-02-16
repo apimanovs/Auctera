@@ -21,8 +21,15 @@ Thumbs.db
 # Env / Secrets
 ############################
 .env
+.env.*
+*.local
+appsettings.json
 appsettings.*.json
 !appsettings.Development.example.json
+**/Properties/launchSettings.json
+*.pfx
+*.key
+*.pem
 
 ############################
 # Build

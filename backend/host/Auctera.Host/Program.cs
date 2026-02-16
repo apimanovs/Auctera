@@ -2,6 +2,7 @@ using Auctera.Auctions.API.Controllers;
 using Auctera.Auctions.Application.Interfaces;
 using Auctera.Auctions.Infrastructure.Repository;
 using Auctera.Bids.API.Controllers;
+using Auctera.Host.Middleware;
 using Auctera.Identity.API.Controllers;
 using Auctera.Identity.Infrastructure;
 using Auctera.Items.API.Controllers;
@@ -27,6 +28,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddAucteraRealtime();
 builder.Services.AddIdentityModule(builder.Configuration);
@@ -48,6 +50,7 @@ builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 builder.Services.AddScoped<IClock, SystemClock>();
+builder.Services.AddTransient<GlobalExceptionMiddleware>();
 
 var app = builder.Build();
 
@@ -55,11 +58,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseCors("RealtimeCors");
 app.UseAuthentication();
