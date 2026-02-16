@@ -25,6 +25,7 @@ public static class DependencyInjection
             .Bind(jwtSection)
             .Validate(options => !string.IsNullOrWhiteSpace(options.Secret),
                 "Jwt secret is required. Configure Jwt:Secret via UserSecrets or environment variable JWT__Secret")
+
             .Validate(options => !string.IsNullOrWhiteSpace(options.Issuer), "Jwt issuer is required")
             .Validate(options => !string.IsNullOrWhiteSpace(options.Audience), "Jwt audience is required")
             .Validate(options => options.ExpirationInMinutes > 0, "Jwt expiration must be greater than 0")

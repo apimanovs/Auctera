@@ -79,3 +79,5 @@ coverage/
 ############################
 docker-compose.override.yml
 **/docker-data/
+
+appsettings.json
