@@ -19,9 +19,11 @@
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.API\Auctera.Auctions.API.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Infrastructure\Auctera.Auctions.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.API\Auctera.Bids.API.csproj" />
 	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Application\Auctera.Bids.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Infrastructure\Auctera.Bids.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Auctera.Items.API\Auctera.Items.API.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />

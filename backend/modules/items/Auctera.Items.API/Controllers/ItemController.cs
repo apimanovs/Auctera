@@ -28,7 +28,7 @@ public sealed class ItemController : ControllerBase
         string description,
         Money money)
     {
-       var lot = await _mediator.Send(new CreateLotCommand (sellerId,auctionId,title, description, money));
+       var lot = await _mediator.Send(new CreateLotCommand (sellerId,title, description, money));
 
         return Ok(lot);
     }
