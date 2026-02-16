@@ -1,21 +1,23 @@
-﻿using Auctera.Identity.Application.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+using Auctera.Identity.Application.Interfaces;
 using Auctera.Identity.Domain;
+using Auctera.Identity.Infrastructure.Configuration;
 
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Auctera.Identity.Infrastructure.Token;
-internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvider
+
+internal sealed class TokenProvider(IOptions<JwtOptions> options) : ITokenProvider
 {
+    private readonly JwtOptions _jwtOptions = options.Value;
+
     public string Generate(User user)
     {
-        string secretKey = configuration["Jwt:Secret"];
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -28,14 +30,13 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
                 new Claim("username", user.UserName),
                 new Claim("isAdmin", user.IsAdmin.ToString())
             }),
-            Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
+            Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationInMinutes),
             SigningCredentials = credentials,
-            Issuer = configuration["Jwt:Issuer"],
-            Audience = configuration["Jwt:Audience"]
+            Issuer = _jwtOptions.Issuer,
+            Audience = _jwtOptions.Audience
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
-
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return tokenHandler.WriteToken(token);
