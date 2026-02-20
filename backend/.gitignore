@@ -23,7 +23,7 @@ Thumbs.db
 .env
 .env.*
 *.local
-appsettings.json
+backend/host/Auctera.Host/appsettings.json
 appsettings.*.json
 !appsettings.Development.example.json
 **/Properties/launchSettings.json

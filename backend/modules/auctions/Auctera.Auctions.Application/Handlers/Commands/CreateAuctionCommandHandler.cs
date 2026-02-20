@@ -19,9 +19,14 @@ public sealed class CreateAuctionCommandHandler
     private readonly IDomainEventDispatcher _domainEventHandler = domainEventDispatcher;
     private readonly ILotRepository _lotRepository = lotRepository;
 
-    public async Task<Guid> Handle(CreateAuctionCommand cmd, CancellationToken ct)
+    public async Task<Guid> Handle(CreateAuctionCommand command, CancellationToken ct)
     {
-        var lot = await _lotRepository.GetLotById(cmd.LotId, ct);
+        var lot = await _lotRepository.GetLotById(command.LotId, ct);
+
+        if (lot == null)
+        {
+            throw new Exception("Lot doesnt exist");
+        }
 
         var auction = new Auction(Guid.NewGuid());
 

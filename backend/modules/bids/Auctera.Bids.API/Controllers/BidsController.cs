@@ -4,6 +4,7 @@ using MediatR;
 using Auctera.Bids.Application.Models;
 using Auctera.Bids.Application.Queries;
 using Auctera.Bids.Application.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Auctera.Bids.API.Controllers;
 
@@ -20,6 +21,7 @@ public sealed class BidsController : ControllerBase
 
     [HttpGet]
     [Route("{auctionId}")]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<BidsByAuctionDto>>> GetBidsByAuction(Guid auctionId, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new GetBidsByAuctionQuery(auctionId), cancellationToken);
@@ -29,6 +31,7 @@ public sealed class BidsController : ControllerBase
 
     [HttpPost]
     [Route("place/{auctionId}")]
+    [Authorize]
     public async Task<IActionResult> PlaceBid(Guid auctionId, PlaceBidCommand request, CancellationToken cancellationToken)
     {
         await _mediator.Send(new PlaceBidCommand(auctionId, request.BidderId, request.Amount, request.Currency), cancellationToken);

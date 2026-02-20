@@ -14,6 +14,8 @@ public sealed class Lot : Entity<Guid>
     public Money Price { get; private set; }
     public LotStatus Status { get; private set; }
 
+    public List<LotMedia> Media { get; private set; } = new List<LotMedia>();
+
     private Lot() { }
 
     public Lot(
@@ -54,5 +56,19 @@ public sealed class Lot : Entity<Guid>
         }
 
         Status = LotStatus.Published;
+    }
+
+    public sealed class LotMedia
+    {
+        public string Key { get; private set; }
+        public string Type { get; private set; } // photo, video, etc.
+
+        private LotMedia() { }
+
+        public LotMedia(string key, string type)
+        {
+            Key = key;
+            Type = type;
+        }
     }
 }

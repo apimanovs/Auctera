@@ -3,6 +3,8 @@ using Auctera.Auctions.Application.Models;
 using Auctera.Auctions.Application.Queries;
 
 using MediatR;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auctera.Auctions.API.Controllers;
@@ -19,23 +21,26 @@ public sealed class AuctionsController : ControllerBase
     }
 
     [HttpGet("{auctionId:guid}")]
-    public async Task<ActionResult<IReadOnlyList<AuctionDetailsDto>>> GetAuctionDetails(Guid auctionId,CancellationToken cancellationToken)
+    [AllowAnonymous]
+    public async Task<ActionResult<IReadOnlyList<AuctionDetailsDto>>> GetAuctionDetails([FromBody] GetAuctionDetailsQuery getAuctionDetailsQuery, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetAuctionDetailsQuery(auctionId), cancellationToken);
+        var result = await _mediator.Send(getAuctionDetailsQuery, cancellationToken);
 
         return Ok(result);
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<AuctionListItemDto>>> GetAuctionList(CancellationToken cancellationToken)
+    [AllowAnonymous]
+    public async Task<ActionResult<IReadOnlyList<AuctionListItemDto>>> GetAuctionList([FromBody] GetAuctionsListQuery getAuctionsListQuery, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetAuctionsListQuery(), cancellationToken);
+        var result = await _mediator.Send(getAuctionsListQuery, cancellationToken);
 
         return Ok(result);
     }
 
     [HttpPost]
     [Route("create")]
+    [Authorize]
     public async Task<ActionResult> CreateAuction([FromBody] CreateAuctionCommand request, CancellationToken cancellationToken)
     {
         var auctionId = await _mediator.Send(request, cancellationToken);

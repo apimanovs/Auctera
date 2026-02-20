@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Auctera.Shared.Domain.Enums;
+public enum AuctionDurationOption
+{
+    Flash1Hour,
+    Flash6Hours,
+    Classic3Days,
+    Classic7Days,
+    Classic14Days,
+}

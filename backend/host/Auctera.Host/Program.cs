@@ -14,6 +14,7 @@ using Auctera.Shared.Domain.Time;
 using Auctera.Shared.Infrastructure.Dispatcher;
 using Auctera.Shared.Infrastructure.Interfaces;
 using Auctera.Shared.Infrastructure.Time;
+using Auctera.Shared.Infrastructure.Media;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +33,7 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddAucteraRealtime();
 builder.Services.AddIdentityModule(builder.Configuration);
+builder.Services.AddMedia(builder.Configuration);
 
 builder.Services.AddDbContext<AucteraDbContext>(options =>
 {

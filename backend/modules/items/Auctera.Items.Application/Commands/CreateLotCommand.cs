@@ -8,5 +8,6 @@ public sealed record CreateLotCommand(
     Guid SellerId,
     string Title,
     string Description,
-    Money Price
+    decimal Amount,
+    string Currency
 ) : IRequest<Guid>;
