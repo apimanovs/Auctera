@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Auctera.Items.Application.Handlers;
 
-public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, Guid>   
+public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, Guid>
 {
     private readonly ILotRepository _lotRepository;
 
@@ -27,6 +27,11 @@ public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, 
             request.Description,
             money
         );
+
+        foreach (var key in request.PhotoKeys ?? [])
+        {
+            lot.AddPhoto(key);
+        }
 
         await _lotRepository.AddLotAsync(lot, cancellationToken);
         return lot.Id;

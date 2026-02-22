@@ -34,6 +34,7 @@ public sealed class CreateAuctionCommandHandler
 
         await _auctionRepository.AddAuctionAsync(auction, ct);
         await _domainEventHandler.DispatchAsync(auction.DomainEvents, ct);
+        auction.ClearDomainEvents();
 
         return auction.Id;
     }

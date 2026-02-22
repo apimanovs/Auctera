@@ -82,7 +82,7 @@ public sealed class Auction : AggregateRoot<Guid>
         }
 
         Status = AuctionStatus.Finished;
-        EndDate = DateTime.UtcNow;
+        EndDate = now;
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,

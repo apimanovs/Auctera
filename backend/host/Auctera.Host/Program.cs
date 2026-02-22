@@ -3,6 +3,7 @@ using Auctera.Auctions.Application.Interfaces;
 using Auctera.Auctions.Infrastructure.Repository;
 using Auctera.Bids.API.Controllers;
 using Auctera.Host.Middleware;
+using Auctera.Host.BackgroundJobs;
 using Auctera.Identity.API.Controllers;
 using Auctera.Identity.Infrastructure;
 using Auctera.Items.API.Controllers;
@@ -53,6 +54,7 @@ builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 builder.Services.AddScoped<IClock, SystemClock>();
 builder.Services.AddTransient<GlobalExceptionMiddleware>();
+builder.Services.AddHostedService<AuctionAutoStopBackgroundService>();
 
 var app = builder.Build();
 
