@@ -34,10 +34,6 @@
 	  <ProjectReference Include="..\..\modules\items\Aucters.Items.Infrastructure\Auctera.Items.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
 	  <ProjectReference Include="..\..\realtime\Auctera.Realtime\Auctera.Realtime.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.API\Auctera.Identity.API.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.Infrastructure\Auctera.Identity.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
 	  <ProjectReference Include="..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
 	</ItemGroup>
