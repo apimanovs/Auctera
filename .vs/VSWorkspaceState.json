@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\backend",
-    "\\backend\\modules",
-    "\\backend\\modules\\auctions",
-    "\\backend\\modules\\auctions\\Auctera.Auctions.API",
-    "\\backend\\modules\\auctions\\Auctera.Auctions.API\\Controllers"
+    ""
   ],
-  "SelectedNode": "\\backend\\Auctera.Identity.Infrastructure",
+  "SelectedNode": "\\Auctera.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -55,13 +55,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "realtime", "realtime", "{EB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{F48EC881-29C4-4ABA-8117-DEDF2964423E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Application", "Auctera.Identity.Application\Auctera.Identity.Application.csproj", "{3644F91E-2ABA-41C3-8734-6527A0C7B5DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Application", "modules\identity\Auctera.Identity.Application\Auctera.Identity.Application.csproj", "{3644F91E-2ABA-41C3-8734-6527A0C7B5DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Infrastructure", "Auctera.Identity.Infrastructure\Auctera.Identity.Infrastructure.csproj", "{C787235A-3F09-4E69-83C2-960A5E210FC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Infrastructure", "modules\identity\Auctera.Identity.Infrastructure\Auctera.Identity.Infrastructure.csproj", "{C787235A-3F09-4E69-83C2-960A5E210FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.API", "Auctera.Identity.API\Auctera.Identity.API.csproj", "{935D4C49-99C6-4BAA-9E9E-54299BEA9292}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.API", "modules\identity\Auctera.Identity.API\Auctera.Identity.API.csproj", "{935D4C49-99C6-4BAA-9E9E-54299BEA9292}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Domain", "Auctera.Identity.Domain\Auctera.Identity.Domain.csproj", "{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Domain", "modules\identity\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj", "{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

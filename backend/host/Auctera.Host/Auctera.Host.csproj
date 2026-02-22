@@ -16,10 +16,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Auctera.Identity.API\Auctera.Identity.API.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
-	  <ProjectReference Include="..\..\Auctera.Identity.Infrastructure\Auctera.Identity.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.API\Auctera.Identity.API.csproj" />
+	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
+	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Infrastructure\Auctera.Identity.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.API\Auctera.Auctions.API.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />

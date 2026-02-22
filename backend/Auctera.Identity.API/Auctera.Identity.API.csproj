@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
+    <ProjectReference Include="..\modules\identity\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
   </ItemGroup>
 
 </Project>
