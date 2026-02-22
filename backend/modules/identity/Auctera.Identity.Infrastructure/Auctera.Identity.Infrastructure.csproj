@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
     <ProjectReference Include="..\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
     <ProjectReference Include="..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
-    <ProjectReference Include="..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
   </ItemGroup>
 
 </Project>
