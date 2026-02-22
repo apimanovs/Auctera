@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 using MediatR;
 
 using Auctera.Bids.Application.Models;
 using Auctera.Bids.Application.Queries;
 using Auctera.Bids.Application.Commands;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
 
 namespace Auctera.Bids.API.Controllers;
@@ -34,9 +35,11 @@ public sealed class BidsController : ControllerBase
     [Route("place/{auctionId}")]
     [Authorize]
     [EnableRateLimiting("BidsPolicy")]
-    public async Task<IActionResult> PlaceBid(Guid auctionId, PlaceBidCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> PlaceBid([FromRoute] Guid auctionId, [FromBody] PlaceBidCommand request, CancellationToken cancellationToken)
     {
-        await _mediator.Send(new PlaceBidCommand(auctionId, request.BidderId, request.Amount, request.Currency), cancellationToken);
+        var bidderId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+
+        await _mediator.Send(new PlaceBidCommand(auctionId, bidderId, request.Amount, request.Currency), cancellationToken);
 
         return Ok();
     }
