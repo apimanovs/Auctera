@@ -12,10 +12,14 @@ public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionComma
     private readonly IDomainEventDispatcher _domainEventHandler;
     private readonly IClock _clock;
 
-    public StopAuctionCommandHandler(IAuctionRepository auctionRepository, IClock clock)
+    public StopAuctionCommandHandler(
+        IAuctionRepository auctionRepository,
+        IClock clock,
+        IDomainEventDispatcher domainEventHandler)
     {
         _auctionRepository = auctionRepository;
         _clock = clock;
+        _domainEventHandler = domainEventHandler;
     }
 
     public async Task Handle(StopAuctionCommand request, CancellationToken cancellationToken)
@@ -30,5 +34,6 @@ public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionComma
         auction.StopAuction(_clock.UtcNow);
         await _auctionRepository.SaveAuctionAsync(auction, cancellationToken);
         await _domainEventHandler.DispatchAsync(auction.DomainEvents, cancellationToken);
+        auction.ClearDomainEvents();
     }
 }

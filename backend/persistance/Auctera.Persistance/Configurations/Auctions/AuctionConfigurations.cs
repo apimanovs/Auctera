@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Auctera.Auctions.Domain;
-using Auctera.Shared.Domain.ValueObjects;
+
+namespace Auctera.Persistance.Configurations.Auctions;
 
 public sealed class AuctionConfiguration : IEntityTypeConfiguration<Auction>
 {
@@ -18,6 +19,12 @@ public sealed class AuctionConfiguration : IEntityTypeConfiguration<Auction>
         builder.Property(a => a.StartDate);
         builder.Property(a => a.EndDate);
 
+        builder.Property(a => a.LotId)
+            .IsRequired();
+
+        builder.HasIndex(a => a.LotId)
+            .IsUnique();
+
         builder.OwnsOne(a => a.CurrentPrice, money =>
         {
             money.Property(m => m.Amount)
@@ -29,10 +36,14 @@ public sealed class AuctionConfiguration : IEntityTypeConfiguration<Auction>
                 .HasMaxLength(3);
         });
 
-        // Auction -> Bids (1:N)
         builder.HasMany(a => a.Bids)
             .WithOne()
             .HasForeignKey("AuctionId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<Auctera.Items.Domain.Lot>()
+            .WithOne()
+            .HasForeignKey<Auction>(a => a.LotId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -9,5 +9,6 @@ public sealed record CreateLotCommand(
     string Title,
     string Description,
     decimal Amount,
-    string Currency
+    string Currency,
+    IReadOnlyList<string>? PhotoKeys
 ) : IRequest<Guid>;
