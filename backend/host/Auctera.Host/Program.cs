@@ -1,3 +1,4 @@
+using System.Threading.RateLimiting;
 using Auctera.Auctions.API.Controllers;
 using Auctera.Auctions.Application.Interfaces;
 using Auctera.Auctions.Infrastructure.Repository;
@@ -16,7 +17,7 @@ using Auctera.Shared.Infrastructure.Dispatcher;
 using Auctera.Shared.Infrastructure.Interfaces;
 using Auctera.Shared.Infrastructure.Time;
 using Auctera.Shared.Infrastructure.Media;
-
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,61 @@ builder.Services.AddProblemDetails();
 builder.Services.AddAucteraRealtime();
 builder.Services.AddIdentityModule(builder.Configuration);
 builder.Services.AddMedia(builder.Configuration);
+
+var corsOrigins = builder.Environment.IsDevelopment()
+    ? builder.Configuration.GetSection("Cors:DevOrigins").Get<string[]>()
+    : builder.Configuration.GetSection("Cors:ProdOrigins").Get<string[]>();
+
+if (corsOrigins is null || corsOrigins.Length == 0)
+{
+    throw new InvalidOperationException($"No CORS origins configured for environment '{builder.Environment.EnvironmentName}'.");
+}
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("RealtimeCors", policy =>
+    {
+        policy
+            .WithOrigins(corsOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy("AuthPolicy", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            }));
+
+    options.AddPolicy("BidsPolicy", httpContext =>
+    {
+        var userId = httpContext.User.FindFirst("sub")?.Value
+            ?? httpContext.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        var partition = userId is null ? $"ip:{ip}" : $"user:{userId}";
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: partition,
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 6,
+                Window = TimeSpan.FromSeconds(10),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
+});
 
 builder.Services.AddDbContext<AucteraDbContext>(options =>
 {
@@ -69,6 +125,7 @@ app.UseRouting();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseCors("RealtimeCors");
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 

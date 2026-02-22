@@ -29,6 +29,11 @@ public sealed class PlaceBidCommandHandler
         PlaceBidCommand request,
         CancellationToken ct)
     {
+        if (request.BidderId == Guid.Empty)
+        {
+            throw new ArgumentException("BidderId is required.", nameof(request.BidderId));
+        }
+
         var auction = await _auctionRepository
             .GetAuctionById(request.AuctionId, ct);
 

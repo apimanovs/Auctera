@@ -4,11 +4,13 @@ using MediatR;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Auctera.Identity.API.Controllers;
 
 [ApiController]
 [Route("api/auth")]
+[EnableRateLimiting("AuthPolicy")]
 public sealed class AuthController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
