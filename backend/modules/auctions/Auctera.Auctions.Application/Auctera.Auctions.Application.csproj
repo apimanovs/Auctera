@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
     <ProjectReference Include="..\..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
     <ProjectReference Include="..\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />

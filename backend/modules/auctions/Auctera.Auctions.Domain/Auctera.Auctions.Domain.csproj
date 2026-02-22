@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
-    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
     <ProjectReference Include="..\..\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 using Auctera.Auctions.Application.Interfaces;
 using Auctera.Shared.Domain.Time;
 using Auctera.Shared.Infrastructure.Interfaces;
+using Auctera.Shared.Domain.Abstractions;
 
 using MediatR;
 

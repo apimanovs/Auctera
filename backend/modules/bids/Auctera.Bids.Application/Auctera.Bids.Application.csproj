@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
     <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
     <ProjectReference Include="..\..\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
     <ProjectReference Include="..\..\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
