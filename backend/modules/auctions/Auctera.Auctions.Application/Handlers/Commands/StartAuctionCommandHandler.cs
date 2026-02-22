@@ -33,6 +33,7 @@ public sealed class StartAuctionCommandHandler : IRequestHandler<StartAuctionCom
 
         await _auctionRepository.SaveAuctionAsync(auction, cancellationToken);
         await _domainEventHandler.DispatchAsync(auction.DomainEvents, cancellationToken);
+        auction.ClearDomainEvents();
     }
 
     private TimeSpan MapDuration(AuctionDurationOption option)

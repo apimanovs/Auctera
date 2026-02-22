@@ -14,7 +14,7 @@ public sealed class Lot : Entity<Guid>
     public Money Price { get; private set; }
     public LotStatus Status { get; private set; }
 
-    public List<LotMedia> Media { get; private set; } = new List<LotMedia>();
+    public List<LotMedia> Media { get; private set; } = new();
 
     private Lot() { }
 
@@ -31,7 +31,7 @@ public sealed class Lot : Entity<Guid>
             throw new ArgumentException("Title is required.");
         }
 
-        if (string.IsNullOrWhiteSpace(description) )
+        if (string.IsNullOrWhiteSpace(description))
         {
             throw new ArgumentException("Description is required.");
         }
@@ -58,6 +58,23 @@ public sealed class Lot : Entity<Guid>
         Status = LotStatus.Published;
     }
 
+    public void AddPhoto(string key)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            throw new ArgumentException("Media key is required.");
+        }
+
+        var normalizedKey = key.Trim();
+
+        if (Media.Any(m => m.Key == normalizedKey && m.Type == "photo"))
+        {
+            return;
+        }
+
+        Media.Add(new LotMedia(normalizedKey, "photo"));
+    }
+
     public sealed class LotMedia
     {
         public string Key { get; private set; }
@@ -67,6 +84,16 @@ public sealed class Lot : Entity<Guid>
 
         public LotMedia(string key, string type)
         {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentException("Media key is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                throw new ArgumentException("Media type is required.");
+            }
+
             Key = key;
             Type = type;
         }
