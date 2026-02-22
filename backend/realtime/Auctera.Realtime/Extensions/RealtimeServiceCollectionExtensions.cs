@@ -14,18 +14,6 @@ public static class RealtimeServiceCollectionExtensions
             IAuctionRealtimeNotifier,
             SignalRAuctionRealtimeNotifier>();
 
-        services.AddCors(options =>
-        {
-            options.AddPolicy("RealtimeCors", policy =>
-            {
-                policy
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .SetIsOriginAllowed(_ => true);
-            });
-        });
-
         return services;
     }
 }
