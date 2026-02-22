@@ -47,6 +47,6 @@ public sealed class AuctionsController : ControllerBase
     public async Task<ActionResult> CreateAuction([FromBody] CreateAuctionCommand request, CancellationToken cancellationToken)
     {
         var auctionId = await _mediator.Send(request, cancellationToken);
-        return Ok();
+        return Ok(auctionId);
     }
 }
