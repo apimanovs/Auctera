@@ -41,7 +41,7 @@ public sealed class PlaceBidCommandHandler
             Guid.NewGuid(),
             request.BidderId,
             new Money(request.Amount, request.Currency),
-            _clock
+            _clock.UtcNow
         );
 
         await _auctionRepository.SaveAuctionAsync(auction, ct);

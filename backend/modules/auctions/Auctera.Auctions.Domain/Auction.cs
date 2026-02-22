@@ -82,7 +82,7 @@ public sealed class Auction : AggregateRoot<Guid>
         }
 
         Status = AuctionStatus.Finished;
-        EndDate =;
+        EndDate = now;
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,
@@ -123,14 +123,14 @@ public sealed class Auction : AggregateRoot<Guid>
         EndDate = newStartDate.Add(newDuration);
     }
 
-    public void PlaceBid(Guid bidId, Guid userId, Money amount, IClock clock)
+    public void PlaceBid(Guid bidId, Guid userId, Money amount, DateTime now)
     {
         if (Status != AuctionStatus.Active)
         {
             throw new InvalidOperationException("Bids can only be placed on active auctions.");
         }
 
-        if (EndDate == null || clock.UtcNow >= EndDate)
+        if (EndDate == null || now >= EndDate)
         {
             throw new InvalidOperationException("Cannot place bid on ended auction.");
         }
@@ -163,15 +163,15 @@ public sealed class Auction : AggregateRoot<Guid>
             userId, 
             Id,
             amount,
-            clock.UtcNow
+            now
         );
 
         _bids.Add(bid);
         CurrentPrice = amount;
 
-        AntiSnipping(clock.UtcNow);
+        AntiSnipping(now);
 
-        AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, amount, clock.UtcNow));
+        AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, amount, now));
     }
 
     public void AddLot(Lot lot)
