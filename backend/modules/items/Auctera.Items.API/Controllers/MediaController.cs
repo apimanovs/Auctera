@@ -1,6 +1,7 @@
 using Auctera.Shared.Infrastructure.Media;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auctera.Items.API.Controllers;
