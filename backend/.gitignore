@@ -21,8 +21,15 @@ Thumbs.db
 # Env / Secrets
 ############################
 .env
+.env.*
+*.local
+backend/host/Auctera.Host/appsettings.json
 appsettings.*.json
 !appsettings.Development.example.json
+**/Properties/launchSettings.json
+*.pfx
+*.key
+*.pem
 
 ############################
 # Build
@@ -72,3 +79,5 @@ coverage/
 ############################
 docker-compose.override.yml
 **/docker-data/
+
+appsettings.json

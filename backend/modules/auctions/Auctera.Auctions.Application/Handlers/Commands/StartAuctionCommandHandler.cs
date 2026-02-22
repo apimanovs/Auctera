@@ -1,5 +1,6 @@
 ﻿using Auctera.Auctions.Application.Commands;
 using Auctera.Auctions.Application.Interfaces;
+using Auctera.Shared.Domain.Enums;
 using Auctera.Shared.Domain.Time;
 using Auctera.Shared.Infrastructure.Interfaces;
 
@@ -13,10 +14,11 @@ public sealed class StartAuctionCommandHandler : IRequestHandler<StartAuctionCom
     private readonly IDomainEventDispatcher _domainEventHandler;
     private readonly IClock _clock;
 
-    public StartAuctionCommandHandler(IAuctionRepository auctionRepository, IClock clock)
+    public StartAuctionCommandHandler(IAuctionRepository auctionRepository, IClock clock, IDomainEventDispatcher domainEventDispatcher)
     {
         _auctionRepository = auctionRepository;
         _clock = clock;
+        _domainEventHandler = domainEventDispatcher;
     }
     public async Task Handle(StartAuctionCommand request, CancellationToken cancellationToken)
     {
@@ -27,9 +29,23 @@ public sealed class StartAuctionCommandHandler : IRequestHandler<StartAuctionCom
             throw new InvalidOperationException("Auction not found.");
         }
 
-        auction.StartAuction(_clock.UtcNow, request.TimeSpan);
+        auction.StartAuction(_clock.UtcNow, MapDuration(request.Duration));
 
         await _auctionRepository.SaveAuctionAsync(auction, cancellationToken);
         await _domainEventHandler.DispatchAsync(auction.DomainEvents, cancellationToken);
+        auction.ClearDomainEvents();
+    }
+
+    private TimeSpan MapDuration(AuctionDurationOption option)
+    {
+        return option switch
+        {
+            AuctionDurationOption.Flash1Hour => TimeSpan.FromHours(1),
+            AuctionDurationOption.Flash6Hours => TimeSpan.FromHours(6),
+            AuctionDurationOption.Classic3Days => TimeSpan.FromDays(3),
+            AuctionDurationOption.Classic7Days => TimeSpan.FromDays(7),
+            AuctionDurationOption.Classic14Days => TimeSpan.FromDays(14),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

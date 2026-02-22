@@ -16,9 +16,6 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
         builder.Property(l => l.SellerId)
             .IsRequired();
 
-        builder.Property(l => l.AuctionId)
-            .IsRequired();
-
         builder.Property(lot => lot.Title)
             .IsRequired()
             .HasMaxLength(200);
@@ -42,6 +39,29 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
                 .IsRequired()
                 .HasColumnName("price_currency")
                 .HasMaxLength(3);
+        });
+
+        builder.OwnsMany(l => l.Media, media =>
+        {
+            media.ToTable("lot_media");
+
+            media.WithOwner().HasForeignKey("LotId");
+
+            media.Property<int>("Id");
+            media.HasKey("Id");
+
+            media.Property(m => m.Key)
+                .HasColumnName("media_key")
+                .HasMaxLength(500)
+                .IsRequired();
+
+            media.Property(m => m.Type)
+                .HasColumnName("media_type")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            media.HasIndex("LotId", "media_key", "media_type")
+                .IsUnique();
         });
     }
 }

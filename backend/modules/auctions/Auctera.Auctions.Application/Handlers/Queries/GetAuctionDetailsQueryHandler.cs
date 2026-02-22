@@ -19,8 +19,8 @@ public sealed class GetAuctionDetailsQueryHandler
     }
 
     public async Task<AuctionDetailsDto> Handle(
-        GetAuctionDetailsQuery request,
-        CancellationToken cancellationToken)
+    GetAuctionDetailsQuery request,
+    CancellationToken cancellationToken)
     {
         var dto = await _context.Auctions
             .AsNoTracking()
@@ -30,14 +30,18 @@ public sealed class GetAuctionDetailsQueryHandler
                 AuctionId = a.Id,
                 Status = a.Status.ToString(),
 
-                CurrentPrice = a.CurrentPrice.Amount,
-                Currency = a.CurrentPrice.Currency,
+                CurrentPrice = a.CurrentPrice != null
+                    ? a.CurrentPrice.Amount
+                    : 0m,
+
+                Currency = a.CurrentPrice != null
+                    ? a.CurrentPrice.Currency
+                    : null,
 
                 StartsAt = a.StartDate,
                 EndsAt = a.EndDate,
 
-                LotId = a.Lots.Select(l => l.Id).Single(),
-                LotTitle = a.Lots.Select(l => l.Title).Single()
+                LotId = a.LotId,
             })
             .SingleOrDefaultAsync(cancellationToken);
 
@@ -48,4 +52,5 @@ public sealed class GetAuctionDetailsQueryHandler
 
         return dto;
     }
+
 }

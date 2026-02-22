@@ -1,5 +1,5 @@
 ﻿using Auctera.Items.Application.Commands;
-using Auctera.Shared.Domain.ValueObjects;
+using Microsoft.AspNetCore.Authorization;
 
 using MediatR;
 
@@ -19,17 +19,22 @@ public sealed class ItemController : ControllerBase
     }
 
     [HttpPost]
-    [Route("create")]
-    public async Task<ActionResult> CreateLot(
-        Guid sellerId,
-        Guid auctionId,
-        decimal price,
-        string title,
-        string description,
-        Money money)
+    [HttpPost("create")]
+    [Authorize]
+    public async Task<ActionResult<Guid>> CreateLot([FromBody] CreateLotCommand command, CancellationToken cancellationToken)
     {
-       var lot = await _mediator.Send(new CreateLotCommand (sellerId,auctionId,title, description, money));
+        var lotId = await _mediator.Send(command, cancellationToken);
+        return Ok(lotId);
+    }
 
-        return Ok(lot);
+    [HttpPost]
+    [Route("{lotId}/publish")]
+    [Authorize]
+    public async Task<ActionResult> PublishLot(Guid lotId,CancellationToken cancellationToken)
+    {
+        var sellerId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+
+        await _mediator.Send(new PublishLotCommand(lotId, sellerId), cancellationToken);
+        return Ok();
     }
 }

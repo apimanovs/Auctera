@@ -2,4 +2,4 @@
 
 namespace Auctera.Auctions.Application.Commands;
 
-public sealed record CreateAuctionCommand (Guid LotId, DateTime EndsAt) : IRequest<Guid>;
+public sealed record CreateAuctionCommand (Guid LotId) : IRequest<Guid>;

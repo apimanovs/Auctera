@@ -24,7 +24,10 @@ public sealed class GetAuctionsListQueryHandler : IRequestHandler<GetAuctionsLis
         _context = context;
     }
 
-    public async Task<IReadOnlyList<AuctionListItemDto>> Handle(GetAuctionsListQuery request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<AuctionListItemDto>> Handle(
+        GetAuctionsListQuery request,
+        CancellationToken cancellationToken
+    )
     {
         return await _context.Auctions
             .AsNoTracking()
@@ -35,9 +38,8 @@ public sealed class GetAuctionsListQueryHandler : IRequestHandler<GetAuctionsLis
                 Status = a.Status.ToString(),
                 CurrentPrice = a.CurrentPrice.Amount,
                 Currency = a.CurrentPrice.Currency,
-                EndDate = a.EndDate.Value,
-                LotId = a.Lots.Select(l => l.Id).Single(),
-                LotTitle = a.Lots.Select(l => l.Title).Single()
+                EndDate = a.EndDate,
+                LotId = a.LotId,
             })
             .ToListAsync(cancellationToken);
     }

@@ -12,11 +12,8 @@ public sealed class Auction : AggregateRoot<Guid>
     public AuctionStatus Status { get; private set; }
     public DateTime? StartDate { get; private set; }
     public DateTime? EndDate { get; private set; }
-    public Money? CurrentPrice { get; private set; }
-    public Guid LotId { get; private set; }
-
-    private readonly List<Lot> _lots = new();
-    public IReadOnlyCollection<Lot> Lots => _lots;
+    public Money CurrentPrice { get; private set; }
+    public Guid? LotId { get; private set; }
 
     private readonly List<Bid> _bids = new();
     public IReadOnlyCollection<Bid> Bids => _bids;
@@ -33,7 +30,7 @@ public sealed class Auction : AggregateRoot<Guid>
     {
         if (Status != AuctionStatus.Draft)
         {
-            throw new InvalidOperationException("Auction already started.");
+            throw new InvalidOperationException("Only draft auctions can be started.");
         }
 
         if (duration <= TimeSpan.Zero)
@@ -85,15 +82,15 @@ public sealed class Auction : AggregateRoot<Guid>
         }
 
         Status = AuctionStatus.Finished;
+        EndDate = now;
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,
-            winnerId: winningBid.BidderId,
-            winningBidId: winningBid.Id,
+            winnerId: winningBid?.BidderId,
+            winningBidId: winningBid?.Id,
             occurredAt: now
         ));
     }
-
 
     public void CancelAuction()
     {
@@ -126,21 +123,29 @@ public sealed class Auction : AggregateRoot<Guid>
         EndDate = newStartDate.Add(newDuration);
     }
 
-    public void PlaceBid(
-    Guid bidId,
-    Guid userId,
-    Money amount,
-    IClock clock
-    )
+    public void PlaceBid(Guid bidId, Guid userId, Money amount, DateTime now)
     {
-        if (EndDate == null || clock.UtcNow >= EndDate)
+        if (Status != AuctionStatus.Active)
+        {
+            throw new InvalidOperationException("Bids can only be placed on active auctions.");
+        }
+
+        if (EndDate == null || now >= EndDate)
         {
             throw new InvalidOperationException("Cannot place bid on ended auction.");
         }
 
-        if (CurrentPrice != null && !amount.GreatherThan(CurrentPrice))
-        { 
-            throw new InvalidOperationException("Bid must be higher than current price.");
+        if (CurrentPrice != null)
+        {
+            if (!amount.GreatherThan(CurrentPrice))
+            {
+                throw new InvalidOperationException("Bid must be higher than current price.");
+            }
+
+            if (amount.Currency != CurrentPrice.Currency)
+            {
+                throw new InvalidOperationException("Bid currency must match current price currency.");
+            }
         }
 
         var lastBid = _bids
@@ -158,15 +163,15 @@ public sealed class Auction : AggregateRoot<Guid>
             userId, 
             Id,
             amount,
-            clock.UtcNow
+            now
         );
 
         _bids.Add(bid);
         CurrentPrice = amount;
 
-        AntiSnipping(clock.UtcNow);
+        AntiSnipping(now);
 
-        AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, amount, clock.UtcNow));
+        AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, amount, now));
     }
 
     public void AddLot(Lot lot)
@@ -186,40 +191,27 @@ public sealed class Auction : AggregateRoot<Guid>
             throw new InvalidOperationException("Only published lots can be added to auction.");
         }
 
-        if (lot.AuctionId != null)
-        {
-            throw new InvalidOperationException("Lot is already assigned to an auction.");
-        }
-
-        if (Lots.Contains(lot))
+        if (lot.Id == LotId)
         {
             throw new InvalidOperationException("Lot is already added to this auction.");
         }
 
-        if (_lots.Count >= 1)
-        {
-            throw new InvalidOperationException("Auction can have only one lot.");
-        }
-
-        lot.AssignToAuction(Id);
-        _lots.Add(lot);
+        LotId = lot.Id;
     }
 
     private void RemoveLot(Lot lot)
     {
-        if (lot == null)
-        {
-            throw new ArgumentNullException("Lot cannot be null.");
-        }
         if (Status != AuctionStatus.Draft)
         {
             throw new InvalidOperationException("Cannot remove lots from a started auction.");
         }
-        if (!Lots.Contains(lot))
+
+        if (LotId != lot.Id)
         {
             throw new InvalidOperationException("Lot is not part of this auction.");
         }
-        _lots.Remove(lot);
+
+        LotId = Guid.Empty;
     }
 
     private void AddBid(Bid bid)

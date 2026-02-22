@@ -1,11 +1,13 @@
-﻿using MediatR;
-using Auctera.Items.Application.Commands;
-using Auctera.Items.Domain;
+﻿using Auctera.Items.Application.Commands;
 using Auctera.Items.Application.Interfaces;
+using Auctera.Items.Domain;
+using Auctera.Shared.Domain.ValueObjects;
+
+using MediatR;
 
 namespace Auctera.Items.Application.Handlers;
 
-public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, Guid>   
+public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, Guid>
 {
     private readonly ILotRepository _lotRepository;
 
@@ -16,14 +18,20 @@ public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, 
 
     public async Task<Guid> Handle(CreateLotCommand request, CancellationToken cancellationToken)
     {
+        var money = new Money(request.Amount, request.Currency);
+
         Lot lot = new(
             Guid.NewGuid(),
             request.SellerId,
-            request.AuctionId,
             request.Title,
             request.Description,
-            request.Price
+            money
         );
+
+        foreach (var key in request.PhotoKeys ?? [])
+        {
+            lot.AddPhoto(key);
+        }
 
         await _lotRepository.AddLotAsync(lot, cancellationToken);
         return lot.Id;

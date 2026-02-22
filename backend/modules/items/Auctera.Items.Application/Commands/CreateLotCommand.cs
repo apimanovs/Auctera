@@ -6,8 +6,9 @@ namespace Auctera.Items.Application.Commands;
 
 public sealed record CreateLotCommand(
     Guid SellerId,
-    Guid AuctionId,
     string Title,
     string Description,
-    Money Price
+    decimal Amount,
+    string Currency,
+    IReadOnlyList<string>? PhotoKeys
 ) : IRequest<Guid>;

@@ -8,6 +8,8 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 using Auctera.Auctions.Application.Commands;
+using Auctera.Shared.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Auctera.Auctions.API.Controllers;
 
@@ -24,14 +26,16 @@ public sealed class EngineController : ControllerBase
 
     [HttpPost]
     [Route("start/{auctionId}")]
-    public async Task<IActionResult> StartAuction(Guid auctionId, TimeSpan timeSpan)
+    [Authorize]
+    public async Task<IActionResult> StartAuction(Guid auctionId, AuctionDurationOption duration)
     {
-        await _mediator.Send (new StartAuctionCommand (auctionId, timeSpan));
+        await _mediator.Send (new StartAuctionCommand(auctionId, duration));
         return Ok();
     }
 
     [HttpPost]
     [Route("stop/{auctionId}")]
+    [Authorize]
     public async Task<IActionResult> StopAuction(Guid auctionId)
     {
         await _mediator.Send (new StopAuctionCommand (auctionId));
