@@ -12,8 +12,8 @@ public sealed class Auction : AggregateRoot<Guid>
     public AuctionStatus Status { get; private set; }
     public DateTime? StartDate { get; private set; }
     public DateTime? EndDate { get; private set; }
-    public Money? CurrentPrice { get; private set; }
-    public Guid LotId { get; private set; }
+    public Money CurrentPrice { get; private set; }
+    public Guid? LotId { get; private set; }
 
     private readonly List<Bid> _bids = new();
     public IReadOnlyCollection<Bid> Bids => _bids;
@@ -82,7 +82,7 @@ public sealed class Auction : AggregateRoot<Guid>
         }
 
         Status = AuctionStatus.Finished;
-        EndDate = DateTime.UtcNow;
+        EndDate =;
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,
@@ -194,11 +194,6 @@ public sealed class Auction : AggregateRoot<Guid>
         if (lot.Id == LotId)
         {
             throw new InvalidOperationException("Lot is already added to this auction.");
-        }
-
-        if (LotId != null)
-        {
-            throw new InvalidOperationException("Auction can have only one lot.");
         }
 
         LotId = lot.Id;

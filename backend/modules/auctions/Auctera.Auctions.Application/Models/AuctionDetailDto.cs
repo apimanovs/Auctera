@@ -16,6 +16,6 @@ public sealed class AuctionDetailsDto
     public DateTime? StartsAt { get; init; }
     public DateTime? EndsAt { get; init; }
 
-    public Guid LotId { get; init; }
+    public Guid? LotId { get; init; }
     public string LotTitle { get; init; } = default!;
 }

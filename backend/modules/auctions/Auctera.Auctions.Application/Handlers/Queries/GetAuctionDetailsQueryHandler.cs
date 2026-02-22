@@ -41,7 +41,7 @@ public sealed class GetAuctionDetailsQueryHandler
                 StartsAt = a.StartDate,
                 EndsAt = a.EndDate,
 
-                LotId = a.LotId
+                LotId = a.LotId,
             })
             .SingleOrDefaultAsync(cancellationToken);
 

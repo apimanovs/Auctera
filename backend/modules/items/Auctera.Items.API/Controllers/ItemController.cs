@@ -28,10 +28,12 @@ public sealed class ItemController : ControllerBase
     }
 
     [HttpPost]
-    [Route("{id}/publish")]
+    [Route("{lotId}/publish")]
     [Authorize]
-    public async Task<ActionResult> PublishLot(Guid lotId, Guid sellerId ,CancellationToken cancellationToken)
+    public async Task<ActionResult> PublishLot(Guid lotId,CancellationToken cancellationToken)
     {
+        var sellerId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+
         await _mediator.Send(new PublishLotCommand(lotId, sellerId), cancellationToken);
         return Ok();
     }
