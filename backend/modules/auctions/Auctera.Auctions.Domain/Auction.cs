@@ -5,6 +5,7 @@ using Auctera.Shared.Domain.Enums;
 using Auctera.Bids.Domain;
 using Auctera.Items.Domain;
 using Auctera.Auctions.Domain.Events;
+using System.Threading.Tasks;
 
 namespace Auctera.Auctions.Domain;
 public sealed class Auction : AggregateRoot<Guid>
@@ -48,7 +49,7 @@ public sealed class Auction : AggregateRoot<Guid>
         Status = AuctionStatus.Active;
     }
 
-    public void StopAuction(DateTime now)
+    public async Task StopAuction(DateTime now)
     {
         if (Status != AuctionStatus.Active)
         {
@@ -86,8 +87,9 @@ public sealed class Auction : AggregateRoot<Guid>
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,
-            winnerId: winningBid?.BidderId,
-            winningBidId: winningBid?.Id,
+            winnerId: winningBid.BidderId,
+            winningBidId: winningBid.Id,
+            winningMoney: winningBid?.Amount,
             occurredAt: now
         ));
     }

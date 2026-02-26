@@ -2,6 +2,7 @@
 using Auctera.Persistance;
 
 using Auctera.Items.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Items.Infrastructure.Repository;
 public class LotRepository : ILotRepository

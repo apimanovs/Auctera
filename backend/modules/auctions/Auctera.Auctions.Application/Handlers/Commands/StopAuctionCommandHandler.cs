@@ -32,7 +32,7 @@ public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionComma
             throw new InvalidOperationException("Auction not found.");
         }
 
-        auction.StopAuction(_clock.UtcNow);
+        await auction.StopAuction(_clock.UtcNow);
         await _auctionRepository.SaveAuctionAsync(auction, cancellationToken);
         await _domainEventHandler.DispatchAsync(auction.DomainEvents, cancellationToken);
         auction.ClearDomainEvents();
