@@ -65,11 +65,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Domain", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "orders", "orders", "{BF77071F-3AE2-4D42-865D-11F88887554B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Domain", "Auctera.Orders.Domain\Auctera.Orders.Domain.csproj", "{BB3E4937-867C-4B29-AD73-E2719CB66776}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Domain", "modules\orders\Auctera.Orders.Domain\Auctera.Orders.Domain.csproj", "{BB3E4937-867C-4B29-AD73-E2719CB66776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Infrastructure", "Auctera.Orders.Infrastructure\Auctera.Orders.Infrastructure.csproj", "{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Infrastructure", "modules\orders\Auctera.Orders.Infrastructure\Auctera.Orders.Infrastructure.csproj", "{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Application", "Auctera.Orders.Application\Auctera.Orders.Application.csproj", "{46CFCDD3-D2D2-4C94-98E6-1D579C300221}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Application", "modules\orders\Auctera.Orders.Application\Auctera.Orders.Application.csproj", "{46CFCDD3-D2D2-4C94-98E6-1D579C300221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Auctera.Orders.Application.Interfaces;
-
+﻿using Auctera.Orders.Application.Interfaces;
 using Auctera.Orders.Domain;
-
 using Auctera.Persistance;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Orders.Infrastructure.Repository;

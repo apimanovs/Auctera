@@ -11,12 +11,12 @@ public sealed class AuctionRealTimeHandler(IAuctionRealtimeNotifier auctionRealt
 
     public async Task Handle(AuctionEndedDomainEvent domainEvent, CancellationToken cancellationToken)
     {
-        if (domainEvent.AuctionId is null || domainEvent.WinnerId is null || domainEvent.WinningBidId is null)
+        if (domainEvent.AuctionId == null  || domainEvent.WinnerId == null || domainEvent.WinningBidId == null)
         {
             return;
         }
 
-        await _auctionRealtimeNotifier.AuctionEnded(domainEvent.AuctionId.Value, domainEvent.WinnerId.Value, domainEvent.WinningBidId.Value);
+        await _auctionRealtimeNotifier.AuctionEnded(domainEvent.AuctionId, domainEvent.WinnerId, domainEvent.WinningBidId.Value);
     }
 
     public async Task Handle(BidPlacedDomainEvent domainEvent, CancellationToken cancellationToken)

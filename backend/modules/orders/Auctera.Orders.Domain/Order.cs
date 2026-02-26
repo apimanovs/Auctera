@@ -6,6 +6,7 @@ namespace Auctera.Orders.Domain;
 
 public class Order : AggregateRoot<Guid>
 {
+    public Guid Id { get; private set; }
     public Guid AuctionId { get; private set; }
     public Guid SellerId { get; private set; }
     public Guid BuyerId { get; private set; }

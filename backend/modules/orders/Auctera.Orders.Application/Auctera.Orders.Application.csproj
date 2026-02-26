@@ -11,9 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+    <ProjectReference Include="..\..\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
     <ProjectReference Include="..\Auctera.Orders.Domain\Auctera.Orders.Domain.csproj" />
-    <ProjectReference Include="..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
-    <ProjectReference Include="..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
   </ItemGroup>
 
 </Project>

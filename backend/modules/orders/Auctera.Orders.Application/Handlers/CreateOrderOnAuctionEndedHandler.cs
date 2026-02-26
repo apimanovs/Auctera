@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Auctera.Auctions.Domain.Events;
+﻿using Auctera.Auctions.Domain.Events;
 using Auctera.Orders.Application.Interfaces;
 using Auctera.Orders.Domain;
 using Auctera.Shared.Domain.Time;
@@ -46,8 +40,12 @@ public sealed class CreateOrderOnAuctionEndedHandler : INotificationHandler<Auct
             throw new InvalidOperationException("Lot not found.");
         }
 
-        var order = Order.Create(endedDomainEvent.AuctionId, lot.SellerId, endedDomainEvent.WinnerId, endedDomainEvent.WinningMoney.Amount,
-            endedDomainEvent.WinningMoney.Currency, _clock.UtcNow.AddHours(48));
+        var order = Order.Create
+        (
+            endedDomainEvent.AuctionId, lot.SellerId,
+            endedDomainEvent.WinnerId, endedDomainEvent.WinningMoney.Amount,
+            endedDomainEvent.WinningMoney.Currency, _clock.UtcNow.AddHours(48)
+        );
 
         await _orderRepository.AddOrderAsync(order, cancellationToken);
         await _orderRepository.UpdateOrderAsync(order, cancellationToken);
