@@ -10,7 +10,7 @@ public class OrderCreatedDomainEvent : IDomainEvent
 
     public OrderStatus Status { get; set; }
 
-    public double Price { get; set; }
+    public decimal Price { get; set; }
     public string Currency { get; set; }
 
     public DateTime PaymentDeadlineUtc { get; set; }
@@ -22,7 +22,7 @@ public class OrderCreatedDomainEvent : IDomainEvent
         Guid sellerId,
         Guid buyerId,
         OrderStatus status,
-        double price,
+        decimal price,
         string currency,
         DateTime paymentDeadlineUtc
     )

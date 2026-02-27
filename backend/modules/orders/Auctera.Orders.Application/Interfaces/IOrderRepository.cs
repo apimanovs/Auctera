@@ -14,4 +14,7 @@ public interface IOrderRepository
     Task UpdateOrderAsync(Order order, CancellationToken cancellationToken);
     Task DeleteOrderAsync(Guid orderId, CancellationToken cancellationToken);
     Task<bool> ExistsForAuctionAsync(Guid auctionId, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Order>> GetOrdersByBuyerId(Guid buyerId, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Order>> GetOrdersBySellerId(Guid sellerId, CancellationToken cancellationToken);
+    Task<Order> GetOrderDetailsById (Guid orderId, CancellationToken cancellationToken);
 }

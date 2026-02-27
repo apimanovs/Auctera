@@ -50,7 +50,7 @@ public class Order : AggregateRoot<Guid>
             sellerId,
             buyerId,
             OrderStatus.PendingPayment,
-            (double)price,
+            price,
             currency,
             deadlineUtc
         ));

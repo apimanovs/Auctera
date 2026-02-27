@@ -15,6 +15,16 @@ public sealed class OrdersRepository (AucteraDbContext aucteraDbContext) : IOrde
         await _aucteraDbContext.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<Order>> GetOrdersByBuyerId(Guid buyerId, CancellationToken cancellationToken)
+    {
+        return await _aucteraDbContext.Orders.Where(o => o.BuyerId == buyerId).ToListAsync(cancellationToken);
+    }
+    
+    public async Task<IReadOnlyList<Order>> GetOrdersBySellerId(Guid sellerId, CancellationToken cancellationToken)
+    {
+        return await _aucteraDbContext.Orders.Where(o => o.SellerId == sellerId).ToListAsync(cancellationToken);
+    }
+
     public async Task<Order?> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken)
     {
         return await _aucteraDbContext.Orders.FindAsync(new object[] { orderId }, cancellationToken);
@@ -40,5 +50,17 @@ public sealed class OrdersRepository (AucteraDbContext aucteraDbContext) : IOrde
     public async Task<bool> ExistsForAuctionAsync(Guid auctionId, CancellationToken cancellationToken)
     {
         return await _aucteraDbContext.Orders.AnyAsync(o => o.AuctionId == auctionId, cancellationToken);
+    }
+
+    public async Task<Order> GetOrderDetailsById(Guid orderId, CancellationToken cancellationToken)
+    {
+        var order = await _aucteraDbContext.Orders.FirstOrDefaultAsync(o => o.Id == orderId, cancellationToken);
+
+        if (order == null)
+        {
+            throw new KeyNotFoundException($"Order with ID {orderId} not found.");
+        }
+
+        return order;
     }
 }
