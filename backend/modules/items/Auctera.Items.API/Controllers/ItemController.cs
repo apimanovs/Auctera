@@ -18,7 +18,6 @@ public sealed class ItemController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
     [HttpPost("create")]
     [Authorize]
     public async Task<ActionResult<Guid>> CreateLot([FromBody] CreateLotCommand command, CancellationToken cancellationToken)

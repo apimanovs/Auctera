@@ -48,7 +48,7 @@ public sealed class OrderPaymentExpirationBackgroundService(
 
         foreach (var order in pendingOrders)
         {
-            order.Expire();
+            order.Expire(now);
             await domainEventDispatcher.DispatchAsync(order.DomainEvents, ct);
             order.ClearDomainEvents();
         }

@@ -1,5 +1,6 @@
-﻿using Auctera.Shared.Domain.Enums;
+﻿using Auctera.Items.Domain.Enums;
 using Auctera.Shared.Domain.Abstractions;
+using Auctera.Shared.Domain.Enums;
 using Auctera.Shared.Domain.ValueObjects;
 
 namespace Auctera.Items.Domain;
@@ -14,6 +15,13 @@ public sealed class Lot : Entity<Guid>
     public Money Price { get; private set; }
     public LotStatus Status { get; private set; }
 
+    public LotCategory Category { get; private set; }
+    public LotGender Gender { get; private set; }
+    public string Size { get; private set; }
+    public string Brand { get; private set; }
+    public LotCondition Condition { get; private set; }
+    public string? Color { get; private set; }
+
     public List<LotMedia> Media { get; private set; } = new();
 
     private Lot() { }
@@ -23,7 +31,13 @@ public sealed class Lot : Entity<Guid>
         Guid sellerId,
         string title,
         string description,
-        Money price
+        Money price,
+        LotCategory category,
+        LotGender gender,
+        string size,
+        string brand,
+        LotCondition condition,
+        string? color
     ) : base(id)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -41,10 +55,26 @@ public sealed class Lot : Entity<Guid>
             throw new ArgumentException("Description must be at least 100 characters.");
         }
 
+        if (string.IsNullOrWhiteSpace(size))
+        {
+            throw new ArgumentException("Size is required.");
+        }
+
+        if (string.IsNullOrWhiteSpace(brand))
+        {
+            throw new ArgumentException("Brand is required.");
+        }
+
         SellerId = sellerId;
         Title = title;
         Description = description;
         Price = price ?? throw new ArgumentNullException(nameof(price));
+        Category = category;
+        Gender = gender;
+        Size = size.Trim();
+        Brand = brand.Trim();
+        Condition = condition;
+        Color = string.IsNullOrWhiteSpace(color) ? null : color.Trim();
         Status = LotStatus.Draft;
     }
 

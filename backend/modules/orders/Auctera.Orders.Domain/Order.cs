@@ -74,7 +74,7 @@ public class Order : AggregateRoot<Guid>
         PaidAtUtc = paidAtUtc;
     }
 
-    public void Expire()
+    public void Expire(DateTime expiredAtUtc)
     {
         if (Status != OrderStatus.PendingPayment)
         {
@@ -82,6 +82,7 @@ public class Order : AggregateRoot<Guid>
         }
 
         Status = OrderStatus.PaymentExpired;
+        AddDomainEvent(new OrderExpiderDomainEvent(Id,expiredAtUtc));
     }
 
     public void Cancel()

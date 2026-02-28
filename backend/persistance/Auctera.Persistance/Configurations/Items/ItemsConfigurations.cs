@@ -28,6 +28,29 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
             .HasConversion<string>()
             .IsRequired();
 
+        builder.Property(l => l.Category)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(l => l.Gender)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(l => l.Size)
+            .HasMaxLength(20)
+            .IsRequired();
+
+        builder.Property(l => l.Brand)
+            .HasMaxLength(120)
+            .IsRequired();
+
+        builder.Property(l => l.Condition)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(l => l.Color)
+            .HasMaxLength(50);
+
         builder.OwnsOne(lot => lot.Price, money =>
         {
             money.Property(m => m.Amount)
