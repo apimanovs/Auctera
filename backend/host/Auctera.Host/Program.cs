@@ -19,6 +19,8 @@ using Auctera.Shared.Infrastructure.Time;
 using Auctera.Shared.Infrastructure.Media;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Auctera.Orders.Infrastructure.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +93,17 @@ builder.Services.AddRateLimiter(options =>
             });
     });
 });
+
+builder.Services
+    .AddOptions<StripeOptions>()
+    .Bind(builder.Configuration.GetSection(StripeOptions.SectionName))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+builder.Services.AddSingleton<Stripe.Checkout.SessionService>();
+
+var stripeOptions = builder.Configuration.GetSection(StripeOptions.SectionName).Get<StripeOptions>()!;
+Stripe.StripeConfiguration.ApiKey = stripeOptions.SecretKey;
 
 builder.Services.AddDbContext<AucteraDbContext>(options =>
 {
