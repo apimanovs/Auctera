@@ -9,19 +9,21 @@ public sealed class AuctionEndedDomainEvent : IDomainEvent
 {
     public Guid AuctionId { get; }
     public Guid LotId { get; }
-    public Guid WinnerId { get; }
+    public Guid? WinnerId { get; }
     public Guid? WinningBidId { get; }
     public Money? WinningMoney { get; }
     public DateTime OccurredAt { get; }
 
     public AuctionEndedDomainEvent(
         Guid auctionId,
-        Guid winnerId,
-        Guid winningBidId,
+        Guid lotId,
+        Guid? winnerId,
+        Guid? winningBidId,
         Money? winningMoney,
         DateTime occurredAt)
     {
         AuctionId = auctionId;
+        LotId = lotId;
         WinnerId = winnerId;
         WinningBidId = winningBidId;
         WinningMoney = winningMoney;

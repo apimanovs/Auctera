@@ -10,5 +10,5 @@ public interface IAuctionRealtimeNotifier
 {
     Task BidPlaced(Guid auctionId, Guid bidderId ,decimal amount, string currency);
     Task AuctionStarted(Guid auctionId);
-    Task AuctionEnded(Guid auctionId, Guid winnerId, Guid winningBidId);
+    Task AuctionEnded(Guid auctionId, Guid? winnerId, Guid winningBidId);
 }

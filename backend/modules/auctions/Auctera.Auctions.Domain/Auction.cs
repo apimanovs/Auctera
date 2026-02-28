@@ -87,8 +87,9 @@ public sealed class Auction : AggregateRoot<Guid>
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,
-            winnerId: winningBid.BidderId,
-            winningBidId: winningBid.Id,
+            lotId: LotId ?? Guid.Empty,
+            winnerId: winningBid?.BidderId,
+            winningBidId: winningBid?.Id,
             winningMoney: winningBid?.Amount,
             occurredAt: now
         ));

@@ -1,4 +1,5 @@
-﻿using Auctera.Shared.Domain.ValueObjects;
+﻿using Auctera.Items.Domain.Enums;
+using Auctera.Shared.Domain.ValueObjects;
 
 using MediatR;
 
@@ -10,5 +11,11 @@ public sealed record CreateLotCommand(
     string Description,
     decimal Amount,
     string Currency,
+    LotCategory Category,
+    LotGender Gender,
+    string Size,
+    string Brand,
+    LotCondition Condition,
+    string? Color,
     IReadOnlyList<string>? PhotoKeys
 ) : IRequest<Guid>;

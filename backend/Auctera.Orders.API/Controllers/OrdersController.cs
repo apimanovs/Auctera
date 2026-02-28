@@ -18,20 +18,19 @@ public sealed class OrdersController(IMediator mediator) : ControllerBase
     private readonly IMediator _mediator = mediator;
 
     [HttpGet]
-    [Route("{userId}/orders")]
     [Authorize]
-    public async Task<ActionResult> GetOrdersForUser(GetOrdersByUserIdQuery query ,CancellationToken cancellationToken)
+    public async Task<ActionResult> GetOrdersForUser(CancellationToken cancellationToken)
     {
-        await _mediator.Send(query, cancellationToken);
-        return Ok();
+        var userId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+        var result = await _mediator.Send(new GetOrdersByUserIdQuery(userId),cancellationToken);
+        return Ok(result);
     }
 
     [HttpGet]
-    [Route("{orderId:guid}")]
-    [Authorize]
-    public async Task<ActionResult> GetOrderDetails(GetOrderDetailsQuery query, CancellationToken cancellationToken)
+    [Route("details/{orderId:guid}")]
+    public async Task<ActionResult> GetOrderDetails(Guid orderId, CancellationToken cancellationToken)
     {
-        await _mediator.Send(query, cancellationToken);
-        return Ok();
+        var result = await _mediator.Send(new GetOrderDetailsQuery(orderId),cancellationToken);
+        return Ok(result);
     }
 }
