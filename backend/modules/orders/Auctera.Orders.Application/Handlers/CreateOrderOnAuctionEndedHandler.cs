@@ -43,7 +43,7 @@ public sealed class CreateOrderOnAuctionEndedHandler : INotificationHandler<Auct
         var order = Order.Create
         (
             endedDomainEvent.AuctionId, lot.SellerId,
-            endedDomainEvent.WinnerId, endedDomainEvent.WinningMoney.Amount,
+            endedDomainEvent.WinnerId.Value, endedDomainEvent.WinningMoney.Amount,
             endedDomainEvent.WinningMoney.Currency, _clock.UtcNow.AddHours(48)
         );
 

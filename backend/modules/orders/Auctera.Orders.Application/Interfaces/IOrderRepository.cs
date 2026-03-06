@@ -10,7 +10,7 @@ namespace Auctera.Orders.Application.Interfaces;
 public interface IOrderRepository
 {
     Task AddOrderAsync(Order order, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Order?>> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken);
+    Task <Order?> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken);
     Task UpdateOrderAsync(Order order, CancellationToken cancellationToken);
     Task DeleteOrderAsync(Guid orderId, CancellationToken cancellationToken);
     Task<bool> ExistsForAuctionAsync(Guid auctionId, CancellationToken cancellationToken);

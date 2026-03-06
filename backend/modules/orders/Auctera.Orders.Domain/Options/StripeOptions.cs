@@ -13,4 +13,5 @@ public sealed class StripeOptions
     public string WebhookSecret { get; init; } = default!;
     public string SuccessUrl { get; init; } = default!;
     public string CancelUrl { get; init; } = default!;
+    public string PublishableKey { get; set; } = default!;
 }

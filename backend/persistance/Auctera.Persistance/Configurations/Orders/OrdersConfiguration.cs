@@ -11,6 +11,8 @@ public sealed class OrdersConfiguration : IEntityTypeConfiguration<Order>
     {
         builder.ToTable("orders");
 
+        builder.HasIndex(user => user.Id).IsUnique();
+
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.AuctionId).IsRequired();

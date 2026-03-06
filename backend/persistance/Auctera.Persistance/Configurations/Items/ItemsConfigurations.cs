@@ -11,6 +11,8 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
     {
         builder.ToTable("lots");
 
+        builder.HasIndex(lot => lot.Id).IsUnique();
+
         builder.HasKey(lot => lot.Id);
 
         builder.Property(l => l.SellerId)

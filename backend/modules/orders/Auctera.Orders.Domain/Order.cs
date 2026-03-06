@@ -74,7 +74,23 @@ public class Order : AggregateRoot<Guid>
         PaidAtUtc = paidAtUtc;
     }
 
-    public void Expire(DateTime expiredAtUtc)
+    public void MarkAsFailed(DateTime paidAtUtc)
+    {
+        if (Status != OrderStatus.PendingPayment)
+        {
+            throw new InvalidOperationException("Order is not payable.");
+        }
+
+        if (DateTime.UtcNow > PaymentDeadlineUtc)
+        {
+            throw new InvalidOperationException("Payment deadline expired.");
+        }
+
+        Status = OrderStatus.Failed;
+        PaidAtUtc = paidAtUtc;
+    }
+
+    public void MarkAsExpired(DateTime expiredAtUtc)
     {
         if (Status != OrderStatus.PendingPayment)
         {
