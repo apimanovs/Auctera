@@ -16,7 +16,7 @@ public class LotRepository : ILotRepository
 
     public async Task<Lot?> GetLotById(Guid id, CancellationToken cancellationToken)
     {
-        return await _context.Lots.FindAsync(new object[] { id }, cancellationToken);
+        return await _context.Lots.Include(l => l.Media).FirstOrDefaultAsync(l => l.Id == l.Id, cancellationToken);
     }
 
     public async Task SaveLotAsync(Lot lot, CancellationToken cancellationToken)
@@ -29,5 +29,16 @@ public class LotRepository : ILotRepository
     {
         await _context.Lots.AddAsync(lot, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task DeleteLotAsync(Lot lot, CancellationToken cancellationToken)
+    {
+        _context.Remove(lot);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public IQueryable<Lot> GetQueryable()
+    {
+        return _context.Lots.Include(x => x.Media).AsQueryable().AsNoTracking();
     }
 }

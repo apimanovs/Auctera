@@ -8,7 +8,7 @@ using MediatR;
 using Auctera.Items.Application.Commands;
 using Auctera.Items.Application.Interfaces;
 
-namespace Auctera.Items.Application.Handlers;
+namespace Auctera.Items.Application.Handlers.Commands;
 public sealed class PublishLotCommandHandler : IRequestHandler<PublishLotCommand, Guid>
 {
     private readonly ILotRepository _lotRepository;

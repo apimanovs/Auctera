@@ -5,7 +5,7 @@ using Auctera.Shared.Domain.ValueObjects;
 
 using MediatR;
 
-namespace Auctera.Items.Application.Handlers;
+namespace Auctera.Items.Application.Handlers.Commands;
 
 public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, Guid>
 {

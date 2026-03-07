@@ -17,7 +17,7 @@ public sealed class Lot : Entity<Guid>
 
     public LotCategory Category { get; private set; }
     public LotGender Gender { get; private set; }
-    public string Size { get; private set; }
+    public LotSize Size { get; private set; }
     public string Brand { get; private set; }
     public LotCondition Condition { get; private set; }
     public string? Color { get; private set; }
@@ -34,7 +34,7 @@ public sealed class Lot : Entity<Guid>
         Money price,
         LotCategory category,
         LotGender gender,
-        string size,
+        LotSize size,
         string brand,
         LotCondition condition,
         string? color
@@ -55,7 +55,7 @@ public sealed class Lot : Entity<Guid>
             throw new ArgumentException("Description must be at least 100 characters.");
         }
 
-        if (string.IsNullOrWhiteSpace(size))
+        if (size == null)
         {
             throw new ArgumentException("Size is required.");
         }
@@ -71,11 +71,82 @@ public sealed class Lot : Entity<Guid>
         Price = price ?? throw new ArgumentNullException(nameof(price));
         Category = category;
         Gender = gender;
-        Size = size.Trim();
+        Size = size;
         Brand = brand.Trim();
         Condition = condition;
         Color = string.IsNullOrWhiteSpace(color) ? null : color.Trim();
         Status = LotStatus.Draft;
+    }
+
+    public void Edit(
+        Guid sellerId,
+        string title,
+        string description,
+        Money price,
+        LotCategory category,
+        LotGender gender,
+        LotSize size,
+        string brand,
+        LotCondition condition,
+        string? color)
+    {
+        if (Status == LotStatus.Draft)
+        {
+            if (sellerId != SellerId)
+            {
+                throw new InvalidOperationException("Only the seller can edit this lot.");
+            }
+
+            if (string.IsNullOrWhiteSpace(title) || title.Trim().Length < 5 || title.Trim().Length > 200)
+            {
+                throw new ArgumentException("Title must be between 5 and 200 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(description) || description.Trim().Length < 20 || description.Trim().Length > 2000)
+            {
+                throw new ArgumentException("Description must be between 20 and 2000 characters.");
+            }
+
+            if (price is null)
+            {
+                throw new ArgumentException("Price is required.");
+            }
+
+            if (!Enum.IsDefined(typeof(LotSize), size))
+            {
+                throw new ArgumentException("Size is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(brand))
+            {
+                throw new ArgumentException("Brand is required.");
+            }
+
+            if (!Enum.IsDefined(typeof(LotCondition), condition))
+            {
+                throw new ArgumentException("Condition is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(color))
+            {
+                throw new ArgumentException("Color is required.");
+            }
+
+        }
+        else
+        {
+            throw new InvalidOperationException("Only draft lots can be edited.");
+        }
+
+        Title = title;
+        Description = description;
+        Price = price;
+        Category = category;
+        Gender = gender;
+        Size = size;
+        Brand = brand.Trim();
+        Condition = condition;
+        Color = color.Trim();
     }
 
     public void Publish()

@@ -13,7 +13,7 @@ public sealed record CreateLotCommand(
     string Currency,
     LotCategory Category,
     LotGender Gender,
-    string Size,
+    LotSize Size,
     string Brand,
     LotCondition Condition,
     string? Color,
