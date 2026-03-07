@@ -37,9 +37,13 @@ public sealed class PaymentController : ControllerBase
     }
 
     [HttpPost]
-    [Route("create-session")]
-    public async Task<ActionResult> CreatePaymentSession(CreateOrderPaymentSessionCommand command, CancellationToken cancellationToken)
+    [Route("orders/{id:guid}/pay")]
+    public async Task<ActionResult> CreatePaymentSession(Guid id , CancellationToken cancellationToken)
     {
+        var userId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+
+        var command = new CreateOrderPaymentSessionCommand(id, userId);
+
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result);
     }
@@ -113,7 +117,7 @@ public sealed class PaymentController : ControllerBase
                         return BadRequest("Session object not found.");
                     }
 
-                    await _paymentService.HandleSuccessfulCheckoutSession(session, cancellationToken);
+                    await _paymentService.HandleExpiredCheckoutSession(session, cancellationToken);
                     break;
                 }
         }
