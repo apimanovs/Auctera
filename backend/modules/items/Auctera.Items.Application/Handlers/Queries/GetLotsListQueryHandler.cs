@@ -15,15 +15,28 @@ using MediatR;
 
 namespace Auctera.Items.Application.Handlers.Queries;
 
+/// <summary>
+/// Represents the get lots list query handler class.
+/// </summary>
 public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<LotDto>>
 {
     private readonly ILotRepository _lotRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetLotsListQueryHandler"/> class.
+    /// </summary>
+    /// <param name="lotRepository">Lot repository.</param>
     public GetLotsListQueryHandler(ILotRepository lotRepository)
     {
         _lotRepository = lotRepository;
     }
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<List<LotDto>> Handle(GetLotsListQuery request, CancellationToken cancellationToken)
     {
         var query = _lotRepository.GetQueryable();

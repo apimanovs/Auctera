@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Host.BackgroundJobs;
 
+/// <summary>
+/// Represents the auction auto stop background service class.
+/// </summary>
 public sealed class AuctionAutoStopBackgroundService(
     IServiceScopeFactory scopeFactory,
     IClock clock,
@@ -19,6 +22,11 @@ public sealed class AuctionAutoStopBackgroundService(
     private readonly IClock _clock = clock;
     private readonly ILogger<AuctionAutoStopBackgroundService> _logger = logger;
 
+    /// <summary>
+    /// Performs the execute async operation.
+    /// </summary>
+    /// <param name="stoppingToken">Stopping token.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
@@ -36,6 +44,11 @@ public sealed class AuctionAutoStopBackgroundService(
         }
     }
 
+    /// <summary>
+    /// Stops expired auctions.
+    /// </summary>
+    /// <param name="ct">Ct.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     private async Task StopExpiredAuctions(CancellationToken ct)
     {
         using var scope = _scopeFactory.CreateScope();

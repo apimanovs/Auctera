@@ -7,6 +7,9 @@ using MediatR;
 
 using Stripe.Checkout;
 
+/// <summary>
+/// Represents the create order payment session command handler class.
+/// </summary>
 public sealed class CreateOrderPaymentSessionCommandHandler
     : IRequestHandler<CreateOrderPaymentSessionCommand, CreateOrderPaymentSessionResult>
 {

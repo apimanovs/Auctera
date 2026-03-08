@@ -8,6 +8,9 @@ using Auctera.Shared.Infrastructure.Interfaces;
 
 namespace Auctera.Bids.Application.Handlers.Commands;
 
+/// <summary>
+/// Represents the place bid command handler class.
+/// </summary>
 public sealed class PlaceBidCommandHandler
     : IRequestHandler<PlaceBidCommand>
 {

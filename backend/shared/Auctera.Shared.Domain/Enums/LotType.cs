@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Auctera.Shared.Domain.Enums;
 
+/// <summary>
+/// Represents the lot status enum.
+/// </summary>
 public enum LotStatus
 {
     Draft,

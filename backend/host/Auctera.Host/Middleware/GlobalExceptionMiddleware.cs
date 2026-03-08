@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Auctera.Host.Middleware;
 
+/// <summary>
+/// Represents the global exception middleware class.
+/// </summary>
 public sealed class GlobalExceptionMiddleware(
     RequestDelegate next,
     ILogger<GlobalExceptionMiddleware> logger,
@@ -11,6 +14,11 @@ public sealed class GlobalExceptionMiddleware(
     private readonly ILogger<GlobalExceptionMiddleware> _logger = logger;
     private readonly IHostEnvironment _environment = environment;
 
+    /// <summary>
+    /// Performs the invoke operation.
+    /// </summary>
+    /// <param name="context">Context.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Invoke(HttpContext context)
     {
         try
@@ -30,6 +38,12 @@ public sealed class GlobalExceptionMiddleware(
         }
     }
 
+    /// <summary>
+    /// Performs the build problem details operation.
+    /// </summary>
+    /// <param name="context">Context.</param>
+    /// <param name="exception">Exception.</param>
+    /// <returns>The operation result.</returns>
     private ProblemDetails BuildProblemDetails(HttpContext context, Exception exception)
     {
         var (statusCode, title) = exception switch

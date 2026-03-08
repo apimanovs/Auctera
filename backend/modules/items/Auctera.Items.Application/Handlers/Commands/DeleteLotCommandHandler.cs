@@ -6,10 +6,19 @@ using MediatR;
 
 namespace Auctera.Items.Application.Handlers.Commands;
 
+/// <summary>
+/// Represents the delete lot command handler class.
+/// </summary>
 public sealed class DeleteLotCommandHandler(ILotRepository lotRepository) : IRequestHandler<DeleteLotCommand>
 {
     private readonly ILotRepository _lotRepository = lotRepository;
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="command">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Handle(DeleteLotCommand command, CancellationToken cancellationToken)
     {
         var lotToDelete = await _lotRepository.GetLotById(command.lotId, cancellationToken);

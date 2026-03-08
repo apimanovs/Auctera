@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Auctera.Shared.Domain.Enums;
 
+/// <summary>
+/// Represents the auction status enum.
+/// </summary>
 public enum AuctionStatus
 {
     Draft,

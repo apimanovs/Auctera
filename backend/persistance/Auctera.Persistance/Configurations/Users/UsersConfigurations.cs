@@ -5,8 +5,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auctera.Persistance.Configurations.Users;
 
+/// <summary>
+/// Represents the users configurations class.
+/// </summary>
 public sealed class UsersConfigurations : IEntityTypeConfiguration<User>
 {
+    /// <summary>
+    /// Performs the configure operation.
+    /// </summary>
+    /// <param name="builder">Builder.</param>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("users");

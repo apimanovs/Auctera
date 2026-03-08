@@ -5,6 +5,9 @@ using MediatR;
 
 namespace Auctera.Items.Application.Commands;
 
+/// <summary>
+/// Represents the create lot command record.
+/// </summary>
 public sealed record CreateLotCommand(
     Guid SellerId,
     string Title,

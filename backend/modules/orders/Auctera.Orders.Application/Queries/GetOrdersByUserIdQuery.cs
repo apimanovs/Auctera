@@ -10,5 +10,8 @@ using MediatR;
 
 namespace Auctera.Orders.Application.Queries;
 
+/// <summary>
+/// Represents the get orders by user id query record.
+/// </summary>
 public sealed record GetOrdersByUserIdQuery (Guid userId) : IRequest<IReadOnlyList<OrderListItemDto>>;
 

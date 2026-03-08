@@ -11,8 +11,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Auctera.Persistance.Migrations
 {
     [DbContext(typeof(AucteraDbContext))]
+    /// <summary>
+    /// Represents the auctera db context model snapshot class.
+    /// </summary>
     partial class AucteraDbContextModelSnapshot : ModelSnapshot
     {
+        /// <summary>
+        /// Performs the build model operation.
+        /// </summary>
+        /// <param name="modelBuilder">Input data for the operation.</param>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

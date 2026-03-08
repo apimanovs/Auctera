@@ -5,6 +5,9 @@ using MediatR;
 
 namespace Auctera.Identity.Application.Handlers;
 
+/// <summary>
+/// Represents the login command handler class.
+/// </summary>
 public class LoginCommandHandler(
     ITokenProvider tokenProvider,
     IUserRepository userRepository,
@@ -14,6 +17,12 @@ public class LoginCommandHandler(
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<string> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByEmailAsync(request.email);

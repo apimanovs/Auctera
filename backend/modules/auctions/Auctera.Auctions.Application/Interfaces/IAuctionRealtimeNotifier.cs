@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Auctera.Auctions.Application.Interfaces;
 
+/// <summary>
+/// Represents the i auction realtime notifier interface.
+/// </summary>
 public interface IAuctionRealtimeNotifier
 {
     Task BidPlaced(Guid auctionId, Guid bidderId ,decimal amount, string currency);

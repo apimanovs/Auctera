@@ -5,8 +5,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auctera.Persistance.Configurations.Items;
 
+/// <summary>
+/// Represents the lot configuration class.
+/// </summary>
 public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
 {
+    /// <summary>
+    /// Performs the configure operation.
+    /// </summary>
+    /// <param name="builder">Builder.</param>
     public void Configure(EntityTypeBuilder<Lot> builder)
     {
         builder.ToTable("lots");

@@ -1,14 +1,38 @@
 ﻿namespace Auctera.Identity.Domain;
 
+/// <summary>
+/// Represents the user class.
+/// </summary>
 public sealed class User
 {
+    /// <summary>
+    /// Gets or sets the id used by this type.
+    /// </summary>
     public Guid Id { get; private set; }
+    /// <summary>
+    /// Gets or sets the name used by this type.
+    /// </summary>
     public string Name { get; private set; }
+    /// <summary>
+    /// Gets or sets the email used by this type.
+    /// </summary>
     public string Email { get; private set; }
+    /// <summary>
+    /// Gets or sets the password hash used by this type.
+    /// </summary>
     public string PasswordHash { get; private set; }
+    /// <summary>
+    /// Gets or sets the user name used by this type.
+    /// </summary>
     public string UserName { get; private set; }
+    /// <summary>
+    /// Gets or sets the is admin used by this type.
+    /// </summary>
     public bool IsAdmin { get; private set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="User"/> class.
+    /// </summary>
     private User() { } // EF
 
     private User(Guid id,

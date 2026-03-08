@@ -8,11 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Auctions.Application.Handlers.Queries;
 
+/// <summary>
+/// Represents the get auction details query handler class.
+/// </summary>
 public sealed class GetAuctionDetailsQueryHandler
     : IRequestHandler<GetAuctionDetailsQuery, AuctionDetailsDto>
 {
     private readonly AucteraDbContext _context;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetAuctionDetailsQueryHandler"/> class.
+    /// </summary>
+    /// <param name="context">Context.</param>
     public GetAuctionDetailsQueryHandler(AucteraDbContext context)
     {
         _context = context;

@@ -5,8 +5,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auctera.Persistance.Configurations.Orders;
 
+/// <summary>
+/// Represents the orders configuration class.
+/// </summary>
 public sealed class OrdersConfiguration : IEntityTypeConfiguration<Order>
 {
+    /// <summary>
+    /// Performs the configure operation.
+    /// </summary>
+    /// <param name="builder">Builder.</param>
     public void Configure(EntityTypeBuilder<Order> builder)
     {
         builder.ToTable("orders");

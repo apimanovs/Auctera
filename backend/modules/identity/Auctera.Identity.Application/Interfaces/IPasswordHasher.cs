@@ -1,5 +1,8 @@
 ﻿namespace Auctera.Identity.Application.Interfaces;
 
+/// <summary>
+/// Represents the i password hasher interface.
+/// </summary>
 public interface IPasswordHasher
 {
     string HashPassword(string password);

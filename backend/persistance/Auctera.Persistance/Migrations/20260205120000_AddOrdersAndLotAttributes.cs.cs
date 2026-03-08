@@ -6,8 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Auctera.Persistance.Migrations
 {
+    /// <summary>
+    /// Represents the add orders and lot attributes class.
+    /// </summary>
     public partial class AddOrdersAndLotAttributes : Migration
     {
+        /// <summary>
+        /// Performs the up operation.
+        /// </summary>
+        /// <param name="migrationBuilder">Migration builder.</param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
@@ -97,6 +104,10 @@ namespace Auctera.Persistance.Migrations
                 columns: new[] { "Status", "PaymentDeadlineUtc" });
         }
 
+        /// <summary>
+        /// Performs the down operation.
+        /// </summary>
+        /// <param name="migrationBuilder">Migration builder.</param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

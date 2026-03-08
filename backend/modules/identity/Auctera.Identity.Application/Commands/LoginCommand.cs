@@ -3,6 +3,9 @@ using MediatR;
 
 namespace Auctera.Identity.Application.Commands;
 
+/// <summary>
+/// Represents the login command record.
+/// </summary>
 public record LoginCommand(
     [property: Required]
     [property: EmailAddress]

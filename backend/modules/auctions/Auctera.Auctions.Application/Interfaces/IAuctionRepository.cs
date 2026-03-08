@@ -8,6 +8,9 @@ using Auctera.Auctions.Domain;
 
 namespace Auctera.Auctions.Application.Interfaces;
 
+/// <summary>
+/// Represents the i auction repository interface.
+/// </summary>
 public interface IAuctionRepository
 {
     Task<Auction?> GetAuctionById(Guid auctionId, CancellationToken cancellationToken);

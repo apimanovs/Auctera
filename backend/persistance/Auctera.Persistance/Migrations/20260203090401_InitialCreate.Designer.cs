@@ -13,6 +13,9 @@ namespace Auctera.Persistance.Migrations
 {
     [DbContext(typeof(AucteraDbContext))]
     [Migration("20260203090401_InitialCreate")]
+    /// <summary>
+    /// Represents the initial create class.
+    /// </summary>
     partial class InitialCreate
     {
         /// <inheritdoc />

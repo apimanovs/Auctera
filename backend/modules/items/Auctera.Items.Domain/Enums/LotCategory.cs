@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Auctera.Items.Domain.Enums;
 
+/// <summary>
+/// Represents the lot category enum.
+/// </summary>
 public enum LotCategory
 {
     Tops,

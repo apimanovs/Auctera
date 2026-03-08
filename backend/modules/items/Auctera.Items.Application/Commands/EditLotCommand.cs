@@ -11,6 +11,9 @@ using MediatR;
 
 namespace Auctera.Items.Application.Commands;
 
+/// <summary>
+/// Represents the edit lot command record.
+/// </summary>
 public record EditLotCommand
 (
     Guid id,
