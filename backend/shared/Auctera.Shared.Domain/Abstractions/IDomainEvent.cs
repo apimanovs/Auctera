@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using MediatR;
 
 namespace Auctera.Shared.Domain.Abstractions;
+/// <summary>
+/// Represents the i domain event interface.
+/// </summary>
 public interface IDomainEvent : INotification
 {
     DateTime OccurredAt { get; }

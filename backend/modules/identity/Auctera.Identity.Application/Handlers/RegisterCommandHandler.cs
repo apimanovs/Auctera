@@ -11,6 +11,9 @@ using Auctera.Identity.Domain;
 using Auctera.Identity.Application.Interfaces;
 
 namespace Auctera.Identity.Application.Handlers;
+/// <summary>
+/// Represents the register command handler class.
+/// </summary>
 public sealed class RegisterCommandHandler(ITokenProvider tokenProvider,
     IPasswordHasher passwordHasher, IUserRepository userRepository) : IRequestHandler<RegisterCommand, string>
 {
@@ -18,6 +21,12 @@ public sealed class RegisterCommandHandler(ITokenProvider tokenProvider,
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
     private readonly IUserRepository _userRepository = userRepository;
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(request.email))

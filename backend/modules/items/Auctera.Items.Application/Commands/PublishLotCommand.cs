@@ -7,4 +7,7 @@ using MediatR;
 
 namespace Auctera.Items.Application.Commands;
 
+/// <summary>
+/// Represents the publish lot command record.
+/// </summary>
 public record PublishLotCommand(Guid LotId, Guid SellerId) : IRequest<Guid>;

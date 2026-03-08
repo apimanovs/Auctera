@@ -5,8 +5,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Auctera.Persistance.Migrations
 {
+    /// <summary>
+    /// Represents the fix auction lot and lot media class.
+    /// </summary>
     public partial class FixAuctionLotAndLotMedia : Migration
     {
+        /// <summary>
+        /// Performs the up operation.
+        /// </summary>
+        /// <param name="migrationBuilder">Migration builder.</param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
@@ -63,6 +70,10 @@ namespace Auctera.Persistance.Migrations
                 onDelete: ReferentialAction.Restrict);
         }
 
+        /// <summary>
+        /// Performs the down operation.
+        /// </summary>
+        /// <param name="migrationBuilder">Migration builder.</param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(

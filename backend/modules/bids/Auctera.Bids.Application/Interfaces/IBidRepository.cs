@@ -2,6 +2,9 @@
 
 namespace Auctera.Bids.Application.Interfaces;
 
+/// <summary>
+/// Represents the i bid repository interface.
+/// </summary>
 public interface IBidRepository
 {
     Task<Bid?> GetBidById(Guid bidId, CancellationToken cancellationToken);

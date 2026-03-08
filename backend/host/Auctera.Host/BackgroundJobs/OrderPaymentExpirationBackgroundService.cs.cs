@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Host.BackgroundJobs;
 
+/// <summary>
+/// Represents the order payment expiration background service class.
+/// </summary>
 public sealed class OrderPaymentExpirationBackgroundService(
     IServiceScopeFactory scopeFactory,
     IClock clock,
@@ -17,6 +20,11 @@ public sealed class OrderPaymentExpirationBackgroundService(
     private readonly IClock _clock = clock;
     private readonly ILogger<OrderPaymentExpirationBackgroundService> _logger = logger;
 
+    /// <summary>
+    /// Performs the execute async operation.
+    /// </summary>
+    /// <param name="stoppingToken">Stopping token.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
@@ -34,6 +42,11 @@ public sealed class OrderPaymentExpirationBackgroundService(
         }
     }
 
+    /// <summary>
+    /// Performs the expire orders operation.
+    /// </summary>
+    /// <param name="ct">Ct.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     private async Task ExpireOrders(CancellationToken ct)
     {
         using var scope = _scopeFactory.CreateScope();

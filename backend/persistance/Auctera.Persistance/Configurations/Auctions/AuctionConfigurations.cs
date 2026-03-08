@@ -4,8 +4,15 @@ using Auctera.Auctions.Domain;
 
 namespace Auctera.Persistance.Configurations.Auctions;
 
+/// <summary>
+/// Represents the auction configuration class.
+/// </summary>
 public sealed class AuctionConfiguration : IEntityTypeConfiguration<Auction>
 {
+    /// <summary>
+    /// Performs the configure operation.
+    /// </summary>
+    /// <param name="builder">Builder.</param>
     public void Configure(EntityTypeBuilder<Auction> builder)
     {
         builder.ToTable("auctions");

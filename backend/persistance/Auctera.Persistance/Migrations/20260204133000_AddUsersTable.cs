@@ -5,8 +5,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Auctera.Persistance.Migrations
 {
+    /// <summary>
+    /// Represents the add users table class.
+    /// </summary>
     public partial class AddUsersTable : Migration
     {
+        /// <summary>
+        /// Performs the up operation.
+        /// </summary>
+        /// <param name="migrationBuilder">Migration builder.</param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -38,6 +45,10 @@ namespace Auctera.Persistance.Migrations
                 unique: true);
         }
 
+        /// <summary>
+        /// Performs the down operation.
+        /// </summary>
+        /// <param name="migrationBuilder">Migration builder.</param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

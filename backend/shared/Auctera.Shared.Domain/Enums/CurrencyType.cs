@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Auctera.Shared.Domain.Enums;
+/// <summary>
+/// Represents the currency type enum.
+/// </summary>
 public enum CurrencyType
 {
     USD,

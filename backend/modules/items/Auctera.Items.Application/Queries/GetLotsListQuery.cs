@@ -5,6 +5,9 @@ using MediatR;
 
 namespace Auctera.Items.Application.Queries;
 
+/// <summary>
+/// Represents the get lots list query record.
+/// </summary>
 public sealed record GetLotsListQuery(
     LotCategory? Category,
     LotGender? Gender,

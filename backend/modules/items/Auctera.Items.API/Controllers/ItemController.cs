@@ -10,10 +10,17 @@ namespace Auctera.Items.API.Controllers;
 
 [ApiController]
 [Route("api/items")]
+/// <summary>
+/// Represents the item controller class.
+/// </summary>
 public sealed class ItemController : ControllerBase
 {
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ItemController"/> class.
+    /// </summary>
+    /// <param name="mediator">Mediator.</param>
     public ItemController(IMediator mediator)
     {
         _mediator = mediator;
@@ -21,6 +28,12 @@ public sealed class ItemController : ControllerBase
 
     [HttpPost("create")]
     [Authorize]
+    /// <summary>
+    /// Creates lot.
+    /// </summary>
+    /// <param name="command">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult<Guid>> CreateLot([FromBody] CreateLotCommand command, CancellationToken cancellationToken)
     {
         var lotId = await _mediator.Send(command, cancellationToken);
@@ -30,6 +43,13 @@ public sealed class ItemController : ControllerBase
     [HttpPatch]
     [Route("{lotId}/update")]
     [Authorize]
+    /// <summary>
+    /// Updates lot.
+    /// </summary>
+    /// <param name="lotId">Identifier of lot.</param>
+    /// <param name="command">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> UpdateLot(Guid lotId, [FromBody] EditLotCommand command, CancellationToken cancellationToken)
     {
         if (lotId != command.id)
@@ -44,6 +64,12 @@ public sealed class ItemController : ControllerBase
     [HttpDelete]
     [Route("{lotId}/delete")]
     [Authorize]
+    /// <summary>
+    /// Deletes lot.
+    /// </summary>
+    /// <param name="lotId">Identifier of lot.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> DeleteLot(Guid lotId, CancellationToken cancellationToken)
     {
         var sellerId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
@@ -55,6 +81,12 @@ public sealed class ItemController : ControllerBase
     [HttpPost]
     [Route("{lotId}/publish")]
     [Authorize]
+    /// <summary>
+    /// Publishes lot.
+    /// </summary>
+    /// <param name="lotId">Identifier of lot.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> PublishLot(Guid lotId, CancellationToken cancellationToken)
     {
         var sellerId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
@@ -65,6 +97,12 @@ public sealed class ItemController : ControllerBase
 
     [HttpGet]
     [Route("{lotId:guid}")]
+    /// <summary>
+    /// Gets lot.
+    /// </summary>
+    /// <param name="lotId">Identifier of lot.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> GetLot(Guid lotId, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new GetLotQuery(lotId), cancellationToken);
@@ -72,6 +110,12 @@ public sealed class ItemController : ControllerBase
     }
 
     [HttpGet]
+    /// <summary>
+    /// Gets lots filtered list.
+    /// </summary>
+    /// <param name="query">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> GetLotsFilteredList([FromQuery] GetLotsListQuery query, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(query, cancellationToken);

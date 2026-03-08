@@ -8,12 +8,21 @@ using MediatR;
 
 namespace Auctera.Orders.Application.Handlers;
 
+/// <summary>
+/// Represents the create order on auction ended handler class.
+/// </summary>
 public sealed class CreateOrderOnAuctionEndedHandler : INotificationHandler<AuctionEndedDomainEvent>
 {
     private readonly IOrderRepository _orderRepository;
     private readonly ILotRepository _lotRepository;
     private readonly IClock _clock;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateOrderOnAuctionEndedHandler"/> class.
+    /// </summary>
+    /// <param name="orderRepository">Order repository.</param>
+    /// <param name="clock">Clock.</param>
+    /// <param name="lotRepository">Lot repository.</param>
     public CreateOrderOnAuctionEndedHandler(IOrderRepository orderRepository, IClock clock, ILotRepository lotRepository)
     {
         _orderRepository = orderRepository;
@@ -21,6 +30,12 @@ public sealed class CreateOrderOnAuctionEndedHandler : INotificationHandler<Auct
         _lotRepository = lotRepository;
     }
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="endedDomainEvent">Ended domain event.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Handle(AuctionEndedDomainEvent endedDomainEvent, CancellationToken cancellationToken)
     {
         if (endedDomainEvent.WinnerId == null || endedDomainEvent.WinningMoney is null)

@@ -6,11 +6,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Auctera.Shared.Infrastructure.Media;
+/// <summary>
+/// Represents the media uploader class.
+/// </summary>
 public sealed class MediaUploader(IOptions<MediaOptions> options, IAmazonS3 s3) : IMediaUploader
 {
     private readonly IAmazonS3 _s3 = s3;
     private readonly MediaOptions _mediaOptions = options.Value;
 
+    /// <summary>
+    /// Performs the upload async operation.
+    /// </summary>
+    /// <param name="stream">Stream.</param>
+    /// <param name="fileName">File name.</param>
+    /// <param name="contentType">Content type.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<string> UploadAsync(Stream stream, string fileName, string contentType)
     {
         var extension = Path.GetExtension(fileName);

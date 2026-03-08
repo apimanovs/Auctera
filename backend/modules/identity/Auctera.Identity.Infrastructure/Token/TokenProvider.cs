@@ -11,10 +11,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Auctera.Identity.Infrastructure.Token;
 
+/// <summary>
+/// Represents the token provider class.
+/// </summary>
 internal sealed class TokenProvider(IOptions<JwtOptions> options) : ITokenProvider
 {
     private readonly JwtOptions _jwtOptions = options.Value;
 
+    /// <summary>
+    /// Performs the generate operation.
+    /// </summary>
+    /// <param name="user">User.</param>
+    /// <returns>The operation result.</returns>
     public string Generate(User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret));

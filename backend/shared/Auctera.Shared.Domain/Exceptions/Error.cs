@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Auctera.Shared.Domain.Exceptions;
 
+/// <summary>
+/// Represents the error class.
+/// </summary>
 public class Error : System.Exception
 {
+    /// <summary>
+    /// Gets or sets the status code used by this type.
+    /// </summary>
     public int StatusCode { get; }
 
     public Error(string message, int statusCode = 400) : base(message)

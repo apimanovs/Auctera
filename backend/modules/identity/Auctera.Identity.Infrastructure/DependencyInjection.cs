@@ -13,8 +13,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Auctera.Identity.Infrastructure;
 
+/// <summary>
+/// Represents the dependency injection class.
+/// </summary>
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Adds identity module.
+    /// </summary>
+    /// <param name="services">Services.</param>
+    /// <param name="configuration">Configuration.</param>
+    /// <returns>The operation result.</returns>
     public static IServiceCollection AddIdentityModule(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSection = configuration.GetSection(JwtOptions.SectionName);

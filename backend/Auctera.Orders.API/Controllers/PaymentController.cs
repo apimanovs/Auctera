@@ -20,6 +20,9 @@ namespace Auctera.Orders.API.Controllers;
 
 [ApiController]
 [Route("api/payments/stripe")]
+/// <summary>
+/// Represents the payment controller class.
+/// </summary>
 public sealed class PaymentController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -38,6 +41,12 @@ public sealed class PaymentController : ControllerBase
 
     [HttpPost]
     [Route("orders/{id:guid}/pay")]
+    /// <summary>
+    /// Creates payment session.
+    /// </summary>
+    /// <param name="id">Entity identifier.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> CreatePaymentSession(Guid id , CancellationToken cancellationToken)
     {
         var userId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
@@ -50,6 +59,11 @@ public sealed class PaymentController : ControllerBase
 
     [HttpPost]
     [Route("webhook")]
+    /// <summary>
+    /// Performs the stripe webhook operation.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<IActionResult> StripeWebhook(CancellationToken cancellationToken)
     {
         string json;

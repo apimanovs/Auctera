@@ -3,6 +3,9 @@ using MediatR;
 
 namespace Auctera.Identity.Application.Commands;
 
+/// <summary>
+/// Represents the register command record.
+/// </summary>
 public record RegisterCommand
 (
     [property: Required]

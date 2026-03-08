@@ -11,10 +11,17 @@ namespace Auctera.Auctions.API.Controllers;
 
 [ApiController]
 [Route("api/auctions")]
+/// <summary>
+/// Represents the auctions controller class.
+/// </summary>
 public sealed class AuctionsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AuctionsController"/> class.
+    /// </summary>
+    /// <param name="mediator">Mediator.</param>
     public AuctionsController(IMediator mediator)
     {
         _mediator = mediator;
@@ -44,6 +51,12 @@ public sealed class AuctionsController : ControllerBase
     [HttpPost]
     [Route("create")]
     [Authorize]
+    /// <summary>
+    /// Creates auction.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> CreateAuction([FromBody] CreateAuctionCommand request, CancellationToken cancellationToken)
     {
         var auctionId = await _mediator.Send(request, cancellationToken);

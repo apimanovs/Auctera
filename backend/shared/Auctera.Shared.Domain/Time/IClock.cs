@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Auctera.Shared.Domain.Time;
 
+/// <summary>
+/// Represents the i clock interface.
+/// </summary>
 public interface IClock
 {
     DateTime UtcNow { get; }

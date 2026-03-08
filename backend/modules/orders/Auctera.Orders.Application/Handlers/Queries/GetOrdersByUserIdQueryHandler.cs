@@ -13,15 +13,28 @@ using Auctera.Orders.Application.Models;
 
 namespace Auctera.Orders.Application.Handlers.Queries;
 
+/// <summary>
+/// Represents the get orders by user id query handler class.
+/// </summary>
 public sealed class GetOrdersByUserIdQueryHandler : IRequestHandler<GetOrdersByUserIdQuery, IReadOnlyList<OrderListItemDto>>
 {
     private readonly IOrderRepository _orderRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetOrdersByUserIdQueryHandler"/> class.
+    /// </summary>
+    /// <param name="orderRepository">Order repository.</param>
     public GetOrdersByUserIdQueryHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<IReadOnlyList<OrderListItemDto>> Handle(GetOrdersByUserIdQuery request, CancellationToken cancellationToken)
     {
         var ordersAsBuyerTask = _orderRepository.GetOrdersByBuyerId(request.userId, cancellationToken);

@@ -8,6 +8,9 @@ namespace Auctera.Items.API.Controllers;
 
 [ApiController]
 [Route("api/media")]
+/// <summary>
+/// Represents the media controller class.
+/// </summary>
 public sealed class MediaController(IMediaUploader mediaUploader) : ControllerBase
 {
     private readonly IMediaUploader _mediaUploader = mediaUploader;
@@ -15,6 +18,11 @@ public sealed class MediaController(IMediaUploader mediaUploader) : ControllerBa
     [HttpPost("upload")]
     [Authorize]
     [RequestSizeLimit(10_000_000)]
+    /// <summary>
+    /// Performs the upload operation.
+    /// </summary>
+    /// <param name="file">File.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult<string>> Upload([FromForm] IFormFile file)
     {
         if (file is null || file.Length == 0)

@@ -3,6 +3,9 @@ using MediatR;
 
 namespace Auctera.Bids.Application.Commands;
 
+/// <summary>
+/// Represents the place bid command record.
+/// </summary>
 public sealed record PlaceBidCommand(
     Guid AuctionId,
 

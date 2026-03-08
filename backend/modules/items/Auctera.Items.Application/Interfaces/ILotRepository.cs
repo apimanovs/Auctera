@@ -2,6 +2,9 @@
 
 namespace Auctera.Items.Application.Interfaces;
 
+/// <summary>
+/// Represents the i lot repository interface.
+/// </summary>
 public interface ILotRepository
 {
     Task<Lot?> GetLotById(Guid id, CancellationToken cancellationToken);

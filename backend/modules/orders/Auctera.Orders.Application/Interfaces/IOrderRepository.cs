@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Auctera.Orders.Domain;
 
 namespace Auctera.Orders.Application.Interfaces;
+/// <summary>
+/// Represents the i order repository interface.
+/// </summary>
 public interface IOrderRepository
 {
     Task AddOrderAsync(Order order, CancellationToken cancellationToken);
