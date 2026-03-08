@@ -27,6 +27,9 @@ public class LotRepository : ILotRepository
     /// <param name="id">Entity identifier.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
+    ///
+
+    /// добавить отедльные запросы для получения данных для отображения на странице и редакирования чтобы ускроить загрузку данных (сеньор тайп движения)  
     public async Task<Lot?> GetLotById(Guid id, CancellationToken cancellationToken)
     {
         return await _context.Lots.Include(l => l.Media).FirstOrDefaultAsync(l => l.Id == l.Id, cancellationToken);
