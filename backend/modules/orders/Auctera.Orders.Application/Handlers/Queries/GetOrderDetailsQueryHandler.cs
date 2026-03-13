@@ -2,13 +2,15 @@
 using Auctera.Orders.Application.Queries;
 using Auctera.Orders.Application.Interfaces;
 
+using System.Linq;
+
 using MediatR;
 
 namespace Auctera.Orders.Application.Handlers.Queries;
 /// <summary>
 /// Represents the get order details query handler class.
 /// </summary>
-public sealed class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetailsQuery, IReadOnlyList<OrderDetailsDto>>
+public sealed class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetailsQuery, OrderDetailsDto>
 {
     private readonly IOrderRepository _orderRepository;
 
@@ -26,23 +28,23 @@ public sealed class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetail
     /// <param name="request">Input data for the operation.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public async Task<IReadOnlyList<OrderDetailsDto>> Handle(GetOrderDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<OrderDetailsDto> Handle(GetOrderDetailsQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetOrderByIdAsync(request.orderId, cancellationToken);
+        var order = await _orderRepository.GetOrderByIdAsync(request.orderId, cancellationToken);
 
-        var dto = orders.Select(o => new OrderDetailsDto
+        var dto = new OrderDetailsDto
         {
-            Id = o.Id,
-            AuctionId = o.AuctionId,
-            SellerId = o.SellerId,
-            BuyerId = o.BuyerId,
-            Status = o.Status,
-            Price = o.Price,
-            Currency = o.Currency,
-            PaymentDeadlineUtc = o.PaymentDeadlineUtc,
-            StripeCheckoutSessionId = o.StripeCheckoutSessionId,
-            PaidAtUtc = o.PaidAtUtc
-        }).ToList();
+            Id = order.Id,
+            AuctionId = order.AuctionId,
+            SellerId = order.SellerId,
+            BuyerId = order.BuyerId,
+            Status = order.Status,
+            Price = order.Price,
+            Currency = order.Currency,
+            PaymentDeadlineUtc = order.PaymentDeadlineUtc,
+            StripeCheckoutSessionId = order.StripeCheckoutSessionId,
+            PaidAtUtc = order.PaidAtUtc
+        };
 
         return dto;
     }

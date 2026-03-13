@@ -35,7 +35,7 @@ public sealed class SignalRAuctionRealtimeNotifier(IHubContext<AuctionHub> hubCo
     /// <param name="winnerId">Identifier of winner.</param>
     /// <param name="winningBidId">Identifier of winning bid.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    public Task AuctionEnded(Guid auctionId, Guid winnerId, Guid winningBidId)
+    public Task AuctionEnded(Guid auctionId, Guid? winnerId, Guid winningBidId)
     {
         return _hubContext.Clients.All.SendAsync
         (
