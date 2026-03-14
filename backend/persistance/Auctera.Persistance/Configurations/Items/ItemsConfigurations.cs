@@ -92,7 +92,7 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
                 .HasMaxLength(50)
                 .IsRequired();
 
-            media.HasIndex("LotId", "media_key", "media_type")
+            media.HasIndex("LotId", "Key", "Type")
                 .IsUnique();
         });
     }

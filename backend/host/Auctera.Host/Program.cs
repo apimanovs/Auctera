@@ -17,10 +17,9 @@ using Auctera.Shared.Infrastructure.Dispatcher;
 using Auctera.Shared.Infrastructure.Interfaces;
 using Auctera.Shared.Infrastructure.Time;
 using Auctera.Shared.Infrastructure.Media;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
-using MediatR;
 using Auctera.Orders.Infrastructure.Options;
+using Amazon.S3;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -121,9 +120,26 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-builder.Services.AddScoped<IClock, SystemClock>();
-builder.Services.AddTransient<GlobalExceptionMiddleware>();
+
+builder.Services.AddSingleton<IClock, SystemClock>();
+
 builder.Services.AddHostedService<AuctionAutoStopBackgroundService>();
+
+builder.Services.AddSingleton<IAmazonS3>(_ =>
+{
+    var config = new AmazonS3Config
+    {
+        ServiceURL = builder.Configuration["CloudflareR2:ServiceUrl"],
+        ForcePathStyle = true
+    };
+
+    return new AmazonS3Client(
+        builder.Configuration["CloudflareR2:AccessKey"],
+        builder.Configuration["CloudflareR2:SecretKey"],
+        config);
+});
+
+builder.Services.AddScoped<IMediaUploader, MediaUploader>();
 
 var app = builder.Build();
 
