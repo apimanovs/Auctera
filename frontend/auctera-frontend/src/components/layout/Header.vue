@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Container from '@/components/ui/Container.vue'
+import Categories from '@/components/layout/CategoriesNavbar.vue'
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import Container from '@/components/ui/Container.vue'
            <a href="/">Logo</a>
         </div>
         <div>
-            Something
+            Search
         </div>
         <div>
             Profile
@@ -18,4 +19,5 @@ import Container from '@/components/ui/Container.vue'
       </div>
     </Container>
   </header>
+  <Categories />
 </template>
