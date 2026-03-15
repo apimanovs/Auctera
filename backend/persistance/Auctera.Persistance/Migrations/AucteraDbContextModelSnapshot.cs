@@ -11,15 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Auctera.Persistance.Migrations
 {
     [DbContext(typeof(AucteraDbContext))]
-    /// <summary>
-    /// Represents the auctera db context model snapshot class.
-    /// </summary>
     partial class AucteraDbContextModelSnapshot : ModelSnapshot
     {
-        /// <summary>
-        /// Performs the build model operation.
-        /// </summary>
-        /// <param name="modelBuilder">Input data for the operation.</param>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
@@ -38,7 +31,8 @@ namespace Auctera.Persistance.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("LotId")
+                    b.Property<Guid?>("LotId")
+                        .IsRequired()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("StartDate")
@@ -49,6 +43,9 @@ namespace Auctera.Persistance.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("LotId")
                         .IsUnique();
@@ -79,40 +76,16 @@ namespace Auctera.Persistance.Migrations
 
                     b.HasIndex("AuctionId");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
                     b.ToTable("bids", (string)null);
-                });
-
-            modelBuilder.Entity("Auctera.Items.Domain.Lot", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("character varying(5000)");
-
-                    b.Property<Guid>("SellerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("lots", (string)null);
                 });
 
             modelBuilder.Entity("Auctera.Identity.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
@@ -148,6 +121,116 @@ namespace Auctera.Persistance.Migrations
                     b.ToTable("users", (string)null);
                 });
 
+            modelBuilder.Entity("Auctera.Items.Domain.Lot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SellerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Size")
+                        .HasMaxLength(20)
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("lots", (string)null);
+                });
+
+            modelBuilder.Entity("Auctera.Orders.Domain.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AuctionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BuyerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<DateTime?>("PaidAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("PaymentDeadlineUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<Guid>("SellerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("StripeCheckoutSessionId")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuctionId")
+                        .IsUnique();
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("SellerId");
+
+                    b.HasIndex("Status", "PaymentDeadlineUtc");
+
+                    b.ToTable("orders", (string)null);
+                });
+
             modelBuilder.Entity("Auctera.Auctions.Domain.Auction", b =>
                 {
                     b.HasOne("Auctera.Items.Domain.Lot", null)
@@ -179,7 +262,8 @@ namespace Auctera.Persistance.Migrations
                                 .HasForeignKey("AuctionId");
                         });
 
-                    b.Navigation("CurrentPrice");
+                    b.Navigation("CurrentPrice")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Auctera.Bids.Domain.Bid", b =>
@@ -227,14 +311,14 @@ namespace Auctera.Persistance.Migrations
 
                             NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
-                            b1.Property<Guid>("LotId")
-                                .HasColumnType("uuid");
-
                             b1.Property<string>("Key")
                                 .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("character varying(500)")
                                 .HasColumnName("media_key");
+
+                            b1.Property<Guid>("LotId")
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Type")
                                 .IsRequired()
@@ -244,7 +328,7 @@ namespace Auctera.Persistance.Migrations
 
                             b1.HasKey("Id");
 
-                            b1.HasIndex("LotId", "media_key", "media_type")
+                            b1.HasIndex("LotId", "Key", "Type")
                                 .IsUnique();
 
                             b1.ToTable("lot_media", (string)null);

@@ -22,7 +22,7 @@ public sealed class AucteraDbContext : DbContext
     public AucteraDbContext(DbContextOptions<AucteraDbContext> options) : base(options)
     {
     }
-
+        
     /// <summary>
     /// Performs the on model creating operation.
     /// </summary>
