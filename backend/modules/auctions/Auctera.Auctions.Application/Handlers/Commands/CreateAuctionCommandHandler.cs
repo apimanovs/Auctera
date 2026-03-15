@@ -8,6 +8,9 @@ using MediatR;
 
 namespace Auctera.Auctions.Application.Handlers.Commands;
 
+/// <summary>
+/// Represents the create auction command handler class.
+/// </summary>
 public sealed class CreateAuctionCommandHandler
     (
         IAuctionRepository auctionRepository,
@@ -19,6 +22,12 @@ public sealed class CreateAuctionCommandHandler
     private readonly IDomainEventDispatcher _domainEventHandler = domainEventDispatcher;
     private readonly ILotRepository _lotRepository = lotRepository;
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="command">Input data for the operation.</param>
+    /// <param name="ct">Ct.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<Guid> Handle(CreateAuctionCommand command, CancellationToken ct)
     {
         var lot = await _lotRepository.GetLotById(command.LotId, ct);

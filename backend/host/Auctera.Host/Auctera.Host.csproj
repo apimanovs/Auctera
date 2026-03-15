@@ -11,6 +11,7 @@
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="14.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12" />
+		<PackageReference Include="Stripe.net" Version="50.4.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
 	</ItemGroup>
@@ -32,6 +33,8 @@
 	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Aucters.Items.Infrastructure\Auctera.Items.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\modules\orders\Auctera.Orders.Domain\Auctera.Orders.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\orders\Auctera.Orders.Infrastructure\Auctera.Orders.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
 	  <ProjectReference Include="..\..\realtime\Auctera.Realtime\Auctera.Realtime.csproj" />
 	  <ProjectReference Include="..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />

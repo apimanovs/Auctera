@@ -7,6 +7,9 @@ using Auctera.Shared.Domain.Abstractions;
 using MediatR;
 
 namespace Auctera.Auctions.Application.Handlers.Commands;
+/// <summary>
+/// Represents the stop auction command handler class.
+/// </summary>
 public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionCommand>
 {
     private readonly IAuctionRepository _auctionRepository;
@@ -23,6 +26,12 @@ public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionComma
         _domainEventHandler = domainEventHandler;
     }
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Handle(StopAuctionCommand request, CancellationToken cancellationToken)
     {
         var auction = await _auctionRepository.GetAuctionById(request.AuctionId, cancellationToken);
@@ -32,7 +41,7 @@ public sealed class StopAuctionCommandHandler : IRequestHandler<StopAuctionComma
             throw new InvalidOperationException("Auction not found.");
         }
 
-        auction.StopAuction(_clock.UtcNow);
+        await auction.StopAuction(_clock.UtcNow);
         await _auctionRepository.SaveAuctionAsync(auction, cancellationToken);
         await _domainEventHandler.DispatchAsync(auction.DomainEvents, cancellationToken);
         auction.ClearDomainEvents();

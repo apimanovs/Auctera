@@ -3,14 +3,17 @@ using MediatR;
 
 namespace Auctera.Identity.Application.Commands;
 
+/// <summary>
+/// Represents the login command record.
+/// </summary>
 public record LoginCommand(
-    [property: Required]
-    [property: EmailAddress]
-    [property: MaxLength(256)]
+    [param: Required]
+    [param: EmailAddress]
+    [param: MaxLength(256)]
     string email,
 
-    [property: Required]
-    [property: MinLength(8)]
-    [property: MaxLength(128)]
+    [param: Required]
+    [param: MinLength(8)]
+    [param: MaxLength(128)]
     string password
 ) : IRequest<string>;

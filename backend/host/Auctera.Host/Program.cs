@@ -17,8 +17,9 @@ using Auctera.Shared.Infrastructure.Dispatcher;
 using Auctera.Shared.Infrastructure.Interfaces;
 using Auctera.Shared.Infrastructure.Time;
 using Auctera.Shared.Infrastructure.Media;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Auctera.Orders.Infrastructure.Options;
+using Amazon.S3;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -92,6 +93,17 @@ builder.Services.AddRateLimiter(options =>
     });
 });
 
+builder.Services
+    .AddOptions<StripeOptions>()
+    .Bind(builder.Configuration.GetSection(StripeOptions.SectionName))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+builder.Services.AddSingleton<Stripe.Checkout.SessionService>();
+
+var stripeOptions = builder.Configuration.GetSection(StripeOptions.SectionName).Get<StripeOptions>()!;
+Stripe.StripeConfiguration.ApiKey = stripeOptions.SecretKey;
+
 builder.Services.AddDbContext<AucteraDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
@@ -108,9 +120,26 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-builder.Services.AddScoped<IClock, SystemClock>();
-builder.Services.AddTransient<GlobalExceptionMiddleware>();
+
+builder.Services.AddSingleton<IClock, SystemClock>();
+
 builder.Services.AddHostedService<AuctionAutoStopBackgroundService>();
+
+builder.Services.AddSingleton<IAmazonS3>(_ =>
+{
+    var config = new AmazonS3Config
+    {
+        ServiceURL = builder.Configuration["CloudflareR2:ServiceUrl"],
+        ForcePathStyle = true
+    };
+
+    return new AmazonS3Client(
+        builder.Configuration["CloudflareR2:AccessKey"],
+        builder.Configuration["CloudflareR2:SecretKey"],
+        config);
+});
+
+builder.Services.AddScoped<IMediaUploader, MediaUploader>();
 
 var app = builder.Build();
 

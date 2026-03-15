@@ -63,6 +63,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.API", "mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Identity.Domain", "modules\identity\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj", "{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "orders", "orders", "{BF77071F-3AE2-4D42-865D-11F88887554B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Domain", "modules\orders\Auctera.Orders.Domain\Auctera.Orders.Domain.csproj", "{BB3E4937-867C-4B29-AD73-E2719CB66776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Infrastructure", "modules\orders\Auctera.Orders.Infrastructure\Auctera.Orders.Infrastructure.csproj", "{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Application", "modules\orders\Auctera.Orders.Application\Auctera.Orders.Application.csproj", "{46CFCDD3-D2D2-4C94-98E6-1D579C300221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.API", "Auctera.Orders.API\Auctera.Orders.API.csproj", "{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +163,22 @@ Global
 		{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB3E4937-867C-4B29-AD73-E2719CB66776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3E4937-867C-4B29-AD73-E2719CB66776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3E4937-867C-4B29-AD73-E2719CB66776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3E4937-867C-4B29-AD73-E2719CB66776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +209,11 @@ Global
 		{C787235A-3F09-4E69-83C2-960A5E210FC3} = {F48EC881-29C4-4ABA-8117-DEDF2964423E}
 		{935D4C49-99C6-4BAA-9E9E-54299BEA9292} = {F48EC881-29C4-4ABA-8117-DEDF2964423E}
 		{5DBD0A47-08DE-4B17-B5F4-CBFB5A458985} = {F48EC881-29C4-4ABA-8117-DEDF2964423E}
+		{BF77071F-3AE2-4D42-865D-11F88887554B} = {D14CB777-D128-45EA-884F-9EC94417807F}
+		{BB3E4937-867C-4B29-AD73-E2719CB66776} = {BF77071F-3AE2-4D42-865D-11F88887554B}
+		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4} = {BF77071F-3AE2-4D42-865D-11F88887554B}
+		{46CFCDD3-D2D2-4C94-98E6-1D579C300221} = {BF77071F-3AE2-4D42-865D-11F88887554B}
+		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE} = {BF77071F-3AE2-4D42-865D-11F88887554B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74147B40-0A0B-4005-AD7C-C397D28E57C1}

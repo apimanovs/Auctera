@@ -13,11 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
-    <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
+	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
     <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
     <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
     <ProjectReference Include="..\..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\orders\Auctera.Orders.Domain\Auctera.Orders.Domain.csproj" />
     <ProjectReference Include="..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

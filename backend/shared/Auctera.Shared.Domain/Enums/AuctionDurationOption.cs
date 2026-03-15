@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Auctera.Shared.Domain.Enums;
+/// <summary>
+/// Represents the auction duration option enum.
+/// </summary>
 public enum AuctionDurationOption
 {
     Flash1Hour,

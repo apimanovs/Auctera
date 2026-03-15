@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
 
+/// <summary>
+/// Represents the dependency injection class.
+/// </summary>
 public static class DependencyInjection
 {
     public static IServiceCollection AddPersistence(

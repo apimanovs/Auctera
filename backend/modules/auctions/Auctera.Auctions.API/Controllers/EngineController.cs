@@ -15,10 +15,17 @@ namespace Auctera.Auctions.API.Controllers;
 
 [ApiController]
 [Route("api/auction")]
+/// <summary>
+/// Represents the engine controller class.
+/// </summary>
 public sealed class EngineController : ControllerBase
 {
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EngineController"/> class.
+    /// </summary>
+    /// <param name="mediator">Mediator.</param>
     public EngineController (IMediator mediator)
     {
         _mediator = mediator;
@@ -27,6 +34,12 @@ public sealed class EngineController : ControllerBase
     [HttpPost]
     [Route("start/{auctionId}")]
     [Authorize]
+    /// <summary>
+    /// Starts auction.
+    /// </summary>
+    /// <param name="auctionId">Identifier of auction.</param>
+    /// <param name="duration">Duration.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<IActionResult> StartAuction(Guid auctionId, AuctionDurationOption duration)
     {
         await _mediator.Send (new StartAuctionCommand(auctionId, duration));
@@ -36,6 +49,11 @@ public sealed class EngineController : ControllerBase
     [HttpPost]
     [Route("stop/{auctionId}")]
     [Authorize]
+    /// <summary>
+    /// Stops auction.
+    /// </summary>
+    /// <param name="auctionId">Identifier of auction.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<IActionResult> StopAuction(Guid auctionId)
     {
         await _mediator.Send (new StopAuctionCommand (auctionId));

@@ -5,11 +5,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auctera.Persistance.Configurations.Items;
 
+/// <summary>
+/// Represents the lot configuration class.
+/// </summary>
 public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
 {
+    /// <summary>
+    /// Performs the configure operation.
+    /// </summary>
+    /// <param name="builder">Builder.</param>
     public void Configure(EntityTypeBuilder<Lot> builder)
     {
         builder.ToTable("lots");
+
+        builder.HasIndex(lot => lot.Id).IsUnique();
 
         builder.HasKey(lot => lot.Id);
 
@@ -27,6 +36,29 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
         builder.Property(lot => lot.Status)
             .HasConversion<string>()
             .IsRequired();
+
+        builder.Property(l => l.Category)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(l => l.Gender)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(l => l.Size)
+            .HasMaxLength(20)
+            .IsRequired();
+
+        builder.Property(l => l.Brand)
+            .HasMaxLength(120)
+            .IsRequired();
+
+        builder.Property(l => l.Condition)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(l => l.Color)
+            .HasMaxLength(50);
 
         builder.OwnsOne(lot => lot.Price, money =>
         {
@@ -60,7 +92,7 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
                 .HasMaxLength(50)
                 .IsRequired();
 
-            media.HasIndex("LotId", "media_key", "media_type")
+            media.HasIndex("LotId", "Key", "Type")
                 .IsUnique();
         });
     }

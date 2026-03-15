@@ -5,14 +5,33 @@ using Auctera.Shared.Domain.Enums;
 using Auctera.Bids.Domain;
 using Auctera.Items.Domain;
 using Auctera.Auctions.Domain.Events;
+using System.Threading.Tasks;
 
 namespace Auctera.Auctions.Domain;
+/// <summary>
+/// Represents the auction class.
+/// </summary>
 public sealed class Auction : AggregateRoot<Guid>
 {
+    /// <summary>
+    /// Gets or sets the status used by this type.
+    /// </summary>
     public AuctionStatus Status { get; private set; }
+    /// <summary>
+    /// Gets or sets the start date used by this type.
+    /// </summary>
     public DateTime? StartDate { get; private set; }
+    /// <summary>
+    /// Gets or sets the end date used by this type.
+    /// </summary>
     public DateTime? EndDate { get; private set; }
+    /// <summary>
+    /// Gets or sets the current price used by this type.
+    /// </summary>
     public Money CurrentPrice { get; private set; }
+    /// <summary>
+    /// Gets or sets the lot id used by this type.
+    /// </summary>
     public Guid? LotId { get; private set; }
 
     private readonly List<Bid> _bids = new();
@@ -26,6 +45,11 @@ public sealed class Auction : AggregateRoot<Guid>
         Status = AuctionStatus.Draft;
     }
 
+    /// <summary>
+    /// Starts auction.
+    /// </summary>
+    /// <param name="now">Date and time for the operation.</param>
+    /// <param name="duration">Duration.</param>
     public void StartAuction(DateTime now, TimeSpan duration)
     {
         if (Status != AuctionStatus.Draft)
@@ -48,7 +72,12 @@ public sealed class Auction : AggregateRoot<Guid>
         Status = AuctionStatus.Active;
     }
 
-    public void StopAuction(DateTime now)
+    /// <summary>
+    /// Stops auction.
+    /// </summary>
+    /// <param name="now">Date and time for the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public async Task StopAuction(DateTime now)
     {
         if (Status != AuctionStatus.Active)
         {
@@ -86,12 +115,17 @@ public sealed class Auction : AggregateRoot<Guid>
 
         AddDomainEvent(new AuctionEndedDomainEvent(
             auctionId: Id,
+            lotId: LotId ?? Guid.Empty,
             winnerId: winningBid?.BidderId,
             winningBidId: winningBid?.Id,
+            winningMoney: winningBid?.Amount,
             occurredAt: now
         ));
     }
 
+    /// <summary>
+    /// Cancels auction.
+    /// </summary>
     public void CancelAuction()
     {
         if (Status == AuctionStatus.Finished)
@@ -102,6 +136,11 @@ public sealed class Auction : AggregateRoot<Guid>
         Status = AuctionStatus.Cancelled;
     }
 
+    /// <summary>
+    /// Reschedules auction.
+    /// </summary>
+    /// <param name="newStartDate">Date and time for the operation.</param>
+    /// <param name="newDuration">New duration.</param>
     public void RescheduleAuction(DateTime newStartDate, TimeSpan newDuration)
     {
         if (Status != AuctionStatus.Draft)
@@ -123,6 +162,13 @@ public sealed class Auction : AggregateRoot<Guid>
         EndDate = newStartDate.Add(newDuration);
     }
 
+    /// <summary>
+    /// Places bid.
+    /// </summary>
+    /// <param name="bidId">Identifier of bid.</param>
+    /// <param name="userId">Identifier of user.</param>
+    /// <param name="amount">Amount.</param>
+    /// <param name="now">Date and time for the operation.</param>
     public void PlaceBid(Guid bidId, Guid userId, Money amount, DateTime now)
     {
         if (Status != AuctionStatus.Active)
@@ -174,6 +220,10 @@ public sealed class Auction : AggregateRoot<Guid>
         AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, amount, now));
     }
 
+    /// <summary>
+    /// Adds lot.
+    /// </summary>
+    /// <param name="lot">Lot.</param>
     public void AddLot(Lot lot)
     {
         if (lot == null)
@@ -199,6 +249,10 @@ public sealed class Auction : AggregateRoot<Guid>
         LotId = lot.Id;
     }
 
+    /// <summary>
+    /// Removes lot.
+    /// </summary>
+    /// <param name="lot">Lot.</param>
     private void RemoveLot(Lot lot)
     {
         if (Status != AuctionStatus.Draft)
@@ -214,6 +268,10 @@ public sealed class Auction : AggregateRoot<Guid>
         LotId = Guid.Empty;
     }
 
+    /// <summary>
+    /// Adds bid.
+    /// </summary>
+    /// <param name="bid">Identifier of b.</param>
     private void AddBid(Bid bid)
     {
         if (bid == null)
@@ -229,6 +287,10 @@ public sealed class Auction : AggregateRoot<Guid>
         _bids.Add(bid);
     }
 
+    /// <summary>
+    /// Performs the anti snipping operation.
+    /// </summary>
+    /// <param name="now">Date and time for the operation.</param>
     private void AntiSnipping(DateTime now)
     {
         if (EndDate == null)

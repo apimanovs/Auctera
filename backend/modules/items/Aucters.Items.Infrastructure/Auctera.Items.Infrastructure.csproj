@@ -11,4 +11,5 @@
     <ProjectReference Include="..\Auctera.Items.Application\Auctera.Items.Application.csproj" />
     <ProjectReference Include="..\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
   </ItemGroup>
+
 </Project>

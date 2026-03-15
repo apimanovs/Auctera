@@ -3,25 +3,28 @@ using MediatR;
 
 namespace Auctera.Identity.Application.Commands;
 
+/// <summary>
+/// Represents the register command record.
+/// </summary>
 public record RegisterCommand
 (
-    [property: Required]
-    [property: MinLength(3)]
-    [property: MaxLength(50)]
+    [param: Required]
+    [param: MinLength(3)]
+    [param: MaxLength(50)]
     string username,
 
-    [property: Required]
-    [property: EmailAddress]
-    [property: MaxLength(256)]
+    [param: Required]
+    [param: EmailAddress]
+    [param: MaxLength(256)]
     string email,
 
-    [property: Required]
-    [property: MinLength(8)]
-    [property: MaxLength(128)]
+    [param: Required]
+    [param: MinLength(8)]
+    [param: MaxLength(128)]
     string password,
 
-    [property: Required]
-    [property: MinLength(8)]
-    [property: MaxLength(128)]
+    [param: Required]
+    [param: MinLength(8)]
+    [param: MaxLength(128)]
     string confirmPassword
 ) : IRequest<string>;

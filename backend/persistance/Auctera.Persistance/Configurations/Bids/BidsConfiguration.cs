@@ -4,11 +4,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Persistance.Configurations.Bids;
 
+/// <summary>
+/// Represents the bids configuration class.
+/// </summary>
 public sealed class BidsConfiguration : IEntityTypeConfiguration<Bid>
 {
+    /// <summary>
+    /// Performs the configure operation.
+    /// </summary>
+    /// <param name="builder">Builder.</param>
     public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Bid> builder)
     {
         builder.ToTable("bids");
+
+        builder.HasIndex(bid => bid.Id).IsUnique();
 
         builder.HasKey(bid => bid.Id);
 

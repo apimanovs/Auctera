@@ -4,6 +4,9 @@ using Auctera.Realtime.Hubs;
 
 namespace Auctera.Realtime.Extensions;
 
+/// <summary>
+/// Represents the realtime endpoint extensions class.
+/// </summary>
 public static class RealtimeEndpointExtensions
 {
     public static IEndpointRouteBuilder MapAucteraRealtime(

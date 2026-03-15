@@ -8,16 +8,29 @@ using MediatR;
 using Auctera.Items.Application.Commands;
 using Auctera.Items.Application.Interfaces;
 
-namespace Auctera.Items.Application.Handlers;
+namespace Auctera.Items.Application.Handlers.Commands;
+/// <summary>
+/// Represents the publish lot command handler class.
+/// </summary>
 public sealed class PublishLotCommandHandler : IRequestHandler<PublishLotCommand, Guid>
 {
     private readonly ILotRepository _lotRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PublishLotCommandHandler"/> class.
+    /// </summary>
+    /// <param name="lotRepository">Lot repository.</param>
     public PublishLotCommandHandler(ILotRepository lotRepository)
     {
         _lotRepository = lotRepository;
     }
 
+    /// <summary>
+    /// Handles the operation.
+    /// </summary>
+    /// <param name="request">Input data for the operation.</param>
+    /// <param name="cancellationToken">Cancellation token for the operation.</param>
+    /// <returns>A task that returns the operation result.</returns>
     public async Task<Guid> Handle(PublishLotCommand request, CancellationToken cancellationToken)
     {
         var lot = await _lotRepository.GetLotById(request.LotId, cancellationToken);
