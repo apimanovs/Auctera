@@ -71,7 +71,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Application", "modules\orders\Auctera.Orders.Application\Auctera.Orders.Application.csproj", "{46CFCDD3-D2D2-4C94-98E6-1D579C300221}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.API", "Auctera.Orders.API\Auctera.Orders.API.csproj", "{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.API", "modules\orders\Auctera.Orders.API\Auctera.Orders.API.csproj", "{D596C203-0245-D2D7-2E15-4BCB98321407}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,10 +175,10 @@ Global
 		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46CFCDD3-D2D2-4C94-98E6-1D579C300221}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D596C203-0245-D2D7-2E15-4BCB98321407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D596C203-0245-D2D7-2E15-4BCB98321407}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D596C203-0245-D2D7-2E15-4BCB98321407}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D596C203-0245-D2D7-2E15-4BCB98321407}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,7 +213,7 @@ Global
 		{BB3E4937-867C-4B29-AD73-E2719CB66776} = {BF77071F-3AE2-4D42-865D-11F88887554B}
 		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4} = {BF77071F-3AE2-4D42-865D-11F88887554B}
 		{46CFCDD3-D2D2-4C94-98E6-1D579C300221} = {BF77071F-3AE2-4D42-865D-11F88887554B}
-		{C4BD0BA3-E0BF-4D8C-85A8-9371885B64BE} = {BF77071F-3AE2-4D42-865D-11F88887554B}
+		{D596C203-0245-D2D7-2E15-4BCB98321407} = {BF77071F-3AE2-4D42-865D-11F88887554B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74147B40-0A0B-4005-AD7C-C397D28E57C1}
