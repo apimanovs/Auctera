@@ -25,8 +25,7 @@ const handleNextImage = () => {
     <div class="w-full h-full bg-white">
         <div class="flex h-full flex-col">
             <!-- Image Section -->
-            <div class="relative h-70 overflow-hidden bg-gray-50">
-                <img
+                <div class="relative h-96 overflow-hidden bg-gray-50 rounded-lg">                <img
                     v-if="typeof imageUrl === 'string'"
                     :src="imageUrl"
                     alt="Auction lot image"

@@ -5,7 +5,7 @@ import Container from '@/components/ui/Container.vue'
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="min-h-screen flex flex-col selection:bg-black selection:text-white">
     <Header />
 
     <main class="flex-1 py-6">

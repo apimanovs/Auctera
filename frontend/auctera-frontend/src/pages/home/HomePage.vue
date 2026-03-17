@@ -84,27 +84,27 @@ onMounted(loadAuctions)
 
 <template>
   <div class="">
-    <div class="flex justify-center items-center flex-col text-center mb-2">    
+    <div class="flex justify-center items-center flex-col text-center">    
         <div class="mb-6 flex flex-col items-center text-center">
           <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
             Coutera
           </h1>
-          <p class="mt-3 max-w-2xl text-sm text-black/70">
+          <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
             A curated auction marketplace for rare pieces, timeless finds, and collectible design.
           </p>
-          <p class="mt-2 text-sm text-black/60">
+          <p class="mt-3 max-w-2xl text-xs text-black/80 sm:text-base">
             Every bid matters. Every second counts.
           </p>
         </div>
     </div>
 
     <div class="mb-6">
-        <h1 class="text-2xl font-bold">Tranding Auctions</h1>
+        <h1 class="text-2xl font-bold">Trending Auctions</h1>
         <p class="text-gray-700 mb-6">
           Discover the most popular auctions right now.
         </p>
 
-        <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <AuctionCard
             v-for="auction in auctions"
             :key="auction.id"
@@ -115,13 +115,18 @@ onMounted(loadAuctions)
           />
         </div>
     </div>
-
-    <div class="my-20 flex flex-col items-center text-center">
-      <div class="mb-4 h-px w-16 bg-black/20"></div>
-      <p class="max-w-md text-s uppercase tracking-[0.3em] text-black">
-        Curated pieces. Timeless appeal.
-      </p>
-    </div>
+  
+      <section
+          class="my-16 overflow-hidden text-black flex flex-col items-start gap-6 sm:gap-10 lg:flex-row lg:items-center py-16"
+          aria-labelledby="brand-story-title"
+        >
+          <h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
+            Rare pieces. Real demand. Timeless value.
+          </h2>
+          <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
+            Coutera brings together curated auctions, premium brands, and collectible finds in a refined digital marketplace built for discovery and confident bidding.
+          </p>
+      </section>
 
     <div class="mb-6">
       <h1 class="text-2xl font-bold">New Listings</h1>
@@ -141,12 +146,16 @@ onMounted(loadAuctions)
       </div>
     </div>
 
-    <div class="my-20 flex flex-col items-center text-center">
-      <div class="mb-4 h-px w-16 bg-black/20"></div>
-      <p class="max-w-md text-s uppercase tracking-[0.3em] text-black">
-        The final bid changes everything.
-      </p>
-    </div>
+      <section
+          class="my-16 overflow-hidden text-black flex flex-col justify-center items-center py-16 gap-2"
+          aria-labelledby="brand-story-title"
+        ><h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
+            Not mass market. Never ordinary.
+          </h2>
+          <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
+              Curated auctions for rare fashion, collectible pieces, and objects worth noticing.
+          </p>
+      </section>
 
     <section class="mb-12">
       <h2 class="text-2xl font-bold">Ending Soon</h2>
