@@ -84,17 +84,18 @@ onMounted(loadAuctions)
 
 <template>
   <div class="">
-    <div class="flex justify-center items-center flex-col text-center mb-12">
-        <h1 class="text-2xl font-bold">Coutera</h1>
-        <p class="text-gray-700">
-            Welcome to Coutera, your premier online auction platform.
-            Every bid matters.
-            Every second counts.
-        </p>
-        <p class="text-gray-700">
-            Every bid matters.
-            Every second counts.
-        </p>
+    <div class="flex justify-center items-center flex-col text-center mb-2">    
+        <div class="mb-6 flex flex-col items-center text-center">
+          <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
+            Coutera
+          </h1>
+          <p class="mt-3 max-w-2xl text-sm text-black/70">
+            A curated auction marketplace for rare pieces, timeless finds, and collectible design.
+          </p>
+          <p class="mt-2 text-sm text-black/60">
+            Every bid matters. Every second counts.
+          </p>
+        </div>
     </div>
 
     <div class="mb-6">
@@ -115,12 +116,11 @@ onMounted(loadAuctions)
         </div>
     </div>
 
-    <div class="flex justify-center items-center flex-col text-center mb-12">
-        <h1 class="text-2xl font-bold">Coutera</h1>
-        <p class="text-gray-700">
-          Coutera is not a store. 
-          It’s a marketplace of rare finds.
-        </p>
+    <div class="my-20 flex flex-col items-center text-center">
+      <div class="mb-4 h-px w-16 bg-black/20"></div>
+      <p class="max-w-md text-s uppercase tracking-[0.3em] text-black">
+        Curated pieces. Timeless appeal.
+      </p>
     </div>
 
     <div class="mb-6">
@@ -141,18 +141,17 @@ onMounted(loadAuctions)
       </div>
     </div>
 
-    <div class="flex justify-center items-center flex-col text-center mb-12">
-      <h1 class="text-2xl font-bold">Coutera</h1>
-      <p class="text-gray-700">
-        Coutera is not a store. 
-        It’s a marketplace of rare finds.
+    <div class="my-20 flex flex-col items-center text-center">
+      <div class="mb-4 h-px w-16 bg-black/20"></div>
+      <p class="max-w-md text-s uppercase tracking-[0.3em] text-black">
+        The final bid changes everything.
       </p>
     </div>
 
-    <div class="mb-6">
-      <h1 class="text-2xl font-bold">Ending Soon</h1>
-      <p class="text-gray-700 mb-6">
-        Discover the auctions ending soon.
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold">Ending Soon</h2>
+      <p class="mb-6 text-black/60">
+        Explore auctions that are closing soon.
       </p>
 
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -165,6 +164,12 @@ onMounted(loadAuctions)
           :time-left="auction.timeLeft"
         />
       </div>
-    </div>
+    </section>
   </div>
+  <div class="mt-20 text-sm text-black/60 max-w-3xl mx-auto text-center">
+  <p>
+    Coutera is an online auction marketplace focused on rare fashion, designer clothing, and collectible items.
+    Users can browse auctions, place bids, and discover unique pieces from brands and independent sellers worldwide.
+  </p>
+</div>
 </template>
