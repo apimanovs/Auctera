@@ -19,14 +19,6 @@ const routes = [
           component: HomePage,
         },
         { 
-          path: '/login', 
-          component: LoginPage 
-        },
-        { 
-          path: '/register', 
-          component: RegisterPage 
-        },
-        { 
           path: '/about', 
           component: AboutPage 
         },
@@ -43,6 +35,14 @@ const routes = [
           component: HowToSellPage 
         },
       ]
+    },
+    {
+      path: '/login', 
+      component: LoginPage 
+    },
+    { 
+      path: '/register', 
+      component: RegisterPage 
     },
 ]
 

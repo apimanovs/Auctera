@@ -10,7 +10,7 @@ const currentYear = new Date().getFullYear()
         <Container>
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <p class="text-gray-600">© {{ currentYear }} Auctera</p>
+                    <p class="text-gray-600">© {{ currentYear }} Coutera</p>
                 </div>
                 <div class="flex flex-wrap justify-center md:justify-end space-x-6 mb-4 md:mb-0">
                     <RouterLink to="/about" class="text-black hover:text-gray-600 transition-colors duration-200">

@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-    <nav class="border-b bg-white shadow-sm">
+    <nav class="bg-white border-b">
     <Container>
         <div class="flex justify-between">
             <RouterLink to="/?category=clothing" class="text-gray-700 hover:text-gray-600 transition-colors duration-200 font-medium">
