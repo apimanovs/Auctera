@@ -104,7 +104,7 @@ onMounted(loadAuctions)
           Discover the most popular auctions right now.
         </p>
 
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <AuctionCard
             v-for="auction in auctions"
             :key="auction.id"
@@ -129,7 +129,7 @@ onMounted(loadAuctions)
         Discover the most new auctions right now.
       </p>
 
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <AuctionCard
           v-for="auction in auctions"
           :key="auction.id"
@@ -154,7 +154,7 @@ onMounted(loadAuctions)
         Explore auctions that are closing soon.
       </p>
 
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <AuctionCard
           v-for="auction in auctions"
           :key="auction.id"

@@ -23,11 +23,11 @@ const currentYear = new Date().getFullYear()
                         Privacy Policy
                     </RouterLink>
                 </div>
-                <div class="flex items-center space-x-4">
+                <!-- <div class="flex items-center space-x-4">
                     <RouterLink to="/how-to-sell" class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200">
                         How to Sell
                     </RouterLink>
-                </div>
+                </div> -->
             </div>
         </Container>
     </footer>
