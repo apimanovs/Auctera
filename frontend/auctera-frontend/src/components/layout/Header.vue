@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import Container from '@/components/ui/Container.vue'
 import Input from '@/components/ui/input/Input.vue'
 import Categories from '@/components/layout/CategoriesNavbar.vue'
-import ProfileIcon from '@/components/ui/icons/ProfileIcon.vue'
+// import ProfileIcon from '@/components/ui/icons/ProfileIcon.vue'
 
 const searchQuery = ref('')
 
@@ -49,7 +49,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
 
         <!-- Right Icons -->
         <div class="flex items-center gap-2">
-          <ProfileIcon />
+          <!-- <ProfileIcon /> -->
         </div>
       </div>
     </Container>
