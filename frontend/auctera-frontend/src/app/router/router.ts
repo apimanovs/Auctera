@@ -6,44 +6,64 @@ import AboutPage from '@/pages/AboutPage.vue'
 import TermsPage from '@/pages/TermsPage.vue'
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage.vue'
 import HowToSellPage from '@/pages/HowToSellPage.vue'
+import LandingPage from '@/pages/Landing.vue'
 
 import MainLayout from '@/layouts/MainLayout.vue'
 
+const isDev = import.meta.env.DEV
+
 const routes = [
-    { 
-      path: '/', 
-      component: MainLayout,
-      children: [
-        { 
-          path: '', 
-          component: HomePage,
-        },
-        { 
-          path: '/about', 
-          component: AboutPage 
-        },
-        { 
-          path: '/terms', 
-          component: TermsPage 
-        },
-        { 
-          path: '/privacy-policy', 
-          component: PrivacyPolicyPage 
-        },
-        { 
-          path: '/how-to-sell', 
-          component: HowToSellPage 
+  {
+    path: '/',
+    component: LandingPage,
+  },
+  {    
+    path: '/',
+    component: MainLayout,
+    children: [
+      ...(isDev
+        ? [
+            {
+              path: 'home',
+              component: HomePage,
+            },
+            {
+              path: 'about',
+              component: AboutPage,
+            },
+            {
+              path: 'terms',
+              component: TermsPage,
+            },
+            {
+              path: 'privacy-policy',
+              component: PrivacyPolicyPage,
+            },
+            {
+              path: 'how-to-sell',
+              component: HowToSellPage,
+            },
+            {
+              path: 'login',
+              component: LoginPage,
+            },
+            {
+              path: 'register',
+              component: RegisterPage,
+            },
+          ]
+        : []),
+    ],
+  },
+
+  ...(!isDev
+    ? [
+        {
+          path: '/:pathMatch(.*)*',
+          redirect: '/',
         },
       ]
-    },
-    {
-      path: '/login', 
-      component: LoginPage 
-    },
-    { 
-      path: '/register', 
-      component: RegisterPage 
-    },
+    : []),
 ]
 
 const router = createRouter({
