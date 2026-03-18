@@ -7,59 +7,61 @@ import TermsPage from '@/pages/TermsPage.vue'
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage.vue'
 import HowToSellPage from '@/pages/HowToSellPage.vue'
 import LandingPage from '@/pages/Landing.vue'
-
 import MainLayout from '@/layouts/MainLayout.vue'
 
 const isDev = import.meta.env.DEV
 
-const routes = [
-  {
-    path: '/',
-    component: LandingPage,
-  },
-  {    
-    path: '/',
-    component: MainLayout,
-    children: [
-      ...(isDev
-        ? [
-            {
-              path: 'home',
-              component: HomePage,
-            },
-            {
-              path: 'about',
-              component: AboutPage,
-            },
-            {
-              path: 'terms',
-              component: TermsPage,
-            },
-            {
-              path: 'privacy-policy',
-              component: PrivacyPolicyPage,
-            },
-            {
-              path: 'how-to-sell',
-              component: HowToSellPage,
-            },
-            {
-              path: 'login',
-              component: LoginPage,
-            },
-            {
-              path: 'register',
-              component: RegisterPage,
-            },
-          ]
-        : []),
-    ],
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/',
-  },
-]
+const routes = isDev
+  ? [
+      {
+        path: '/',
+        component: MainLayout,
+        children: [
+          {
+            path: 'home',
+            component: HomePage,
+          },
+          {
+            path: 'about',
+            component: AboutPage,
+          },
+          {
+            path: 'terms',
+            component: TermsPage,
+          },
+          {
+            path: 'privacy-policy',
+            component: PrivacyPolicyPage,
+          },
+          {
+            path: 'how-to-sell',
+            component: HowToSellPage,
+          },
+          {
+            path: 'login',
+            component: LoginPage,
+          },
+          {
+            path: 'register',
+            component: RegisterPage,
+          },
+        ],
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        redirect: '/',
+      },
+    ]
+  : [
+      {
+        path: '/',
+        component: LandingPage,
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        redirect: '/',
+      },
+    ]
 
 const router = createRouter({
   history: createWebHistory(),
