@@ -51,16 +51,6 @@ const auctions = ref<Auction[]>([
 const loading = ref(false)
 const error = ref('')
 
-const currentPage = ref(1)
-const pageSize = ref(8)
-
-const totalItems = computed(() => auctions.value.length)
-
-const paginatedAuctions = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value
-  return auctions.value.slice(start, start + pageSize.value)
-})
-
 async function loadAuctions() {
   try {
     loading.value = true
