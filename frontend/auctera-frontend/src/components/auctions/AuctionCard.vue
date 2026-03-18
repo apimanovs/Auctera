@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 
 defineProps<{
     title: string
@@ -9,16 +8,6 @@ defineProps<{
     imageUrl: string | string[]
     timeLeft: string
 }>()
-
-const currentImageIndex = ref(0)
-
-const handlePrevImage = () => {
-    currentImageIndex.value = (currentImageIndex.value - 1) % 1
-}
-
-const handleNextImage = () => {
-    currentImageIndex.value = (currentImageIndex.value + 1) % 1
-}
 </script>
 
 <template>
