@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { Auction } from '@/types/auction'
 import { getAuctions } from '@/app/services/auctionService'
 import AuctionCard from '@/components/auctions/AuctionCard.vue'
