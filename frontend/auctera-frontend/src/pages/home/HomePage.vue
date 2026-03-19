@@ -23,14 +23,14 @@ const auctions = ref<Auction[]>([
     id: 3,
     title: 'Rolex Submariner Watch Limited Edition',
     price: 5400,
-    imageUrl: 'https://media-photos.depop.com/b1/28724162/3191473833_1c0df3d254c345279d686415cc6b371a/P6.jpg',
+    imageUrl: 'https://media-photos.depop.com/r1/341927691/3481391174_2e97b19297a44aae8e7e46d6e737e530/P6.jpg',
     timeLeft: '1 день 6 часов',
   },
   {
     id: 4,
     title: 'Antique Wooden Cabinet with Mirror',
     price: 280,
-    imageUrl: 'https://media-photos.depop.com/b1/345063453/3181005408_f422dd7fb6704a1b903d4ed4dd8bc0fd/P6.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/20411984/2751785262_45ca34b51be54edbad51742f72c8c676/P0.jpg',
     timeLeft: '4 дня 20 часов',
   },
   {
@@ -94,7 +94,7 @@ onMounted(loadAuctions)
           Discover the most popular auctions right now.
         </p>
 
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <AuctionCard
             v-for="auction in auctions"
             :key="auction.id"

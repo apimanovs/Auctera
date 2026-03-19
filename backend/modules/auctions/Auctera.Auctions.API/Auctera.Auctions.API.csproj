@@ -14,7 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\modules\identity\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
+    <ProjectReference Include="..\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />
+    <ProjectReference Include="..\Auctera.Auctions.Infrastructure\Auctera.Auctions.Infrastructure.csproj" />
   </ItemGroup>
+
 
 </Project>

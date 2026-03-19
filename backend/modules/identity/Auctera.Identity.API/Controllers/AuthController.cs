@@ -1,4 +1,5 @@
 using Auctera.Identity.Application.Commands;
+using Auctera.Identity.Application.Interfaces;
 
 using MediatR;
 
@@ -14,9 +15,10 @@ namespace Auctera.Identity.API.Controllers;
 /// <summary>
 /// Represents the auth controller class.
 /// </summary>
-public sealed class AuthController(IMediator mediator) : ControllerBase
+public sealed class AuthController(IMediator mediator, ICookieFactory cookieFactory) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+    private readonly ICookieFactory _cookieFactory = cookieFactory;
 
     [HttpPost("register")]
     [AllowAnonymous]
@@ -29,6 +31,9 @@ public sealed class AuthController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<string>> Register([FromBody] RegisterCommand command, CancellationToken cancellationToken)
     {
         var token = await _mediator.Send(command, cancellationToken);
+
+        _cookieFactory.SetCookie(Response, token);
+
         return Ok(token);
     }
 
@@ -43,6 +48,9 @@ public sealed class AuthController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<string>> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
     {
         var token = await _mediator.Send(command, cancellationToken);
+
+        _cookieFactory.SetCookie(Response, token);
+
         return Ok(token);
     }
 }
