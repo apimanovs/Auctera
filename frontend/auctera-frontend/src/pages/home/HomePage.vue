@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import type { Auction } from '@/types/auction'
 import { getAuctions } from '@/app/services/auctionService'
 import AuctionCard from '@/components/auctions/AuctionCard.vue'
-import { Card, CardContent } from '@/components/ui/card'
 import {
   Carousel,
   CarouselContent,
@@ -17,35 +16,35 @@ const auctions = ref<Auction[]>([
     id: 1,
     title: 'Vintage Leather Sofa - Pristine Condition',
     price: 450,
-    imageUrl: 'https://media-photos.depop.com/b1/36719830/3498593736_9131744e9156480d90e996a6dcb6ec67/P0.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/28724162/3191473831_ade6609dc27340629bc6d4af9ac1b841/P0.jpg',
     timeLeft: '2 дня 14 часов',
   },
   {
     id: 2,
     title: 'Original Oil Painting by Unknown Artist',
     price: 320,
-    imageUrl: 'https://media-photos.depop.com/b1/448068812/3474488748_5e0e9243711c4cbcb6dce7afdff37d6d/P0.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/38992639/3121126790_b608df72f79c4f8b9cb99737678b74f5/P0.jpg',
     timeLeft: '3 дня 8 часов',
   },
   {
     id: 3,
     title: 'Rolex Submariner Watch Limited Edition',
     price: 5400,
-    imageUrl: 'https://media-photos.depop.com/r1/341927691/3481391174_2e97b19297a44aae8e7e46d6e737e530/P6.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P0.jpg',
     timeLeft: '1 день 6 часов',
   },
   {
     id: 4,
     title: 'Antique Wooden Cabinet with Mirror',
     price: 280,
-    imageUrl: 'https://media-photos.depop.com/b1/20411984/2751785262_45ca34b51be54edbad51742f72c8c676/P0.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/43448124/3109199960_e0915b4487004c61a6f7613dca8db4a9/P0.jpg',
     timeLeft: '4 дня 20 часов',
   },
   {
     id: 5,
     title: 'Vintage Pearl Necklace - 18K Gold Chain',
     price: 650,
-    imageUrl: 'https://media-photos.depop.com/b1/45498419/3517277733_6056232abec546e987925ec83630f810/P0.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/51377749/3251202528_7ca0ed8a90b8496c9b8793bd28d3de17/P0.jpg',
     timeLeft: '5 дней 12 часов',
   },
   {
@@ -94,7 +93,7 @@ const auctions = ref<Auction[]>([
     id: 12,
     title: 'Rare Bird Taxidermy Display',
     price: 1200,
-    imageUrl: 'https://media-photos.depop.com/b1/45498419/3517277733_6056232abec546e987925ec83630f810/P0.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/51416371/3553513106_b896da1472a94103a15b55b05dd159f1/P0.jpg',
     timeLeft: '4 дня 18 часов',
   },
 ])
@@ -142,7 +141,7 @@ onMounted(loadAuctions)
           <CarouselItem
             v-for="auction in auctions"
             :key="auction.id"
-            class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/6 min-w-0"
+            class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5 min-w-0"
           >
             <AuctionCard
               :title="auction.title"
