@@ -3,6 +3,14 @@ import { ref, onMounted } from 'vue'
 import type { Auction } from '@/types/auction'
 import { getAuctions } from '@/app/services/auctionService'
 import AuctionCard from '@/components/auctions/AuctionCard.vue'
+import { Card, CardContent } from '@/components/ui/card'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 
 const auctions = ref<Auction[]>([
   {
@@ -37,7 +45,7 @@ const auctions = ref<Auction[]>([
     id: 5,
     title: 'Vintage Pearl Necklace - 18K Gold Chain',
     price: 650,
-    imageUrl: 'https://i.ebayimg.com/images/g/A0cAAOSwKrNmMQw0/s-l400.jpg',
+    imageUrl: 'https://media-photos.depop.com/b1/45498419/3517277733_6056232abec546e987925ec83630f810/P0.jpg',
     timeLeft: '5 дней 12 часов',
   },
   {
@@ -46,6 +54,48 @@ const auctions = ref<Auction[]>([
     price: 2100,
     imageUrl: 'https://images.thebestshops.com/product_images/original/SL12226-044_01-339d21.jpg',
     timeLeft: '18 часов 30 минут',
+  },
+  {
+    id: 7,
+    title: 'Signed Beatles Vinyl Record First Edition',
+    price: 3200,
+    imageUrl: 'https://media-photos.depop.com/b1/45498419/3517277733_6056232abec546e987925ec83630f810/P0.jpg',
+    timeLeft: '2 дня 5 часов',
+  },
+  {
+    id: 8,
+    title: 'Handmade Italian Ceramic Vase',
+    price: 420,
+    imageUrl: 'https://media-photos.depop.com/b1/36719830/3498593736_9131744e9156480d90e996a6dcb6ec67/P0.jpg',
+    timeLeft: '6 дней 10 часов',
+  },
+  {
+    id: 9,
+    title: 'Vintage Leather Camera Bag',
+    price: 180,
+    imageUrl: 'https://media-photos.depop.com/b1/448068812/3474488748_5e0e9243711c4cbcb6dce7afdff37d6d/P0.jpg',
+    timeLeft: '1 день 12 часов',
+  },
+  {
+    id: 10,
+    title: 'Classic Analogue Photocamera 35mm',
+    price: 240,
+    imageUrl: 'https://media-photos.depop.com/r1/341927691/3481391174_2e97b19297a44aae8e7e46d6e737e530/P6.jpg',
+    timeLeft: '3 дня 4 часа',
+  },
+  {
+    id: 11,
+    title: 'Sterling Silver Coin Collection',
+    price: 890,
+    imageUrl: 'https://media-photos.depop.com/b1/20411984/2751785262_45ca34b51be54edbad51742f72c8c676/P0.jpg',
+    timeLeft: '7 дней 2 часа',
+  },
+  {
+    id: 12,
+    title: 'Rare Bird Taxidermy Display',
+    price: 1200,
+    imageUrl: 'https://media-photos.depop.com/b1/45498419/3517277733_6056232abec546e987925ec83630f810/P0.jpg',
+    timeLeft: '4 дня 18 часов',
   },
 ])
 const loading = ref(false)
@@ -74,37 +124,51 @@ onMounted(loadAuctions)
 
 <template>
   <div class="">
-    <div class="flex justify-center items-center flex-col text-center">    
-        <div class="mb-6 flex flex-col items-center text-center">
-          <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
-            Coutera
-          </h1>
-          <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
-            A curated auction marketplace for rare pieces, timeless finds, and collectible design.
-          </p>
-          <p class="mt-3 max-w-2xl text-xs text-black/80 sm:text-base">
-            Every bid matters. Every second counts.
-          </p>
-        </div>
-    </div>
-
-    <div class="mb-6">
+  <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
+    <div class="mb-6 flex items-end justify-between gap-2">
+      <div>
         <h1 class="text-2xl font-bold">Trending Auctions</h1>
-        <p class="text-gray-700 mb-6">
+        <p class="mt-1 text-gray-700">
           Discover the most popular auctions right now.
         </p>
+      </div>
+    </div>
 
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <AuctionCard
+    <Carousel
+      :opts="{ loop: true, align: 'start', slidesToScroll: 1 }"
+      class="w-full"
+    >
+        <CarouselContent class="-ml-3">
+          <CarouselItem
             v-for="auction in auctions"
             :key="auction.id"
-            :title="auction.title"
-            :price="auction.price"
-            :image-url="auction.imageUrl"
-            :time-left="auction.timeLeft"
+            class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/6 min-w-0"
+          >
+            <AuctionCard
+              :title="auction.title"
+              :price="auction.price"
+              :image-url="auction.imageUrl"
+              :time-left="auction.timeLeft"
+            />
+          </CarouselItem>
+        </CarouselContent>
+
+      <div class="mt-6 flex items-center justify-between">
+        <p class="text-sm text-black/50">
+          Scroll through trending picks
+        </p>
+
+        <div class="flex items-center gap-2">
+          <CarouselPrevious
+            class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+          />
+          <CarouselNext
+            class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
           />
         </div>
-    </div>
+      </div>
+    </Carousel>
+  </div>
   
       <section
           class="my-16 overflow-hidden text-black flex flex-col items-start gap-6 sm:gap-10 lg:flex-row lg:items-center py-16"
@@ -124,7 +188,7 @@ onMounted(loadAuctions)
         Discover the most new auctions right now.
       </p>
 
-      <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-6">
         <AuctionCard
           v-for="auction in auctions"
           :key="auction.id"

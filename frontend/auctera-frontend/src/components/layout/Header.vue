@@ -53,6 +53,6 @@ const handleKeyPress = (event: KeyboardEvent) => {
         </div>
       </div>
     </Container>
+    <Categories />
   </header>
-  <Categories />
 </template>

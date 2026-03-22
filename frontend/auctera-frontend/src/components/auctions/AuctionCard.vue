@@ -14,7 +14,7 @@ defineProps<{
     <div class="w-full h-full bg-white">
         <div class="flex h-full flex-col">
             <!-- Image Section -->
-                <div class="relative h-96 overflow-hidden bg-gray-50 rounded-lg">                <img
+                <div class="relative aspect-square h-60 overflow-hidden bg-gray-50 rounded-lg">                <img
                     v-if="typeof imageUrl === 'string'"
                     :src="imageUrl"
                     alt="Auction lot image"
