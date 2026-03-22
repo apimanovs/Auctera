@@ -30,7 +30,7 @@ defineProps<{
             <!-- Info Section -->
             <div class="p-3 flex flex-1 flex-col justify-between">
                 <!-- Title -->
-                <h3 class="mb-3 line-clamp-2 text-sm font-medium text-gray-900 min-h-[2.5rem]">
+                <h3 class="mb-3 line-clamp-2 text-sm font-medium text-gray-900 min-h-2.5rem">
                     {{ title }}
                 </h3>
 

@@ -3,6 +3,9 @@ import { ref, onMounted } from 'vue'
 import type { Auction } from '@/types/auction'
 import { getAuctions } from '@/app/services/auctionService'
 import AuctionCard from '@/components/auctions/AuctionCard.vue'
+import TrendingUpIcon from '@/components/ui/icons/TrendingUpIcon.vue'
+import RefreshCwIcon from '@/components/ui/icons/RefreshCwIcon.vue'
+import TimerIcon from '@/components/ui/icons/TimerIcon.vue'
 import {
   Carousel,
   CarouselContent,
@@ -10,6 +13,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+
+
 
 const auctions = ref<Auction[]>([
   {
@@ -123,51 +128,68 @@ onMounted(loadAuctions)
 
 <template>
   <div class="">
-  <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
-    <div class="mb-6 flex items-end justify-between gap-2">
-      <div>
-        <h1 class="text-2xl font-bold">Trending Auctions</h1>
-        <p class="mt-1 text-gray-700">
-          Discover the most popular auctions right now.
+    <section
+        class="my-16 overflow-hidden text-black flex flex-col items-start gap-6 sm:gap-10 lg:flex-row lg:items-center py-16"
+        aria-labelledby="brand-story-title">
+        <h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
+          Rare pieces. Real demand. Timeless value.
+        </h2>
+        <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
+          Coutera brings together curated auctions, premium brands, and collectible finds in a refined digital marketplace built for discovery and confident bidding.
         </p>
-      </div>
-    </div>
+    </section>
 
-    <Carousel
-      :opts="{ loop: true, align: 'start', slidesToScroll: 1 }"
-      class="w-full"
-    >
-        <CarouselContent class="-ml-3">
-          <CarouselItem
-            v-for="auction in auctions"
-            :key="auction.id"
-            class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5 min-w-0"
-          >
-            <AuctionCard
-              :title="auction.title"
-              :price="auction.price"
-              :image-url="auction.imageUrl"
-              :time-left="auction.timeLeft"
-            />
-          </CarouselItem>
-        </CarouselContent>
-
-      <div class="mt-6 flex items-center justify-between">
-        <p class="text-sm text-black/50">
-          Scroll through trending picks
-        </p>
-
-        <div class="flex items-center gap-2">
-          <CarouselPrevious
-            class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
-          />
-          <CarouselNext
-            class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
-          />
+      <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
+        <div class="mb-6 flex items-end justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-2xl font-bold">Trending Auctions</h1>
+              <TrendingUpIcon class="h-5 w-5" />
+            </div>
+            <p class="mt-1 text-gray-700">
+              Discover the most popular auctions right now.
+            </p>
+          </div>
+            <p class="mt-1 text-black hover:underline hover:text-gray-700 transition cursor-pointer">
+              Browse more
+            </p>
         </div>
+
+        <Carousel
+          :opts="{ loop: true, align: 'start', slidesToScroll: 1 }"
+          class="w-full"
+        >
+            <CarouselContent class="-ml-3">
+              <CarouselItem
+                v-for="auction in auctions"
+                :key="auction.id"
+                class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
+              >
+                <AuctionCard
+                  :title="auction.title"
+                  :price="auction.price"
+                  :image-url="auction.imageUrl"
+                  :time-left="auction.timeLeft"
+                />
+              </CarouselItem>
+            </CarouselContent>
+
+          <div class="mt-6 flex items-center justify-between">
+            <p class="text-sm text-black/50">
+              Scroll through trending picks
+            </p>
+
+            <div class="flex items-center gap-2">
+              <CarouselPrevious
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+              />
+              <CarouselNext
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+              />
+            </div>
+          </div>
+        </Carousel>
       </div>
-    </Carousel>
-  </div>
   
       <section
           class="my-16 overflow-hidden text-black flex flex-col items-start gap-6 sm:gap-10 lg:flex-row lg:items-center py-16"
@@ -181,23 +203,57 @@ onMounted(loadAuctions)
           </p>
       </section>
 
-    <div class="mb-6">
-      <h1 class="text-2xl font-bold">New Listings</h1>
-      <p class="text-gray-700 mb-6">
-        Discover the most new auctions right now.
-      </p>
+      <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
+        <div class="mb-6 flex items-end justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-2xl font-bold">New listings</h1>
+              <RefreshCwIcon class="h-5 w-5" />
+            </div>
+            <p class="mt-1 text-gray-700">
+              Discover the most fresh auctions right now.
+            </p>
+          </div>
+            <p class="mt-1 text-black hover:underline hover:text-gray-700 transition cursor-pointer">
+              Browse more
+            </p>
+        </div>
 
-      <div class="grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-6">
-        <AuctionCard
-          v-for="auction in auctions"
-          :key="auction.id"
-          :title="auction.title"
-          :price="auction.price"
-          :image-url="auction.imageUrl"
-          :time-left="auction.timeLeft"
-        />
+        <Carousel
+          :opts="{ loop: true, align: 'start', slidesToScroll: 1 }"
+          class="w-full"
+        >
+            <CarouselContent class="-ml-3">
+              <CarouselItem
+                v-for="auction in auctions"
+                :key="auction.id"
+                class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
+              >
+                <AuctionCard
+                  :title="auction.title"
+                  :price="auction.price"
+                  :image-url="auction.imageUrl"
+                  :time-left="auction.timeLeft"
+                />
+              </CarouselItem>
+            </CarouselContent>
+
+          <div class="mt-6 flex items-center justify-between">
+            <p class="text-sm text-black/50">
+              Scroll through trending picks
+            </p>
+
+            <div class="flex items-center gap-2">
+              <CarouselPrevious
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+              />
+              <CarouselNext
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+              />
+            </div>
+          </div>
+        </Carousel>
       </div>
-    </div>
 
       <section
           class="my-16 overflow-hidden text-black flex flex-col justify-center items-center py-16 gap-2"
@@ -210,23 +266,57 @@ onMounted(loadAuctions)
           </p>
       </section>
 
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold">Ending Soon</h2>
-      <p class="mb-6 text-black/60">
-        Explore auctions that are closing soon.
-      </p>
+          <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
+        <div class="mb-6 flex items-end justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-2xl font-bold">Ending soon</h1>
+              <TimerIcon class="h-5 w-5" />
+            </div>
+            <p class="mt-1 text-gray-700">
+              Explore auctions that are about to end soon and place your bid before it's too late.
+            </p>
+          </div>
+            <p class="mt-1 text-black hover:underline hover:text-gray-700 transition cursor-pointer">
+              Browse more
+            </p>
+        </div>
 
-      <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <AuctionCard
-          v-for="auction in auctions"
-          :key="auction.id"
-          :title="auction.title"
-          :price="auction.price"
-          :image-url="auction.imageUrl"
-          :time-left="auction.timeLeft"
-        />
+        <Carousel
+          :opts="{ loop: true, align: 'start', slidesToScroll: 1 }"
+          class="w-full"
+        >
+            <CarouselContent class="-ml-3">
+              <CarouselItem
+                v-for="auction in auctions"
+                :key="auction.id"
+                class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
+              >
+                <AuctionCard
+                  :title="auction.title"
+                  :price="auction.price"
+                  :image-url="auction.imageUrl"
+                  :time-left="auction.timeLeft"
+                />
+              </CarouselItem>
+            </CarouselContent>
+
+          <div class="mt-6 flex items-center justify-between">
+            <p class="text-sm text-black/50">
+              Scroll through trending picks
+            </p>
+
+            <div class="flex items-center gap-2">
+              <CarouselPrevious
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+              />
+              <CarouselNext
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+              />
+            </div>
+          </div>
+        </Carousel>
       </div>
-    </section>
   </div>
   <div class="mt-20 text-sm text-black/60 max-w-3xl mx-auto text-center">
   <p>
