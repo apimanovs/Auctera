@@ -128,15 +128,43 @@ onMounted(loadAuctions)
 
 <template>
   <div class="">
-    <section
-        class="my-16 overflow-hidden text-black flex flex-col items-start gap-6 sm:gap-10 lg:flex-row lg:items-center py-16"
-        aria-labelledby="brand-story-title">
-        <h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
-          Rare pieces. Real demand. Timeless value.
-        </h2>
-        <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
-          Coutera brings together curated auctions, premium brands, and collectible finds in a refined digital marketplace built for discovery and confident bidding.
-        </p>
+    <section class="mb-10 overflow-hidden rounded-[28px] bg-neutral-100 px-6 py-8 md:px-10 md:py-10">
+      <div class="grid items-center gap-8 md:grid-cols-[1.15fr_0.85fr]">
+        <div class="max-w-2xl">
+          <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+            Coutera
+          </p>
+
+          <h1 class="mt-3 text-3xl font-semibold tracking-tight text-black sm:text-4xl md:text-5xl">
+            Rare pieces, premium brands, and auctions worth watching.
+          </h1>
+
+          <p class="mt-4 max-w-xl text-sm leading-6 text-black/60 sm:text-base">
+            A refined marketplace for designer fashion, collectibles, and standout objects.
+            Discover curated lots, place confident bids, and find items that feel worth owning.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button
+              class="rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition hover:bg-black/90"
+            >
+              Explore auctions
+            </button>
+
+            <button
+              class="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:border-black"
+            >
+              Browse brands
+            </button>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="overflow-hidden rounded-[24px] bg-white">
+              Add slider with timer
+          </div>
+        </div>
+      </div>
     </section>
 
       <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
