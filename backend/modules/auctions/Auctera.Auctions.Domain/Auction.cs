@@ -44,13 +44,12 @@ public sealed class Auction : AggregateRoot<Guid>
     {
     }
 
-    public Auction(Guid id, Money currentPrice, Guid lotId) : base(id)
+    public Auction(Guid id, Money currentPrice) : base(id)
     {
         Status = AuctionStatus.Draft;
         StartDate = DateTime.UtcNow;
         EndDate = DateTime.UtcNow.AddDays(7);
         CurrentPrice = currentPrice;
-        LotId = lotId;
     }
 
     /// <summary>

@@ -37,7 +37,7 @@ public sealed class CreateAuctionCommandHandler
             throw new Exception("Lot doesnt exist");
         }
 
-        var auction = new Auction(Guid.NewGuid(), lot.Price, lot.Id);
+        var auction = new Auction(Guid.NewGuid(), lot.Price);
 
         auction.AddLot(lot);
 
