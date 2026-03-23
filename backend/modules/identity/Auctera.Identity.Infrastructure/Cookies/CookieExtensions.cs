@@ -11,7 +11,7 @@ public class CookieFactory : ICookieFactory
         {
             HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.Lax,
             Expires = DateTimeOffset.UtcNow.AddDays(7),
             Path = "/"
         });

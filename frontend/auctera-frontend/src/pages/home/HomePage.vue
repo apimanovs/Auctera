@@ -240,7 +240,7 @@ onMounted(loadAuctions)
 
           <div class="mt-6 flex items-center justify-between">
             <p class="text-sm text-black/50">
-              Scroll through trending picks
+              Scroll through .
             </p>
 
             <div class="flex items-center gap-2">
@@ -257,8 +257,8 @@ onMounted(loadAuctions)
 
       <section
           class="my-16 overflow-hidden text-black flex flex-col justify-center items-center py-16 gap-2"
-          aria-labelledby="brand-story-title"
-        ><h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
+          aria-labelledby="brand-story-title">
+          <h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
             Not mass market. Never ordinary.
           </h2>
           <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
@@ -303,7 +303,7 @@ onMounted(loadAuctions)
 
           <div class="mt-6 flex items-center justify-between">
             <p class="text-sm text-black/50">
-              Scroll through trending picks
+              Scroll through ending soon auctions.
             </p>
 
             <div class="flex items-center gap-2">

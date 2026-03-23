@@ -79,8 +79,10 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
 
             media.WithOwner().HasForeignKey("LotId");
 
-            media.Property<int>("Id");
             media.HasKey("Id");
+
+            media.Property(m => m.Id)
+                .ValueGeneratedNever();
 
             media.Property(m => m.Key)
                 .HasColumnName("media_key")

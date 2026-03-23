@@ -1,10 +1,13 @@
-﻿using Auctera.Items.Application.Commands;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+
+using Auctera.Identity.Infrastructure.Claims;
+using Auctera.Items.Application.Commands;
+using Auctera.Items.Application.Queries;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Auctera.Items.Application.Queries;
 
 namespace Auctera.Items.API.Controllers;
 
@@ -72,9 +75,9 @@ public sealed class ItemController : ControllerBase
     /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> DeleteLot(Guid lotId, CancellationToken cancellationToken)
     {
-        var sellerId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+        var userId = User.Claims.GetUserId();
 
-        await _mediator.Send(new DeleteLotCommand(lotId, sellerId), cancellationToken);
+        await _mediator.Send(new DeleteLotCommand(lotId, userId), cancellationToken);
         return Ok();
     }
 
@@ -89,9 +92,9 @@ public sealed class ItemController : ControllerBase
     /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> PublishLot(Guid lotId, CancellationToken cancellationToken)
     {
-        var sellerId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+        var userId = User.Claims.GetUserId();
 
-        await _mediator.Send(new PublishLotCommand(lotId, sellerId), cancellationToken);
+        await _mediator.Send(new PublishLotCommand(lotId, userId), cancellationToken);
         return Ok();
     }
 

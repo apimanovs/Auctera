@@ -230,6 +230,7 @@ public sealed class Lot : Entity<Guid>
     /// </summary>
     public sealed class LotMedia
     {
+        public Guid Id { get; private set; }
         /// <summary>
         /// Gets or sets the key used by this type.
         /// </summary>
@@ -261,6 +262,7 @@ public sealed class Lot : Entity<Guid>
                 throw new ArgumentException("Media type is required.");
             }
 
+            Id = Guid.NewGuid();
             Key = key;
             Type = type;
         }

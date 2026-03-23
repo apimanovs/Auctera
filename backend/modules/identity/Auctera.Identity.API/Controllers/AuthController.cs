@@ -55,11 +55,17 @@ public sealed class AuthController(IMediator mediator, ICookieFactory cookieFact
     }
 
     [HttpPost("logout")]
-    [Authorize]
     public async Task<ActionResult> Logout(CancellationToken cancellationToken)
     {
         _cookieFactory.DeleteCookie(Response);
 
         return Ok();
+    }
+
+    [HttpGet("claims")]
+    [Authorize]
+    public IActionResult ClaimsDebug()
+    {
+        return Ok(User.Claims.Select(c => new { c.Type, c.Value }));
     }
 }

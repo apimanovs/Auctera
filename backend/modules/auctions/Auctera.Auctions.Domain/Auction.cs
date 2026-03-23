@@ -40,9 +40,17 @@ public sealed class Auction : AggregateRoot<Guid>
     private static readonly TimeSpan AntiSnipingWindow = TimeSpan.FromSeconds(10);
     private static readonly TimeSpan AntiSnipingExtension = TimeSpan.FromSeconds(30);
 
-    public Auction(Guid id) : base(id)
+    private Auction() : base(Guid.Empty)
+    {
+    }
+
+    public Auction(Guid id, Money currentPrice, Guid lotId) : base(id)
     {
         Status = AuctionStatus.Draft;
+        StartDate = DateTime.UtcNow;
+        EndDate = DateTime.UtcNow.AddDays(7);
+        CurrentPrice = currentPrice;
+        LotId = lotId;
     }
 
     /// <summary>

@@ -20,6 +20,8 @@ using Auctera.Shared.Infrastructure.Media;
 using Microsoft.EntityFrameworkCore;
 using Auctera.Orders.Infrastructure.Options;
 using Amazon.S3;
+using Auctera.Identity.Application.Interfaces;
+using Auctera.Identity.Infrastructure.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -117,9 +119,11 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Identity.Application.Handlers.LoginCommandHandler).Assembly);
 });
 
+builder.Services.AddAuthorization();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+builder.Services.AddScoped<ICookieFactory, CookieFactory>();
 
 builder.Services.AddSingleton<IClock, SystemClock>();
 

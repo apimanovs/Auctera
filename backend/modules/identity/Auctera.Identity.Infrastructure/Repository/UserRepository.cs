@@ -52,7 +52,7 @@ public class UserRepository(AucteraDbContext context) : IUserRepository
     /// <returns>A task that returns the operation result.</returns>
     public Task<User> GetUserByEmailAsync(string email)
     {
-        return _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 
     /// <summary>

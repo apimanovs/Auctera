@@ -32,7 +32,7 @@ public class LotRepository : ILotRepository
     /// добавить отедльные запросы для получения данных для отображения на странице и редакирования чтобы ускроить загрузку данных (сеньор тайп движения)  
     public async Task<Lot?> GetLotById(Guid id, CancellationToken cancellationToken)
     {
-        return await _context.Lots.Include(l => l.Media).FirstOrDefaultAsync(l => l.Id == l.Id, cancellationToken);
+        return await _context.Lots.AsNoTracking().Include(l => l.Media).FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
     }
 
     /// <summary>
