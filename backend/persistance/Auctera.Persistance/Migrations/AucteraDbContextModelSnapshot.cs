@@ -44,9 +44,6 @@ namespace Auctera.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("LotId")
                         .IsUnique();
 
@@ -76,10 +73,43 @@ namespace Auctera.Persistance.Migrations
 
                     b.HasIndex("AuctionId");
 
-                    b.HasIndex("Id")
+                    b.ToTable("bids", (string)null);
+                });
+
+            modelBuilder.Entity("Auctera.Identity.Domain.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ReplacedByToken")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime?>("RevokedAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
                         .IsUnique();
 
-                    b.ToTable("bids", (string)null);
+                    b.HasIndex("UserId");
+
+                    b.ToTable("refresh_tokens", (string)null);
                 });
 
             modelBuilder.Entity("Auctera.Identity.Domain.User", b =>
@@ -171,9 +201,6 @@ namespace Auctera.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.ToTable("lots", (string)null);
                 });
 
@@ -220,9 +247,6 @@ namespace Auctera.Persistance.Migrations
                         .IsUnique();
 
                     b.HasIndex("BuyerId");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
 
                     b.HasIndex("SellerId");
 
@@ -298,6 +322,15 @@ namespace Auctera.Persistance.Migrations
                         });
 
                     b.Navigation("Amount")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Auctera.Identity.Domain.RefreshToken", b =>
+                {
+                    b.HasOne("Auctera.Identity.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

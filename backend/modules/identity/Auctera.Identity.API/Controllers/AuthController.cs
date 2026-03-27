@@ -1,5 +1,6 @@
 using Auctera.Identity.Application.Commands;
 using Auctera.Identity.Application.Interfaces;
+using Auctera.Identity.Application.Models;
 
 using MediatR;
 
@@ -28,13 +29,14 @@ public sealed class AuthController(IMediator mediator, ICookieFactory cookieFact
     /// <param name="command">Input data for the operation.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public async Task<ActionResult<string>> Register([FromBody] RegisterCommand command, CancellationToken cancellationToken)
+    public async Task<ActionResult<AuthResult>> Register([FromBody] RegisterCommand command, CancellationToken cancellationToken)
     {
-        var token = await _mediator.Send(command, cancellationToken);
+        var result = await _mediator.Send(command, cancellationToken);
 
-        _cookieFactory.SetCookie(Response, token);
+        _cookieFactory.SetAccessTokenCookie(Response, result.AccessToken);
+        _cookieFactory.SetRefreshTokenCookie(Response, result.RefreshToken);
 
-        return Ok(token);
+        return Ok(result);
     }
 
     [HttpPost("login")]
@@ -45,27 +47,37 @@ public sealed class AuthController(IMediator mediator, ICookieFactory cookieFact
     /// <param name="command">Input data for the operation.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public async Task<ActionResult<string>> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
+    public async Task<ActionResult<AuthResult>> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
     {
-        var token = await _mediator.Send(command, cancellationToken);
+        var result = await _mediator.Send(command, cancellationToken);
 
-        _cookieFactory.SetCookie(Response, token);
+        _cookieFactory.SetAccessTokenCookie(Response, result.AccessToken);
+        _cookieFactory.SetRefreshTokenCookie(Response, result.RefreshToken);
 
-        return Ok(token);
+        return Ok(result);
     }
 
     [HttpPost("logout")]
     public async Task<ActionResult> Logout(CancellationToken cancellationToken)
     {
-        _cookieFactory.DeleteCookie(Response);
+        var refreshToken = Request.Cookies["refresh_token"];
+
+        await _mediator.Send(new LogoutCommand(refreshToken), cancellationToken);
+
+        _cookieFactory.DeleteAccessTokenCookie(Response);
+        _cookieFactory.DeleteRefreshTokenCookie(Response);
 
         return Ok();
     }
 
-    [HttpGet("claims")]
-    [Authorize]
-    public IActionResult ClaimsDebug()
+    [HttpPost("refresh")]
+    public async Task<ActionResult<AuthResult>> Refresh([FromBody] RefreshTokenCommand command, CancellationToken cancellationToken)
     {
-        return Ok(User.Claims.Select(c => new { c.Type, c.Value }));
+        var result = await _mediator.Send(command, cancellationToken);
+
+        _cookieFactory.SetAccessTokenCookie(Response, result.AccessToken);
+        _cookieFactory.SetRefreshTokenCookie(Response, result.RefreshToken);
+
+        return Ok(result);
     }
 }

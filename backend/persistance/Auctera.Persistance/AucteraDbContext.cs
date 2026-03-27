@@ -18,6 +18,7 @@ public sealed class AucteraDbContext : DbContext
     public DbSet<Bid> Bids => Set<Bid>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Order> Orders => Set<Order>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     public AucteraDbContext(DbContextOptions<AucteraDbContext> options) : base(options)
     {

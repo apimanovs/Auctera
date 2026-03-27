@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Auctera.Identity.Application.Models;
+
 using MediatR;
 
 namespace Auctera.Identity.Application.Commands;
@@ -27,4 +29,4 @@ public record RegisterCommand
     [param: MinLength(8)]
     [param: MaxLength(128)]
     string confirmPassword
-) : IRequest<string>;
+) : IRequest<AuthResult>;

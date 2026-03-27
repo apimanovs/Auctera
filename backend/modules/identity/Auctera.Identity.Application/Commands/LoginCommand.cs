@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
+using Auctera.Identity.Application.Models;
+
 using MediatR;
 
 namespace Auctera.Identity.Application.Commands;
@@ -16,4 +19,4 @@ public record LoginCommand(
     [param: MinLength(8)]
     [param: MaxLength(128)]
     string password
-) : IRequest<string>;
+) : IRequest<AuthResult>;

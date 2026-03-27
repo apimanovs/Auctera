@@ -1,27 +1,31 @@
 using System.Threading.RateLimiting;
+
+using Amazon.S3;
+
 using Auctera.Auctions.API.Controllers;
 using Auctera.Auctions.Application.Interfaces;
 using Auctera.Auctions.Infrastructure.Repository;
 using Auctera.Bids.API.Controllers;
-using Auctera.Host.Middleware;
 using Auctera.Host.BackgroundJobs;
+using Auctera.Host.Middleware;
 using Auctera.Identity.API.Controllers;
+using Auctera.Identity.Application.Interfaces;
 using Auctera.Identity.Infrastructure;
+using Auctera.Identity.Infrastructure.Cookies;
+using Auctera.Identity.Infrastructure.Repository;
 using Auctera.Items.API.Controllers;
 using Auctera.Items.Application.Interfaces;
 using Auctera.Items.Infrastructure.Repository;
+using Auctera.Orders.Infrastructure.Options;
 using Auctera.Persistance;
 using Auctera.Realtime.Extensions;
 using Auctera.Shared.Domain.Time;
 using Auctera.Shared.Infrastructure.Dispatcher;
 using Auctera.Shared.Infrastructure.Interfaces;
-using Auctera.Shared.Infrastructure.Time;
 using Auctera.Shared.Infrastructure.Media;
+using Auctera.Shared.Infrastructure.Time;
+
 using Microsoft.EntityFrameworkCore;
-using Auctera.Orders.Infrastructure.Options;
-using Amazon.S3;
-using Auctera.Identity.Application.Interfaces;
-using Auctera.Identity.Infrastructure.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -121,6 +125,7 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 builder.Services.AddScoped<ICookieFactory, CookieFactory>();

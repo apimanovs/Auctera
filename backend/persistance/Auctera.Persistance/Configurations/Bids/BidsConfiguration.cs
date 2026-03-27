@@ -17,8 +17,6 @@ public sealed class BidsConfiguration : IEntityTypeConfiguration<Bid>
     {
         builder.ToTable("bids");
 
-        builder.HasIndex(bid => bid.Id).IsUnique();
-
         builder.HasKey(bid => bid.Id);
 
         builder.Property(bid => bid.BidderId)

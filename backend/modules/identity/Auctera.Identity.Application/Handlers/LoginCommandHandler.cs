@@ -1,7 +1,11 @@
 using Auctera.Identity.Application.Commands;
 using Auctera.Identity.Application.Interfaces;
+using Auctera.Identity.Application.Models;
+using Auctera.Identity.Domain;
 
 using MediatR;
+
+using Microsoft.IdentityModel.Tokens.Experimental;
 
 namespace Auctera.Identity.Application.Handlers;
 
@@ -11,11 +15,13 @@ namespace Auctera.Identity.Application.Handlers;
 public class LoginCommandHandler(
     ITokenProvider tokenProvider,
     IUserRepository userRepository,
-    IPasswordHasher passwordHasher) : IRequestHandler<LoginCommand, string>
+    IPasswordHasher passwordHasher,
+    IRefreshTokenRepository refreshTokenRepository) : IRequestHandler<LoginCommand, AuthResult>
 {
     private readonly ITokenProvider _tokenProvider = tokenProvider;
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
+    private readonly IRefreshTokenRepository _refreshTokenRepository = refreshTokenRepository;
 
     /// <summary>
     /// Handles the operation.
@@ -23,7 +29,7 @@ public class LoginCommandHandler(
     /// <param name="request">Input data for the operation.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public async Task<string> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<AuthResult> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByEmailAsync(request.email);
 
@@ -37,6 +43,13 @@ public class LoginCommandHandler(
             throw new UnauthorizedAccessException("Invalid password");
         }
 
-        return _tokenProvider.Generate(user);
+        var accessToken = _tokenProvider.GenerateAccessToken(user);
+        var refreshTokenValue = _tokenProvider.GenerateRefreshToken();
+
+        var refreshToken = RefreshToken.Create(user.Id, refreshTokenValue, DateTime.UtcNow.AddDays(7));
+
+        await _refreshTokenRepository.AddRefreshToken(refreshToken);
+
+        return new AuthResult(accessToken, refreshTokenValue);
     }
 }

@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 using Auctera.Identity.Application.Interfaces;
@@ -14,16 +15,17 @@ namespace Auctera.Identity.Infrastructure.Token;
 /// <summary>
 /// Represents the token provider class.
 /// </summary>
-internal sealed class TokenProvider(IOptions<JwtOptions> options) : ITokenProvider
+internal sealed class TokenProvider(IOptions<JwtOptions> options, IRefreshTokenRepository refreshTokenRepository) : ITokenProvider
 {
     private readonly JwtOptions _jwtOptions = options.Value;
+    private readonly IRefreshTokenRepository _refreshTokenRepository = refreshTokenRepository;
 
     /// <summary>
     /// Performs the generate operation.
     /// </summary>
     /// <param name="user">User.</param>
     /// <returns>The operation result.</returns>
-    public string Generate(User user)
+    public string GenerateAccessToken(User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -48,5 +50,11 @@ internal sealed class TokenProvider(IOptions<JwtOptions> options) : ITokenProvid
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return tokenHandler.WriteToken(token);
+    }
+
+    public string GenerateRefreshToken()
+    {
+        var bytes = RandomNumberGenerator.GetBytes(64);
+        return Convert.ToBase64String(bytes);
     }
 }

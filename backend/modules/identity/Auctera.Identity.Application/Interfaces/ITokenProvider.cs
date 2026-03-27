@@ -11,5 +11,6 @@ namespace Auctera.Identity.Application.Interfaces;
 /// </summary>
 public interface ITokenProvider
 {
-    string Generate(Domain.User user);
+    string GenerateAccessToken(Domain.User user);
+    string GenerateRefreshToken();
 }

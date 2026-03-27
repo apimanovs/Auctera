@@ -17,8 +17,6 @@ public sealed class AuctionConfiguration : IEntityTypeConfiguration<Auction>
     {
         builder.ToTable("auctions");
 
-        builder.HasIndex(a => a.Id).IsUnique();
-
         builder.HasKey(a => a.Id);
 
         builder.Property(a => a.Status)
