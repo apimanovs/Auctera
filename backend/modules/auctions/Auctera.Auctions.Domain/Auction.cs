@@ -35,7 +35,7 @@ public sealed class Auction : AggregateRoot<Guid>
     public Guid? LotId { get; private set; }
 
     private readonly List<Bid> _bids = new();
-    public IReadOnlyCollection<Bid> Bids => _bids;
+    public IReadOnlyCollection<Bid> Bids => _bids.AsReadOnly();
 
     private static readonly TimeSpan AntiSnipingWindow = TimeSpan.FromSeconds(10);
     private static readonly TimeSpan AntiSnipingExtension = TimeSpan.FromSeconds(30);
@@ -211,20 +211,28 @@ public sealed class Auction : AggregateRoot<Guid>
             lastBid.MarkAsOutbid();
         }
 
+        var bidAmount = new Money(amount.Amount, amount.Currency);
+        var currentPriceAmount = new Money(amount.Amount, amount.Currency);
+
         var bid = new Bid(
             bidId,
-            userId, 
+            userId,
             Id,
-            amount,
+            bidAmount,
             now
         );
 
         _bids.Add(bid);
-        CurrentPrice = amount;
+
+        Console.WriteLine($"_bids count = {_bids.Count}");
+        Console.WriteLine($"Bids count = {Bids.Count}");
+        Console.WriteLine($"Added bid id = {bid.Id}");
+
+        CurrentPrice = currentPriceAmount;
 
         AntiSnipping(now);
 
-        AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, amount, now));
+        AddDomainEvent(new BidPlacedDomainEvent(Id, bidId, userId, bidAmount, now));
     }
 
     /// <summary>

@@ -6,6 +6,8 @@ using Auctera.Auctions.API.Controllers;
 using Auctera.Auctions.Application.Interfaces;
 using Auctera.Auctions.Infrastructure.Repository;
 using Auctera.Bids.API.Controllers;
+using Auctera.Bids.Application.Interfaces;
+using Auctera.Bids.Infrastructure.Repository;
 using Auctera.Host.BackgroundJobs;
 using Auctera.Host.Middleware;
 using Auctera.Identity.API.Controllers;
@@ -125,6 +127,7 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<IBidRepository, BidRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();

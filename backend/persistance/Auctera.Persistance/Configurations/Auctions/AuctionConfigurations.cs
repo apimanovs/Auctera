@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Auctera.Auctions.Domain;
+using Auctera.Bids.Domain;
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Auctera.Auctions.Domain;
 
 namespace Auctera.Persistance.Configurations.Auctions;
 
@@ -48,13 +50,12 @@ public sealed class AuctionConfiguration : IEntityTypeConfiguration<Auction>
             .HasForeignKey(b => b.AuctionId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Navigation(a => a.Bids)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+
         builder.HasOne<Auctera.Items.Domain.Lot>()
             .WithOne()
             .HasForeignKey<Auction>(a => a.LotId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Metadata
-            .FindNavigation(nameof(Auction.Bids))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

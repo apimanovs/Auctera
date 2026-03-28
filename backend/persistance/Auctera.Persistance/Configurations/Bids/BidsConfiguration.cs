@@ -1,6 +1,7 @@
 ﻿using Auctera.Bids.Domain;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auctera.Persistance.Configurations.Bids;
 
@@ -13,11 +14,14 @@ public sealed class BidsConfiguration : IEntityTypeConfiguration<Bid>
     /// Performs the configure operation.
     /// </summary>
     /// <param name="builder">Builder.</param>
-    public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Bid> builder)
+    public void Configure(EntityTypeBuilder<Bid> builder)
     {
         builder.ToTable("bids");
 
         builder.HasKey(bid => bid.Id);
+
+        builder.Property(bid => bid.AuctionId)
+            .IsRequired();
 
         builder.Property(bid => bid.BidderId)
             .IsRequired();
