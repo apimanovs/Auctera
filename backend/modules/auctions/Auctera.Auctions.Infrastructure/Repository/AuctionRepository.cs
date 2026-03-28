@@ -1,6 +1,8 @@
 ﻿using Auctera.Auctions.Application.Interfaces;
-using Auctera.Persistance;
 using Auctera.Auctions.Domain;
+using Auctera.Persistance;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace Auctera.Auctions.Infrastructure.Repository;
 
@@ -28,7 +30,9 @@ public class AuctionRepository : IAuctionRepository
     /// <returns>A task that returns the operation result.</returns>
     public async Task<Auction?> GetAuctionById(Guid id, CancellationToken cancellationToken)
     {
-        return await _context.Auctions.FindAsync(new object[] { id }, cancellationToken);
+        return await _context.Auctions
+            .Include(a => a.Bids)
+            .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -51,7 +55,11 @@ public class AuctionRepository : IAuctionRepository
     /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task SaveAuctionAsync(Auction auction, CancellationToken cancellationToken)
     {
-        _context.Auctions.Update(auction);
+        if (_context.Entry(auction).State == EntityState.Detached)
+        {
+            _context.Auctions.Attach(auction);
+        }
+
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

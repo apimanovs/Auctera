@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctera.Identity.Infrastructure.Claims;
 using Auctera.Orders.Application.Commands;
 using Auctera.Orders.Application.Interfaces;
 using Auctera.Orders.Application.Service;
@@ -49,7 +50,7 @@ public sealed class PaymentController : ControllerBase
     /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> CreatePaymentSession(Guid id , CancellationToken cancellationToken)
     {
-        var userId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+        var userId = User.Claims.GetUserId();
 
         var command = new CreateOrderPaymentSessionCommand(id, userId);
 

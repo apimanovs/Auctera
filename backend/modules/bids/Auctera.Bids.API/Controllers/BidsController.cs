@@ -7,6 +7,7 @@ using Auctera.Bids.Application.Models;
 using Auctera.Bids.Application.Queries;
 using Auctera.Bids.Application.Commands;
 using Microsoft.AspNetCore.RateLimiting;
+using Auctera.Identity.Infrastructure.Claims;
 
 namespace Auctera.Bids.API.Controllers;
 
@@ -57,7 +58,7 @@ public sealed class BidsController : ControllerBase
     /// <returns>A task that returns the operation result.</returns>
     public async Task<IActionResult> PlaceBid([FromRoute] Guid auctionId, [FromBody] PlaceBidCommand request, CancellationToken cancellationToken)
     {
-        var bidderId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+        var bidderId = User.Claims.GetUserId();
 
         await _mediator.Send(new PlaceBidCommand(auctionId, bidderId, request.Amount, request.Currency), cancellationToken);
 

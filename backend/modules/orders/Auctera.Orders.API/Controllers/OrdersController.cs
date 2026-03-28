@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MediatR;
 using Auctera.Orders.Application.Queries;
+using Auctera.Identity.Infrastructure.Claims;
 
 namespace Auctera.Orders.API.Controllers;
 
@@ -29,7 +30,7 @@ public sealed class OrdersController(IMediator mediator) : ControllerBase
     /// <returns>A task that returns the operation result.</returns>
     public async Task<ActionResult> GetOrdersForUser(CancellationToken cancellationToken)
     {
-        var userId = Guid.Parse(User.Claims.First(c => c.Type == "sub").Value);
+        var userId = User.Claims.GetUserId();
         var result = await _mediator.Send(new GetOrdersByUserIdQuery(userId),cancellationToken);
         return Ok(result);
     }

@@ -52,6 +52,7 @@ public class Bid : Entity<Guid>
         AuctionId = auctionId;
         Amount = amount;
         PlacedAt = placedAt;
+        Status = BidStatus.Active;
     }
 
     /// <summary>
