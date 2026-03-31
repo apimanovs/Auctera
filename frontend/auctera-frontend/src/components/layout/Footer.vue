@@ -13,15 +13,24 @@ const currentYear = new Date().getFullYear()
                     <p class="text-sm text-black/60">© {{ currentYear }} Coutera</p>
                 </div>
                 <div class="flex flex-wrap justify-center md:justify-end space-x-6 mb-4 md:mb-0">
-                    <RouterLink to="/about" class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200">
-                        About
-                    </RouterLink>
-                    <RouterLink to="/terms" class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200">
-                        Terms
-                    </RouterLink>
-                    <RouterLink to="/privacy-policy" class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200">
-                        Privacy Policy
-                    </RouterLink>
+                    <a
+                    href="/about"
+                    class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200"
+                    >
+                    About
+                    </a>
+                    <a
+                    href="/terms"
+                    class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200"
+                    >
+                    Terms of Service
+                    </a>
+                    <a
+                    href="/privacy-policy"
+                    class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200"
+                    >
+                    Privacy Policy
+                    </a>
                 </div>
                 <!-- <div class="flex items-center space-x-4">
                     <RouterLink to="/how-to-sell" class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200">

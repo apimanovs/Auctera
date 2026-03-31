@@ -13,6 +13,7 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import LotPage from '@/pages/lots/LotPage.vue'
 import UserProfilePage from '@/pages/user/UserProfilePage.vue'
 import NotFoundPage from '@/pages/errors/NotFoundPage.vue'
+import CatalogPage from '@/pages/catalog/CatalogPage.vue'
 
 const isDev = import.meta.env.DEV
 
@@ -54,6 +55,10 @@ const routes = isDev
             path: 'how-to-sell',
             component: HowToSellPage,
           },
+          {
+            path: 'auctions',
+            component: CatalogPage,
+          },
         ],
       },
       {
@@ -64,7 +69,7 @@ const routes = isDev
         path: '/register',
         component: RegisterPage,
       },
-  {
+      {
         path: '/reset-password',
         component: ResetPasswordPage,
       },

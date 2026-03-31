@@ -1,233 +1,248 @@
+<script setup lang="ts">
+const values = [
+  'A curated marketplace instead of overwhelming mass-market inventory',
+  'A focus on rare fashion, collectible design, and standout pieces',
+  'Real-time bidding shaped by actual demand and market interest',
+  'A clean interface that keeps attention on the listing',
+]
+
+const highlights = [
+  {
+    title: 'Curated selection',
+    text: 'Pieces are meant to feel chosen, not lost inside endless generic inventory.',
+  },
+  {
+    title: 'Auction energy',
+    text: 'Bidding creates movement, timing, and a stronger sense of value discovery.',
+  },
+  {
+    title: 'Clear presentation',
+    text: 'A quieter interface gives more room for the item itself to stand out.',
+  },
+]
+
+const gallery = [
+  'https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1600&auto=format&fit=crop',
+]
+</script>
+
 <template>
-  <div class="container mx-auto max-w-4xl px-4 py-12">
-    <!-- Title -->
-    <div class="mb-14 text-center">
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
-        About Coutera
-      </h1>
-      <p class="mx-auto mt-4 max-w-2xl text-gray-600 leading-relaxed">
-        Coutera is a curated auction marketplace for rare fashion, timeless pieces,
-        and collectible design — built for people who value individuality over mass-market consumption.
-      </p>
-    </div>
+  <div class="bg-white text-black">
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-[32px] bg-neutral-100">
+        <div class="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="flex items-center px-6 py-10 sm:px-10 lg:px-12 xl:px-16">
+            <div class="max-w-2xl">
+              <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+                About Coutera
+              </p>
 
-    <!-- Intro -->
-    <section class="mb-12 space-y-4 text-gray-700 leading-8">
-      <p>
-        Coutera brings together buyers, collectors, enthusiasts, and sellers in a refined online auction environment.
-        Our platform is designed for discovering items that feel special — pieces with character, rarity, and lasting appeal.
-      </p>
+              <h1 class="mt-4 text-4xl font-semibold tracking-tight text-black sm:text-5xl xl:text-6xl">
+                Rare fashion, refined auctions, and better attention to standout pieces.
+              </h1>
 
-      <p>
-        Instead of endless mass-produced inventory, Coutera focuses on items that stand out.
-        From designer clothing and archive fashion to unique lifestyle objects and collectible finds,
-        every listing has the potential to become someone’s next meaningful purchase.
-      </p>
+              <p class="mt-5 max-w-xl text-sm leading-7 text-black/65 sm:text-base">
+                Coutera is a curated auction marketplace for rare fashion, timeless pieces, and collectible design — built for people who value individuality over mass-market consumption.
+              </p>
 
-      <p>
-        We believe that online marketplaces should feel clear, modern, and intentional.
-        That is why Coutera is built around a clean and minimal experience where the item remains the center of attention.
-      </p>
-    </section>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <div class="rounded-full bg-white px-4 py-2 text-sm text-black/70">
+                  Founded in 2026
+                </div>
+                <div class="rounded-full bg-white px-4 py-2 text-sm text-black/70">
+                  Riga, Latvia
+                </div>
+                <div class="rounded-full bg-white px-4 py-2 text-sm text-black/70">
+                  Curated marketplace
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- What is Coutera -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        What Coutera is
-      </h2>
-
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Coutera is an online auction marketplace where sellers can list unique items for bidding,
-          and buyers can compete in real time to secure pieces they truly want.
-        </p>
-
-        <p>
-          The platform combines the excitement of live bidding with the accessibility of modern e-commerce.
-          It is not just about buying quickly — it is about discovery, timing, and value shaped by real demand.
-        </p>
+          <div class="min-h-[320px] lg:min-h-full">
+            <img
+              :src="gallery[0]"
+              alt="Fashion editorial"
+              class="h-full w-full object-cover"
+            />
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Who it is for -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        Who Coutera is for
-      </h2>
-
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Coutera is built for people who actively look for more than ordinary shopping experiences.
-          It is made for collectors, fashion enthusiasts, careful buyers, and sellers who want their items
-          to be seen and valued in the right environment.
-        </p>
-
-        <p>
-          Whether someone is searching for a rare wardrobe piece, a standout accessory,
-          or a collectible object with lasting value, Coutera provides a place where those discoveries can happen naturally.
-        </p>
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div class="grid gap-4 md:grid-cols-3">
+        <div
+          v-for="item in highlights"
+          :key="item.title"
+          class="rounded-[28px] border border-black/10 bg-white p-6"
+        >
+          <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+            Highlight
+          </p>
+          <h2 class="mt-3 text-2xl font-semibold tracking-tight text-black">
+            {{ item.title }}
+          </h2>
+          <p class="mt-3 text-sm leading-7 text-black/65">
+            {{ item.text }}
+          </p>
+        </div>
       </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
+    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div class="overflow-hidden rounded-[32px] bg-neutral-100">
+          <img
+            :src="gallery[1]"
+            alt="Designer clothing"
+            class="h-[420px] w-full object-cover"
+          />
+        </div>
 
-    <!-- What users can discover -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        What you can discover
-      </h2>
+        <div class="max-w-2xl">
+          <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+            What Coutera is
+          </p>
 
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Our marketplace is intended to feature categories such as designer fashion, archive clothing,
-          accessories, footwear, bags, lifestyle objects, and other collectible items that deserve attention.
-        </p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
+            A marketplace built around discovery, timing, and value shaped by real demand.
+          </h2>
 
-        <p>
-          We are especially interested in pieces that feel curated rather than generic —
-          items chosen for their design, rarity, identity, or cultural relevance.
-        </p>
+          <div class="mt-6 space-y-5 text-sm leading-7 text-black/65 sm:text-base">
+            <p>
+              Coutera brings together buyers, collectors, enthusiasts, and sellers in a refined online auction environment. It is designed for discovering items that feel special — pieces with character, rarity, and lasting appeal.
+            </p>
+
+            <p>
+              Instead of endless mass-produced inventory, Coutera focuses on items that stand out. From designer clothing and archive fashion to unique lifestyle objects and collectible finds, the goal is to create a marketplace that feels more intentional from the start.
+            </p>
+
+            <p>
+              The platform combines the excitement of live bidding with the clarity of modern e-commerce. It is not only about buying quickly — it is about discovery, timing, and value revealed through real interest.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
+    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="rounded-[32px] bg-neutral-100 px-6 py-10 sm:px-10 lg:px-12">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+              Who it is for
+            </p>
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
+              For buyers, collectors, fashion enthusiasts, and sellers who care about the right environment.
+            </h2>
+          </div>
 
-    <!-- How it works -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        How it works
-      </h2>
+          <div class="space-y-5 text-sm leading-7 text-black/65 sm:text-base">
+            <p>
+              Coutera is built for people who want more than ordinary shopping experiences. It is made for those looking for rare wardrobe pieces, standout accessories, collectible objects, and a marketplace that feels calmer and more deliberate.
+            </p>
 
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Sellers create listings with a starting price and a defined auction duration.
-          Buyers place bids throughout the auction period, and the highest offer at the end of the countdown wins the item.
-        </p>
-
-        <p>
-          This model creates a more dynamic marketplace where pricing is shaped by real interest,
-          rather than fixed assumptions. Every bid contributes to the final value of the listing.
-        </p>
-
-        <p>
-          The result is a transparent and engaging process that rewards timing, demand, and discovery.
-        </p>
+            <p>
+              It is also for sellers who want their items to be seen properly — not buried inside noise, but presented in a cleaner setting where quality and individuality matter more.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
+    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div class="max-w-2xl">
+          <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+            What you can discover
+          </p>
 
-    <!-- Why auctions -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        Why auctions matter
-      </h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
+            Designer fashion, archive clothing, accessories, footwear, bags, and collectible objects worth noticing.
+          </h2>
 
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Auctions create a different kind of relationship between buyer, seller, and item.
-          Instead of simply scrolling and checking out, users participate in a process where value is discovered over time.
-        </p>
+          <div class="mt-6 space-y-5 text-sm leading-7 text-black/65 sm:text-base">
+            <p>
+              The marketplace is intended to feature categories such as designer fashion, archive clothing, accessories, footwear, bags, lifestyle objects, and other collectible items that deserve attention.
+            </p>
 
-        <p>
-          For sellers, auctions provide visibility, excitement, and the opportunity for an item to reach its true market value.
-          For buyers, they create anticipation, competition, and a stronger sense of reward when the final bid succeeds.
-        </p>
+            <p>
+              The focus stays on pieces that feel curated rather than generic — items chosen for their design, rarity, identity, or cultural relevance.
+            </p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-[32px] bg-neutral-100">
+          <img
+            :src="gallery[2]"
+            alt="Curated fashion piece"
+            class="h-[420px] w-full object-cover"
+          />
+        </div>
       </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
+    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+            Why auctions matter
+          </p>
 
-    <!-- Values -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        What makes Coutera different
-      </h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
+            Auctions create a different relationship between buyer, seller, and item.
+          </h2>
 
-      <ul class="space-y-3 text-gray-700 leading-8">
-        <li>• A curated marketplace experience instead of overwhelming mass-market inventory</li>
-        <li>• A focus on rare fashion, collectible design, and standout pieces</li>
-        <li>• Real-time bidding that reflects actual demand and market interest</li>
-        <li>• A clean, minimal interface designed to keep attention on the listing</li>
-        <li>• A platform direction centered around quality, rarity, and individuality</li>
-      </ul>
+          <p class="mt-6 text-sm leading-7 text-black/65 sm:text-base">
+            Instead of simply scrolling and checking out, users participate in a process where value is discovered over time. For sellers, auctions create visibility and the possibility of reaching true market value. For buyers, they create anticipation, competition, and a stronger sense of reward.
+          </p>
+        </div>
+
+        <div class="rounded-[32px] border border-black/10 bg-white p-6 sm:p-8">
+          <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+            What makes Coutera different
+          </p>
+
+          <ul class="mt-6 space-y-4">
+            <li
+              v-for="value in values"
+              :key="value"
+              class="flex items-start gap-3 text-sm leading-7 text-black/70 sm:text-base"
+            >
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-black/70"></span>
+              <span>{{ value }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Mission -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
+    <section class="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 lg:px-8">
+      <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
         Our mission
+      </p>
+
+      <h2 class="mx-auto mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-black sm:text-4xl lg:text-5xl">
+        Build a marketplace where rare pieces are discovered, appreciated, and valued properly.
       </h2>
 
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          We believe that exceptional items should not disappear in the noise of mass production.
-          Coutera exists to create a space where rare pieces can be discovered, appreciated, and valued properly.
-        </p>
-
-        <p>
-          Our goal is to build a marketplace that feels refined, trustworthy, and memorable —
-          one where people return not only to buy and sell, but also to explore.
-        </p>
-      </div>
+      <p class="mx-auto mt-6 max-w-2xl text-sm leading-7 text-black/65 sm:text-base">
+        Coutera is being shaped as more than a transactional platform. The long-term vision is a destination for curated discovery, trusted sellers, and an audience that values style, scarcity, and thoughtful selection.
+      </p>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Vision -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-xl font-semibold">
-        Looking ahead
-      </h2>
-
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Coutera is being shaped as more than just a transactional platform.
-          Over time, it aims to become a destination for curated discovery,
-          trusted sellers, and an audience that values style, scarcity, and thoughtful selection.
+    <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+      <div class="rounded-[32px] border border-black/10 bg-white px-6 py-8 text-center sm:px-10">
+        <p class="text-sm text-black/45">
+          Founded in 2026 · Riga, Latvia
         </p>
-
-        <p>
-          As the platform grows, the vision remains the same: build a marketplace where the right item
-          reaches the right person through a process that feels exciting, transparent, and meaningful.
+        <p class="mt-3 text-lg font-medium text-black">
+          Not mass market. Never ordinary.
         </p>
       </div>
-    </section>
-
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Footer info -->
-    <section class="text-center text-sm text-gray-500">
-      <p>Founded in 2026</p>
-      <p class="mt-2">Riga, Latvia</p>
     </section>
   </div>
 </template>
-
-<script setup lang="ts">
-// About page component
-</script>

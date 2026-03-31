@@ -1,160 +1,196 @@
+<script setup lang="ts">
+const sections = [
+  {
+    id: 'acceptance',
+    title: '1. Acceptance of Terms',
+    content: [
+      'By accessing or using Coutera, you agree to be bound by these Terms. If you do not agree, you should not use the platform.',
+    ],
+  },
+  {
+    id: 'accounts',
+    title: '2. User Accounts',
+    content: [
+      'You may be required to create an account to access certain features. You are responsible for maintaining the confidentiality of your account credentials.',
+      'You agree to provide accurate and complete information and to keep it updated.',
+    ],
+  },
+  {
+    id: 'auctions',
+    title: '3. Auctions and Bidding',
+    content: [
+      'Coutera operates as an auction-based marketplace where users can list items and place bids.',
+      'By placing a bid, you agree that your bid is binding and that you intend to purchase the item if your bid is the highest at the end of the auction.',
+      'Sellers are responsible for accurately describing items, including condition, authenticity, and details.',
+    ],
+  },
+  {
+    id: 'transactions',
+    title: '4. Transactions',
+    content: [
+      'When an auction ends, the highest bidder is obligated to complete the transaction.',
+      'Payment and delivery terms may depend on the platform’s policies and integrations with payment providers.',
+      'Coutera may act as an intermediary but is not the direct seller of listed items.',
+    ],
+  },
+  {
+    id: 'fees',
+    title: '5. Fees and Payments',
+    content: [
+      'Certain features or transactions may be subject to fees. These fees will be clearly communicated before they apply.',
+      'Coutera reserves the right to update pricing and fee structures at any time.',
+    ],
+  },
+  {
+    id: 'conduct',
+    title: '6. Prohibited Conduct',
+    list: [
+      'Listing counterfeit or illegal items',
+      'Manipulating bids or engaging in fraudulent behavior',
+      'Misrepresenting items or providing false information',
+      'Using the platform for unlawful purposes',
+    ],
+  },
+  {
+    id: 'liability',
+    title: '7. Limitation of Liability',
+    content: [
+      'Coutera provides the platform "as is" and does not guarantee the accuracy of listings, the behavior of users, or the outcome of transactions.',
+      'To the maximum extent permitted by law, Coutera is not liable for any direct or indirect damages.',
+    ],
+  },
+  {
+    id: 'termination',
+    title: '8. Account Suspension and Termination',
+    content: [
+      'Coutera reserves the right to suspend or terminate accounts that violate these Terms or engage in harmful or abusive behavior.',
+    ],
+  },
+  {
+    id: 'changes',
+    title: '9. Changes to Terms',
+    content: [
+      'We may update these Terms from time to time. Continued use of the platform after updates constitutes acceptance of the revised Terms.',
+    ],
+  },
+  {
+    id: 'contact',
+    title: '10. Contact',
+    content: [
+      'If you have questions about these Terms, you may contact us through the platform.',
+    ],
+  },
+]
+</script>
+
 <template>
-  <div class="container mx-auto max-w-4xl px-4 py-12">
-    
-    <!-- Title -->
-    <div class="mb-12">
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
-        Terms of Service
-      </h1>
-      <p class="text-sm text-gray-500">
-        Last updated: March 17, 2026
-      </p>
-      <p class="mt-4 text-gray-700 leading-8">
-        These Terms of Service govern your access to and use of the Coutera platform,
-        including browsing, listing items, bidding, and completing transactions.
-      </p>
-    </div>
+  <div class="bg-white text-black">
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-[32px] bg-neutral-100">
+        <div class="grid gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-12 xl:px-16">
+          <div class="max-w-3xl">
+            <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+              Legal
+            </p>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
+            <h1 class="mt-4 text-4xl font-semibold tracking-tight text-black sm:text-5xl xl:text-6xl">
+              Terms of Service
+            </h1>
 
-    <!-- Acceptance -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">1. Acceptance of Terms</h2>
-      <p class="text-gray-700 leading-8">
-        By accessing or using Coutera, you agree to be bound by these Terms.
-        If you do not agree, you should not use the platform.
-      </p>
-    </section>
+            <p class="mt-3 text-sm text-black/45">
+              Last updated: March 17, 2026
+            </p>
 
-    <!-- Accounts -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">2. User Accounts</h2>
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          You may be required to create an account to access certain features.
-          You are responsible for maintaining the confidentiality of your account credentials.
-        </p>
-        <p>
-          You agree to provide accurate and complete information and to keep it updated.
-        </p>
+            <p class="mt-5 max-w-2xl text-sm leading-7 text-black/65 sm:text-base">
+              These Terms of Service govern your access to and use of the Coutera platform, including browsing, listing items, bidding, and completing transactions.
+            </p>
+          </div>
+
+          <div class="flex items-end lg:justify-end">
+            <div class="w-full rounded-[28px] bg-white p-6">
+              <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+                Summary
+              </p>
+              <p class="mt-3 text-sm leading-7 text-black/65">
+                By using Coutera, you agree to follow the platform rules, provide accurate information, and respect the auction process, payment obligations, and listing standards.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)]">
+        <aside class="hidden lg:block">
+          <div class="sticky top-36 rounded-[28px] border border-black/10 bg-white p-5">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+              On this page
+            </p>
 
-    <!-- Auctions -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">3. Auctions and Bidding</h2>
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Coutera operates as an auction-based marketplace where users can list items and place bids.
-        </p>
-        <p>
-          By placing a bid, you agree that your bid is binding and that you intend to purchase the item
-          if your bid is the highest at the end of the auction.
-        </p>
-        <p>
-          Sellers are responsible for accurately describing items, including condition, authenticity, and details.
-        </p>
+            <nav class="mt-4 space-y-3">
+              <a
+                v-for="section in sections"
+                :key="section.id"
+                :href="`#${section.id}`"
+                class="block text-sm text-black/60 transition hover:text-black"
+              >
+                {{ section.title }}
+              </a>
+            </nav>
+          </div>
+        </aside>
+
+        <div class="space-y-6">
+            <section
+              v-for="section in sections"
+              :id="section.id"
+              :key="section.id"
+              class="scroll-mt-40 rounded-[28px] border border-black/10 bg-white p-6 sm:p-8"
+            >
+            <h2 class="text-2xl font-semibold tracking-tight text-black">
+              {{ section.title }}
+            </h2>
+
+            <div
+              v-if="section.content"
+              class="mt-5 space-y-4 text-sm leading-8 text-black/65 sm:text-base"
+            >
+              <p
+                v-for="paragraph in section.content"
+                :key="paragraph"
+              >
+                {{ paragraph }}
+              </p>
+            </div>
+
+            <ul
+              v-if="section.list"
+              class="mt-5 space-y-3"
+            >
+              <li
+                v-for="item in section.list"
+                :key="item"
+                class="flex items-start gap-3 text-sm leading-7 text-black/65 sm:text-base"
+              >
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-black/70"></span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </section>
+        </div>
       </div>
     </section>
 
-    <!-- Transactions -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">4. Transactions</h2>
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          When an auction ends, the highest bidder is obligated to complete the transaction.
+    <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+      <div class="rounded-[32px] border border-black/10 bg-neutral-100 px-6 py-8 text-center sm:px-10">
+        <p class="text-sm text-black/45">
+          Coutera · Terms of Service
         </p>
-        <p>
-          Payment and delivery terms may depend on the platform’s policies and integrations with payment providers.
-        </p>
-        <p>
-          Coutera may act as an intermediary but is not the direct seller of listed items.
+        <p class="mt-3 text-lg font-medium text-black">
+          Clear rules support a cleaner marketplace.
         </p>
       </div>
     </section>
-
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Fees -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">5. Fees and Payments</h2>
-      <div class="space-y-4 text-gray-700 leading-8">
-        <p>
-          Certain features or transactions may be subject to fees.
-          These fees will be clearly communicated before they apply.
-        </p>
-        <p>
-          Coutera reserves the right to update pricing and fee structures at any time.
-        </p>
-      </div>
-    </section>
-
-    <!-- Prohibited -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">6. Prohibited Conduct</h2>
-      <ul class="space-y-3 text-gray-700">
-        <li>• Listing counterfeit or illegal items</li>
-        <li>• Manipulating bids or engaging in fraudulent behavior</li>
-        <li>• Misrepresenting items or providing false information</li>
-        <li>• Using the platform for unlawful purposes</li>
-      </ul>
-    </section>
-
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Liability -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">7. Limitation of Liability</h2>
-      <p class="text-gray-700 leading-8">
-        Coutera provides the platform "as is" and does not guarantee the accuracy of listings,
-        the behavior of users, or the outcome of transactions.
-        To the maximum extent permitted by law, Coutera is not liable for any direct or indirect damages.
-      </p>
-    </section>
-
-    <!-- Termination -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">8. Account Suspension and Termination</h2>
-      <p class="text-gray-700 leading-8">
-        Coutera reserves the right to suspend or terminate accounts that violate these Terms
-        or engage in harmful or abusive behavior.
-      </p>
-    </section>
-
-    <div class="my-12 flex justify-center">
-      <div class="h-px w-16 bg-black/20"></div>
-    </div>
-
-    <!-- Changes -->
-    <section class="mb-12">
-      <h2 class="text-xl font-semibold mb-4">9. Changes to Terms</h2>
-      <p class="text-gray-700 leading-8">
-        We may update these Terms from time to time.
-        Continued use of the platform after updates constitutes acceptance of the revised Terms.
-      </p>
-    </section>
-
-    <!-- Contact -->
-    <section>
-      <h2 class="text-xl font-semibold mb-4">10. Contact</h2>
-      <p class="text-gray-700 leading-8">
-        If you have questions about these Terms, you may contact us through the platform.
-      </p>
-    </section>
-
   </div>
 </template>
-
-<script setup lang="ts">
-// Terms page component
-</script>
