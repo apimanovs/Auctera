@@ -128,31 +128,31 @@ onMounted(loadAuctions)
 
 <template>
   <div class="">
-    <section class="mb-10 overflow-hidden rounded-[28px] bg-neutral-100 px-6 py-8 md:px-10 md:py-10">
+    <section class="mb-10 overflow-hidden rounded-[28px] bg-neutral-100 dark:bg-neutral-800 px-6 py-8 md:px-10 md:py-10">
       <div class="grid items-center gap-8 md:grid-cols-1.15fr_0.85fr">
         <div class="max-w-2xl">
-          <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+          <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/60">
             Coutera
           </p>
 
-          <h1 class="mt-3 text-3xl font-semibold tracking-tight text-black sm:text-4xl md:text-5xl">
+          <h1 class="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Rare pieces, premium brands, and auctions worth watching.
           </h1>
 
-          <p class="mt-4 max-w-xl text-sm leading-6 text-black/60 sm:text-base">
+          <p class="mt-4 max-w-xl text-sm leading-6 text-foreground/60 sm:text-base">
             A refined marketplace for designer fashion, collectibles, and standout objects.
             Discover curated lots, place confident bids, and find items that feel worth owning.
           </p>
 
           <div class="mt-6 flex flex-wrap gap-3">
             <button
-              class="rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition hover:bg-black/90"
+              class="rounded-full border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition cursor-pointer"
             >
               Explore auctions
             </button>
 
             <button
-              class="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:border-black"
+              class="rounded-full border bg-black dark:bg-white px-5 py-2.5 text-sm font-medium text-white dark:text-black transition cursor-pointer"
             >
               Browse brands
             </button>
@@ -161,18 +161,18 @@ onMounted(loadAuctions)
       </div>
     </section>
 
-      <div class="mb-10 rounded-2xl border border-black/10 py-6 md:px-6">
+      <div class="mb-10 rounded-2xl border py-6 md:px-6">
         <div class="mb-6 flex items-end justify-between gap-2">
           <div>
             <div class="flex items-center gap-2">
               <h1 class="text-2xl font-bold">Trending Auctions</h1>
               <TrendingUpIcon class="h-5 w-5" />
             </div>
-            <p class="mt-1 text-gray-700">
+            <p class="mt-1 text-foreground/70">
               Discover the most popular auctions right now.
             </p>
           </div>
-            <p class="mt-1 text-black hover:underline hover:text-gray-700 transition cursor-pointer">
+            <p class="mt-1 text-foreground/70 hover:text-foreground transition cursor-pointer">
               Browse more
             </p>
         </div>
@@ -197,16 +197,16 @@ onMounted(loadAuctions)
             </CarouselContent>
 
           <div class="mt-6 flex items-center justify-between">
-            <p class="text-sm text-black/50">
+            <p class="text-sm text-foreground">
               Scroll through trending picks
             </p>
 
             <div class="flex items-center gap-2">
               <CarouselPrevious
-                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border bg-background text-foreground shadow-sm hover:bg-black hover:text-white"
               />
               <CarouselNext
-                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border bg-background text-foreground shadow-sm hover:bg-black hover:text-white"
               />
             </div>
           </div>
@@ -225,45 +225,45 @@ onMounted(loadAuctions)
           class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5"
           aria-labelledby="brand-story-title"
         >
-          <div class="group aspect-square rounded-2xl bg-neutral-100 p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black hover:text-white">
-            <span class="text-sm uppercase tracking-[0.2em] text-neutral-500 group-hover:text-neutral-300">Category</span>
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Category</span>
             <span class="text-xl font-semibold">Vintage</span>
           </div>
 
-          <div class="group aspect-square rounded-2xl bg-neutral-100 p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black hover:text-white">
-            <span class="text-sm uppercase tracking-[0.2em] text-neutral-500 group-hover:text-neutral-300">Category</span>
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Category</span>
             <span class="text-xl font-semibold">Streetwear</span>
           </div>
 
-          <div class="group aspect-square rounded-2xl bg-neutral-100 p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black hover:text-white">
-            <span class="text-sm uppercase tracking-[0.2em] text-neutral-500 group-hover:text-neutral-300">Category</span>
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Category</span>
             <span class="text-xl font-semibold">Designer</span>
           </div>
 
-          <div class="group aspect-square rounded-2xl bg-neutral-100 p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black hover:text-white">
-            <span class="text-sm uppercase tracking-[0.2em] text-neutral-500 group-hover:text-neutral-300">Category</span>
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Category</span>
             <span class="text-xl font-semibold">Sneakers</span>
           </div>
 
-          <div class="group aspect-square rounded-2xl bg-neutral-100 p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black hover:text-white">
-            <span class="text-sm uppercase tracking-[0.2em] text-neutral-500 group-hover:text-neutral-300">Category</span>
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Category</span>
             <span class="text-xl font-semibold">Accessories</span>
           </div>
         </section>
       </div>
 
-      <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
+      <div class="mb-12 rounded-2xl border py-6 md:px-6">
         <div class="mb-6 flex items-end justify-between gap-2">
           <div>
             <div class="flex items-center gap-2">
               <h1 class="text-2xl font-bold">New listings</h1>
               <RefreshCwIcon class="h-5 w-5" />
             </div>
-            <p class="mt-1 text-gray-700">
+            <p class="mt-1 text-foreground/70">
               Discover the most fresh auctions right now.
             </p>
           </div>
-            <p class="mt-1 text-black hover:underline hover:text-gray-700 transition cursor-pointer">
+            <p class="mt-1 text-foreground/70 hover:text-foreground transition cursor-pointer">
               Browse more
             </p>
         </div>
@@ -288,16 +288,16 @@ onMounted(loadAuctions)
             </CarouselContent>
 
           <div class="mt-6 flex items-center justify-between">
-            <p class="text-sm text-black/50">
-              Scroll through .
+            <p class="text-sm text-foreground/70">
+              Scroll through newly listed auctions
             </p>
 
             <div class="flex items-center gap-2">
               <CarouselPrevious
-                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border bg-background text-foreground shadow-sm hover:bg-black hover:text-white"
               />
               <CarouselNext
-                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border bg-background text-foreground shadow-sm hover:bg-black hover:text-white"
               />
             </div>
           </div>
@@ -305,28 +305,28 @@ onMounted(loadAuctions)
       </div>
 
       <section
-          class="my-16 overflow-hidden text-black flex flex-col justify-center items-center py-16 gap-2"
+          class="my-16 overflow-hidden text-foreground flex flex-col justify-center items-center py-16 gap-2"
           aria-labelledby="brand-story-title">
           <h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
             Not mass market. Never ordinary.
           </h2>
-          <p class="mt-4 max-w-2xl text-sm text-black/80 sm:text-base">
+          <p class="mt-4 max-w-2xl text-sm text-foreground/70 sm:text-base">
               Curated auctions for rare fashion, collectible pieces, and objects worth noticing.
           </p>
       </section>
 
-          <div class="mb-12 rounded-2xl border border-black/10 py-6 md:px-6">
+      <div class="mb-12 rounded-2xl border py-6 md:px-6">
         <div class="mb-6 flex items-end justify-between gap-2">
           <div>
             <div class="flex items-center gap-2">
               <h1 class="text-2xl font-bold">Ending soon</h1>
               <TimerIcon class="h-5 w-5" />
             </div>
-            <p class="mt-1 text-gray-700">
+            <p class="mt-1 text-foreground/70">
               Explore auctions that are about to end soon and place your bid before it's too late.
             </p>
           </div>
-            <p class="mt-1 text-black hover:underline hover:text-gray-700 transition cursor-pointer">
+            <p class="mt-1 text-foreground/70 hover:text-foreground transition cursor-pointer">
               Browse more
             </p>
         </div>
@@ -351,23 +351,23 @@ onMounted(loadAuctions)
             </CarouselContent>
 
           <div class="mt-6 flex items-center justify-between">
-            <p class="text-sm text-black/50">
+            <p class="text-sm text-foreground/70">
               Scroll through ending soon auctions.
             </p>
 
             <div class="flex items-center gap-2">
               <CarouselPrevious
-                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border bg-background text-foreground shadow-sm hover:bg-black hover:text-white"
               />
               <CarouselNext
-                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border border-black/10 bg-white text-black shadow-sm hover:bg-black hover:text-white"
+                class="static translate-x-0 translate-y-0 h-10 w-10 rounded-full border bg-background text-foreground shadow-sm hover:bg-black hover:text-white"
               />
             </div>
           </div>
         </Carousel>
       </div>
   </div>
-  <div class="mt-20 text-sm text-black/60 max-w-3xl mx-auto text-center">
+  <div class="mt-20 text-sm text-foreground/70 max-w-3xl mx-auto text-center">
   <p>
     Coutera is an online auction marketplace focused on rare fashion, designer clothing, and collectible items.
     Users can browse auctions, place bids, and discover unique pieces from brands and independent sellers worldwide.

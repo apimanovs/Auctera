@@ -84,34 +84,34 @@ const sections = [
 </script>
 
 <template>
-  <div class="bg-white text-black">
+  <div class="bg-background text-foreground">
     <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div class="overflow-hidden rounded-[32px] bg-neutral-100">
+      <div class="overflow-hidden rounded-[32px] bg-neutral-100 dark:bg-neutral-800">
         <div class="grid gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-12 xl:px-16">
           <div class="max-w-3xl">
-            <p class="text-[11px] uppercase tracking-[0.24em] text-black/40">
+            <p class="text-[11px] uppercase tracking-[0.24em] text-foreground/60">
               Legal
             </p>
 
-            <h1 class="mt-4 text-4xl font-semibold tracking-tight text-black sm:text-5xl xl:text-6xl">
+            <h1 class="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl xl:text-6xl">
               Terms of Service
             </h1>
 
-            <p class="mt-3 text-sm text-black/45">
+            <p class="mt-3 text-sm text-foreground/45">
               Last updated: March 17, 2026
             </p>
 
-            <p class="mt-5 max-w-2xl text-sm leading-7 text-black/65 sm:text-base">
+            <p class="mt-5 max-w-2xl text-sm leading-7 text-foreground/65 sm:text-base">
               These Terms of Service govern your access to and use of the Coutera platform, including browsing, listing items, bidding, and completing transactions.
             </p>
           </div>
 
           <div class="flex items-end lg:justify-end">
-            <div class="w-full rounded-[28px] bg-white p-6">
-              <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+            <div class="w-full rounded-[28px] bg-background p-6">
+              <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/60">
                 Summary
               </p>
-              <p class="mt-3 text-sm leading-7 text-black/65">
+              <p class="mt-3 text-sm leading-7 text-foreground/65">
                 By using Coutera, you agree to follow the platform rules, provide accurate information, and respect the auction process, payment obligations, and listing standards.
               </p>
             </div>
@@ -123,8 +123,8 @@ const sections = [
     <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div class="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)]">
         <aside class="hidden lg:block">
-          <div class="sticky top-36 rounded-[28px] border border-black/10 bg-white p-5">
-            <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
+          <div class="sticky top-36 rounded-[28px] border bg-background p-5">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/60">
               On this page
             </p>
 
@@ -133,7 +133,7 @@ const sections = [
                 v-for="section in sections"
                 :key="section.id"
                 :href="`#${section.id}`"
-                class="block text-sm text-black/60 transition hover:text-black"
+                class="block text-sm text-foreground/60 transition hover:text-foreground"
               >
                 {{ section.title }}
               </a>
@@ -146,15 +146,15 @@ const sections = [
               v-for="section in sections"
               :id="section.id"
               :key="section.id"
-              class="scroll-mt-40 rounded-[28px] border border-black/10 bg-white p-6 sm:p-8"
+              class="scroll-mt-40 rounded-[28px] border bg-background p-6 sm:p-8"
             >
-            <h2 class="text-2xl font-semibold tracking-tight text-black">
+            <h2 class="text-2xl font-semibold tracking-tight text-foreground">
               {{ section.title }}
             </h2>
 
             <div
               v-if="section.content"
-              class="mt-5 space-y-4 text-sm leading-8 text-black/65 sm:text-base"
+              class="mt-5 space-y-4 text-sm leading-8 text-foreground/65 sm:text-base"
             >
               <p
                 v-for="paragraph in section.content"
@@ -171,9 +171,9 @@ const sections = [
               <li
                 v-for="item in section.list"
                 :key="item"
-                class="flex items-start gap-3 text-sm leading-7 text-black/65 sm:text-base"
+                class="flex items-start gap-3 text-sm leading-7 text-foreground/65 sm:text-base"
               >
-                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-black/70"></span>
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-foreground/70"></span>
                 <span>{{ item }}</span>
               </li>
             </ul>
@@ -183,11 +183,11 @@ const sections = [
     </section>
 
     <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-      <div class="rounded-[32px] border border-black/10 bg-neutral-100 px-6 py-8 text-center sm:px-10">
-        <p class="text-sm text-black/45">
+      <div class="rounded-[32px] border bg-background px-6 py-8 text-center sm:px-10">
+        <p class="text-sm text-foreground/45">
           Coutera · Terms of Service
         </p>
-        <p class="mt-3 text-lg font-medium text-black">
+        <p class="mt-3 text-lg font-medium text-foreground/65">
           Clear rules support a cleaner marketplace.
         </p>
       </div>

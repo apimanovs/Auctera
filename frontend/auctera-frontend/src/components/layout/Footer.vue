@@ -6,28 +6,28 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-    <footer class="border-t py-8">
+    <footer class="border-t border-border py-8">
         <Container>
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <p class="text-sm text-black/60">© {{ currentYear }} Coutera</p>
+                    <p class="text-sm text-foreground/60">© {{ currentYear }} Coutera</p>
                 </div>
                 <div class="flex flex-wrap justify-center md:justify-end space-x-6 mb-4 md:mb-0">
                     <a
                     href="/about"
-                    class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200"
+                    class="text-sm text-foreground/60 hover:text-gray-600 transition-colors duration-200"
                     >
                     About
                     </a>
                     <a
                     href="/terms"
-                    class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200"
+                    class="text-sm text-foreground/60 hover:text-gray-600 transition-colors duration-200"
                     >
                     Terms of Service
                     </a>
                     <a
                     href="/privacy-policy"
-                    class="text-sm text-black/60 hover:text-gray-600 transition-colors duration-200"
+                    class="text-sm text-foreground/60 hover:text-gray-600 transition-colors duration-200"
                     >
                     Privacy Policy
                     </a>
