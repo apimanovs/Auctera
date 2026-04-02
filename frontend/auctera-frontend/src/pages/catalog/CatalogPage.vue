@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import AuctionCard from '@/components/auctions/AuctionCard.vue'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
 import { computed, ref } from 'vue'
 
 const selectedCategory = ref('All')
@@ -121,115 +130,150 @@ const filteredLots = computed(() => {
 
 <template>
   <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="space-y-8">
+      <section class="rounded-[28px] border bg-background p-5 sm:p-6">
+        <div class="flex flex-col gap-6">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/40">
+                Catalog
+              </p>
+              <h2 class="mt-1 text-2xl font-semibold tracking-tight text-foreground">
+                Discover pieces
+              </h2>
+            </div>
 
-    <div class="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-      <aside class="h-fit rounded-[28px] border border-black/10 bg-white p-6">
-        <div>
-          <p class="text-[11px] uppercase tracking-[0.22em] text-black/40">
-            Filters
-          </p>
-          <h2 class="mt-2 text-2xl font-semibold tracking-tight text-black">
-            Refine
-          </h2>
-        </div>
-
-        <div class="mt-6 space-y-6">
-          <div>
-            <label class="mb-2 block text-sm font-medium text-black">Category</label>
-            <select v-model="selectedCategory" class="h-11 w-full rounded-2xl border border-black/10 bg-neutral-100 px-4 text-sm text-black outline-none">
-              <option v-for="category in categories" :key="category" :value="category">
-                {{ category }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="mb-2 block text-sm font-medium text-black">Brand</label>
-            <select v-model="selectedBrand" class="h-11 w-full rounded-2xl border border-black/10 bg-neutral-100 px-4 text-sm text-black outline-none">
-              <option v-for="brand in brands" :key="brand" :value="brand">
-                {{ brand }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="mb-2 block text-sm font-medium text-black">Gender</label>
-            <select v-model="selectedGender" class="h-11 w-full rounded-2xl border border-black/10 bg-neutral-100 px-4 text-sm text-black outline-none">
-              <option v-for="gender in genders" :key="gender" :value="gender">
-                {{ gender }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="mb-2 block text-sm font-medium text-black">Condition</label>
-            <select v-model="selectedCondition" class="h-11 w-full rounded-2xl border border-black/10 bg-neutral-100 px-4 text-sm text-black outline-none">
-              <option v-for="condition in conditions" :key="condition" :value="condition">
-                {{ condition }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </aside>
-
-      <div>
-        <div class="mb-6 flex flex-col gap-4 rounded-[28px] border border-black/10 bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p class="text-sm text-black/50">
-              {{ filteredLots.length }} lots found
+            <p class="text-sm text-foreground/60">
+              {{ filteredLots.length }} items
             </p>
           </div>
 
-          <div class="flex items-center gap-3">
-            <label class="text-sm text-black/60">Sort by</label>
-            <select v-model="selectedSort" class="h-11 rounded-2xl border border-black/10 bg-neutral-100 px-4 text-sm text-black outline-none">
-              <option v-for="option in sortOptions" :key="option" :value="option">
-                {{ option }}
-              </option>
-            </select>
+          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <!-- Category -->
+            <div>
+              <label class="mb-2 block text-sm font-medium text-foreground">
+                Category
+              </label>
+              <Select v-model="selectedCategory">
+                <SelectTrigger class="h-11 w-full rounded-2xl border border-foreground/20 bg-background px-4 text-sm">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    v-for="category in categories"
+                    :key="category"
+                    :value="category"
+                  >
+                    {{ category }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <!-- Brand -->
+            <div>
+              <label class="mb-2 block text-sm font-medium text-foreground">
+                Brand
+              </label>
+              <Select v-model="selectedBrand">
+                <SelectTrigger class="h-11 w-full rounded-2xl border border-foreground/20 bg-background px-4 text-sm">
+                  <SelectValue placeholder="Select brand" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    v-for="brand in brands"
+                    :key="brand"
+                    :value="brand"
+                  >
+                    {{ brand }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <!-- Gender -->
+            <div>
+              <label class="mb-2 block text-sm font-medium text-foreground">
+                Gender
+              </label>
+              <Select v-model="selectedGender">
+                <SelectTrigger class="h-11 w-full rounded-2xl border border-foreground/20 bg-background px-4 text-sm">
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    v-for="gender in genders"
+                    :key="gender"
+                    :value="gender"
+                  >
+                    {{ gender }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <!-- Condition -->
+            <div>
+              <label class="mb-2 block text-sm font-medium text-foreground">
+                Condition
+              </label>
+              <Select v-model="selectedCondition">
+                <SelectTrigger class="h-11 w-full rounded-2xl border border-foreground/20 bg-background px-4 text-sm">
+                  <SelectValue placeholder="Select condition" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    v-for="condition in conditions"
+                    :key="condition"
+                    :value="condition"
+                  >
+                    {{ condition }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <!-- Sort -->
+            <div>
+              <label class="mb-2 block text-sm font-medium text-foreground">
+                Sort by
+              </label>
+              <Select v-model="selectedSort">
+                <SelectTrigger class="h-11 w-full rounded-2xl border border-foreground/20 bg-background px-4 text-sm">
+                  <SelectValue placeholder="Sort lots" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    v-for="option in sortOptions"
+                    :key="option"
+                    :value="option"
+                  >
+                    {{ option }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      <section>
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           <article
             v-for="lot in filteredLots"
             :key="lot.id"
-            class="group overflow-hidden rounded-[28px] border border-black/10 bg-white"
+            class="group overflow-hidden"
           >
-            <div class="overflow-hidden bg-neutral-100">
-              <img
-                :src="lot.image"
-                :alt="lot.title"
-                class="h-80 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-              />
-            </div>
-
-            <div class="p-5">
-              <p class="text-[11px] uppercase tracking-[0.2em] text-black/40">
-                {{ lot.brand }}
-              </p>
-
-              <h3 class="mt-2 line-clamp-2 text-lg font-medium text-black">
-                {{ lot.title }}
-              </h3>
-
-              <div class="mt-4 flex items-center justify-between gap-3">
-                <span class="text-sm font-semibold text-black">€{{ lot.price }}</span>
-                <span class="text-sm text-black/50">{{ lot.timeLeft }}</span>
-              </div>
-
-              <div class="mt-4 flex flex-wrap gap-2">
-                <span class="rounded-full bg-neutral-100 px-3 py-1 text-xs text-black/65">
-                  {{ lot.category }}
-                </span>
-                <span class="rounded-full bg-neutral-100 px-3 py-1 text-xs text-black/65">
-                  {{ lot.condition }}
-                </span>
-              </div>
-            </div>
+            <AuctionCard
+              :brand="lot.brand"
+              :title="lot.title"
+              :price="lot.price"
+              :image-url="lot.image"
+              :time-left="lot.timeLeft"
+            />
           </article>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>

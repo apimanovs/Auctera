@@ -19,13 +19,15 @@ import {
 const auctions = ref<Auction[]>([
   {
     id: 1,
+    brand: 'Hermès',
     title: 'Vintage Leather Sofa - Pristine Condition',
-    price: 450,
+    price: 1000000000,
     imageUrl: 'https://media-photos.depop.com/b1/28724162/3191473831_ade6609dc27340629bc6d4af9ac1b841/P0.jpg',
     timeLeft: '2 дня 14 часов',
   },
   {
     id: 2,
+    brand: 'Gucci',
     title: 'Original Oil Painting by Unknown Artist',
     price: 320,
     imageUrl: 'https://media-photos.depop.com/b1/38992639/3121126790_b608df72f79c4f8b9cb99737678b74f5/P0.jpg',
@@ -33,6 +35,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 3,
+    brand: 'Rolex',
     title: 'Rolex Submariner Watch Limited Edition',
     price: 5400,
     imageUrl: 'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P0.jpg',
@@ -40,6 +43,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 4,
+    brand: 'Chanel',
     title: 'Antique Wooden Cabinet with Mirror',
     price: 280,
     imageUrl: 'https://media-photos.depop.com/b1/43448124/3109199960_e0915b4487004c61a6f7613dca8db4a9/P0.jpg',
@@ -47,6 +51,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 5,
+    brand: 'Tiffany & Co.',
     title: 'Vintage Pearl Necklace - 18K Gold Chain',
     price: 650,
     imageUrl: 'https://media-photos.depop.com/b1/51377749/3251202528_7ca0ed8a90b8496c9b8793bd28d3de17/P0.jpg',
@@ -54,6 +59,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 6,
+    brand: 'Louis Vuitton',
     title: 'Brand New Gaming Laptop RTX 4090',
     price: 2100,
     imageUrl: 'https://images.thebestshops.com/product_images/original/SL12226-044_01-339d21.jpg',
@@ -61,6 +67,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 7,
+    brand: 'The Beatles',
     title: 'Signed Beatles Vinyl Record First Edition',
     price: 3200,
     imageUrl: 'https://media-photos.depop.com/b1/45498419/3517277733_6056232abec546e987925ec83630f810/P0.jpg',
@@ -68,6 +75,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 8,
+    brand: 'Prada',
     title: 'Handmade Italian Ceramic Vase',
     price: 420,
     imageUrl: 'https://media-photos.depop.com/b1/36719830/3498593736_9131744e9156480d90e996a6dcb6ec67/P0.jpg',
@@ -75,6 +83,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 9,
+    brand: 'Yeezy',
     title: 'Vintage Leather Camera Bag',
     price: 180,
     imageUrl: 'https://media-photos.depop.com/b1/448068812/3474488748_5e0e9243711c4cbcb6dce7afdff37d6d/P0.jpg',
@@ -82,6 +91,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 10,
+    brand: 'Balenciaga',
     title: 'Classic Analogue Photocamera 35mm',
     price: 240,
     imageUrl: 'https://media-photos.depop.com/r1/341927691/3481391174_2e97b19297a44aae8e7e46d6e737e530/P6.jpg',
@@ -89,6 +99,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 11,
+    brand: 'Cartier',
     title: 'Sterling Silver Coin Collection',
     price: 890,
     imageUrl: 'https://media-photos.depop.com/b1/20411984/2751785262_45ca34b51be54edbad51742f72c8c676/P0.jpg',
@@ -96,6 +107,7 @@ const auctions = ref<Auction[]>([
   },
   {
     id: 12,
+    brand: 'Gucci',
     title: 'Rare Bird Taxidermy Display',
     price: 1200,
     imageUrl: 'https://media-photos.depop.com/b1/51416371/3553513106_b896da1472a94103a15b55b05dd159f1/P0.jpg',
@@ -152,7 +164,7 @@ onMounted(loadAuctions)
             </button>
 
             <button
-              class="rounded-full border bg-black dark:bg-white px-5 py-2.5 text-sm font-medium text-white dark:text-black transition cursor-pointer"
+              class="rounded-full border bg-black dark:bg-white px-5 py-2.5 text-sm font-medium text-white dark:text-black transition"
             >
               Browse brands
             </button>
@@ -188,6 +200,7 @@ onMounted(loadAuctions)
                 class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
               >
                 <AuctionCard
+                  :brand="auction.brand"
                   :title="auction.title"
                   :price="auction.price"
                   :image-url="auction.imageUrl"
@@ -279,6 +292,7 @@ onMounted(loadAuctions)
                 class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
               >
                 <AuctionCard
+                 :brand="auction.brand"
                   :title="auction.title"
                   :price="auction.price"
                   :image-url="auction.imageUrl"
@@ -342,6 +356,7 @@ onMounted(loadAuctions)
                 class="pl-3 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
               >
                 <AuctionCard
+                  :brand="auction.brand"
                   :title="auction.title"
                   :price="auction.price"
                   :image-url="auction.imageUrl"
