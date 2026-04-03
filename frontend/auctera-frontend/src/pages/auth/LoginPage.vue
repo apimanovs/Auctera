@@ -1,6 +1,39 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import Button from '@/components/ui/button/Button.vue'
+
+import { ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import axios from 'axios'
+
+const router = useRouter()
+const authStore = useAuthStore()
+
+const email = ref('')
+const password = ref('')
+const errorMessage = ref('')
+
+const handleLogin = async (): Promise<void>  => {
+    console.log('Email:', email.value)
+    console.log('Password:', password.value)
+
+    errorMessage.value = ''
+
+    try
+    {
+      await authStore.login(email.value, password.value)
+      router.push('/home')
+    } 
+    catch (error) 
+    {
+      if (axios.isAxiosError(error)) {
+        errorMessage.value = error.response?.data?.message ?? 'Login failed'
+        return
+    }
+    
+    errorMessage.value = 'An unexpected error occurred'
+  }
+}
 </script>
 
 <template>
@@ -32,13 +65,14 @@ import Button from '@/components/ui/button/Button.vue'
               </p>
             </div>
 
-            <form action="#" method="POST" class="mt-8 space-y-5">
+            <form @submit.prevent="handleLogin" class="mt-8 space-y-5">
               <div>
                 <label for="email" class="block text-sm font-medium text-black">
                   Email address
                 </label>
                 <div class="mt-2">
                   <input
+                    v-model="email"
                     id="email"
                     type="email"
                     name="email"
@@ -66,6 +100,7 @@ import Button from '@/components/ui/button/Button.vue'
 
                 <div class="mt-2">
                   <input
+                    v-model="password"
                     id="password"
                     type="password"
                     name="password"
@@ -85,6 +120,9 @@ import Button from '@/components/ui/button/Button.vue'
                   Sign in
                 </Button>
               </div>
+              <p v-if="errorMessage" class="text-red-500">
+                {{ errorMessage }}
+              </p>
             </form>
 
             <div class="mt-6 text-sm text-black/55">

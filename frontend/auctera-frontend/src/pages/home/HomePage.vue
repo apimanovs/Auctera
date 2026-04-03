@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import type { Auction } from '@/types/auction'
+import { useAuthStore } from '@/stores/authStore'
+import { storeToRefs } from 'pinia'
 import { getAuctions } from '@/app/services/auctionService'
+
+
 import AuctionCard from '@/components/auctions/AuctionCard.vue'
 import TrendingUpIcon from '@/components/ui/icons/TrendingUpIcon.vue'
 import RefreshCwIcon from '@/components/ui/icons/RefreshCwIcon.vue'
@@ -14,7 +18,8 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 
-
+const authStore = useAuthStore()
+const { user, isAuthenticated } = storeToRefs(authStore)
 
 const auctions = ref<Auction[]>([
   {
@@ -147,13 +152,30 @@ onMounted(loadAuctions)
             Coutera
           </p>
 
-          <h1 class="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          <h1 v-if="!isAuthenticated" class="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Rare pieces, premium brands, and auctions worth watching.
           </h1>
 
-          <p class="mt-4 max-w-xl text-sm leading-6 text-foreground/60 sm:text-base">
+          <h1
+            v-if="isAuthenticated"
+            class="mt-3 bg-gradient-to-r from-black via-neutral-600 to-neutral-400 bg-clip-text text-3xl font-semibold tracking-tight text-transparent sm:text-4xl md:text-5xl dark:from-white dark:via-neutral-200 dark:to-neutral-400"
+          >
+            Welcome back, {{ user?.username }}!
+          </h1>
+ 
+          <p
+            v-if="!isAuthenticated"
+            class="mt-4 max-w-xl text-sm leading-6 text-foreground/60 sm:text-base"
+          >
             A refined marketplace for designer fashion, collectibles, and standout objects.
             Discover curated lots, place confident bids, and find items that feel worth owning.
+          </p>
+          <p
+            v-else
+            class="mt-4 max-w-xl text-sm leading-6 text-foreground/60 sm:text-base"
+          >
+            Discover what’s new, track your active bids, and uncover pieces that match your style.
+            Your next standout item might already be waiting.
           </p>
 
           <div class="mt-6 flex flex-wrap gap-3">
