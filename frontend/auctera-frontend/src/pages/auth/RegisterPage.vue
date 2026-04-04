@@ -1,7 +1,48 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import Button from '@/components/ui/button/Button.vue'
 import Input from '@/components/ui/input/Input.vue'
+
+import { ref } from 'vue'
+import { RouterLink , useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import axios from 'axios'
+
+const router = useRouter()
+const authStore = useAuthStore()
+
+const username = ref('')
+const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+const errorMessage = ref('')
+
+const handleRegister = async (): Promise<void> => {
+  
+  errorMessage.value = ''
+
+  if (password.value !== confirmPassword.value) {
+    errorMessage.value = 'Passwords do not match'
+    return
+  }
+
+  try 
+  {
+    await authStore.register(username.value, email.value, password.value, confirmPassword.value)
+    router.push('/home')
+  } 
+  catch (error) 
+  {
+    if (axios.isAxiosError(error)) 
+    {
+      errorMessage.value = error.response?.data?.message ?? 'Registration failed'
+      return
+    }
+
+    errorMessage.value = 'An unexpected error occurred'
+  }
+}
+
+
 </script>
 
 <template>
@@ -33,13 +74,33 @@ import Input from '@/components/ui/input/Input.vue'
               </p>
             </div>
 
-            <form action="#" method="POST" class="mt-8 space-y-5">
+            <form @submit.prevent="handleRegister" class="mt-8 space-y-5">
+
+              <div>
+                <label for="text" class="block text-sm font-medium text-black">
+                  Username
+                </label>
+                <div class="mt-2">
+                  <Input
+                    v-model="username"
+                    id="username"
+                    type="text"
+                    name="username"
+                    required
+                    autocomplete="username"
+                    placeholder="Enter your username"
+                    class="block h-12 w-full rounded-2xl border border-black/10 bg-neutral-100 px-4 text-black placeholder:text-black/35 focus:border-black focus:bg-white focus:outline-none"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label for="email" class="block text-sm font-medium text-black">
                   Email address
                 </label>
                 <div class="mt-2">
                   <Input
+                    v-model="email"
                     id="email"
                     type="email"
                     name="email"
@@ -57,6 +118,7 @@ import Input from '@/components/ui/input/Input.vue'
                 </label>
                 <div class="mt-2">
                   <Input
+                    v-model="password"
                     id="password"
                     type="password"
                     name="password"
@@ -74,6 +136,7 @@ import Input from '@/components/ui/input/Input.vue'
                 </label>
                 <div class="mt-2">
                   <Input
+                    v-model="confirmPassword"
                     id="confirmPassword"
                     type="password"
                     name="confirmPassword"
@@ -93,6 +156,10 @@ import Input from '@/components/ui/input/Input.vue'
                   Create account
                 </Button>
               </div>
+
+              <p v-if="errorMessage" class="text-red-500">
+                {{ errorMessage }}
+              </p>
             </form>
 
             <div class="mt-6 text-sm text-black/55">

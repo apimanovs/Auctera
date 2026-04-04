@@ -32,11 +32,12 @@ export const useAuthStore = defineStore('auth', () => {
     await checkAuth()
   }
 
-  async function register(username: string, email: string, password: string): Promise<void> {
+  async function register(username: string, email: string, password: string, confirmPassword: string): Promise<void> {
     await api.post('/api/auth/register', {
       username,
       email,
       password,
+      confirmPassword,
     })
   }
 
@@ -44,14 +45,11 @@ export const useAuthStore = defineStore('auth', () => {
     try 
     {
       await api.post('/api/auth/logout')
+      clearAuth()
     } 
     catch (error) 
     {
       console.error('Logout failed:', error)
-    } 
-    finally 
-    {
-      clearAuth()
     }
   }
 

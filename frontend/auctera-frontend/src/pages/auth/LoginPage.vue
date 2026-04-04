@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
+import Input from '@/components/ui/input/Input.vue'
 
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
@@ -14,9 +15,6 @@ const password = ref('')
 const errorMessage = ref('')
 
 const handleLogin = async (): Promise<void>  => {
-    console.log('Email:', email.value)
-    console.log('Password:', password.value)
-
     errorMessage.value = ''
 
     try
@@ -71,7 +69,7 @@ const handleLogin = async (): Promise<void>  => {
                   Email address
                 </label>
                 <div class="mt-2">
-                  <input
+                  <Input
                     v-model="email"
                     id="email"
                     type="email"
@@ -99,7 +97,7 @@ const handleLogin = async (): Promise<void>  => {
                 </div>
 
                 <div class="mt-2">
-                  <input
+                  <Input
                     v-model="password"
                     id="password"
                     type="password"

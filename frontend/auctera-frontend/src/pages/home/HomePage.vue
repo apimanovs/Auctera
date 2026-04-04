@@ -255,6 +255,9 @@ onMounted(loadAuctions)
         >
           Shop by category
         </h2>
+        <p class="text-sm text-foreground/70">
+          Explore various categories with the latest releases.
+        </p>
 
         <section
           class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5"
@@ -340,16 +343,47 @@ onMounted(loadAuctions)
         </Carousel>
       </div>
 
-      <section
-          class="my-16 overflow-hidden text-foreground flex flex-col justify-center items-center py-16 gap-2"
-          aria-labelledby="brand-story-title">
-          <h2 id="brand-story-title" class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
-            Not mass market. Never ordinary.
-          </h2>
-          <p class="mt-4 max-w-2xl text-sm text-foreground/70 sm:text-base">
-              Curated auctions for rare fashion, collectible pieces, and objects worth noticing.
-          </p>
-      </section>
+      <div class="mb-10">
+        <h2
+          id="brand-story-title"
+          class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl"
+        >
+          Shop by brand
+        </h2>
+        <p class="text-sm text-foreground/70">
+          Explore standout pieces from top brands and independent sellers.
+        </p>
+
+        <section
+          class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5"
+          aria-labelledby="brand-story-title"
+        >
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Brand</span>
+            <span class="text-xl font-semibold">Prada</span>
+          </div>
+
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Brand</span>
+            <span class="text-xl font-semibold">Gucci</span>
+          </div>
+
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Brand</span>
+            <span class="text-xl font-semibold">Balenciaga</span>
+          </div>
+
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Brand</span>
+            <span class="text-xl font-semibold">Vetements</span>
+          </div>
+
+          <div class="border group aspect-square rounded-2xl bg-background p-6 flex flex-col justify-between cursor-pointer transition duration-300 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black">
+            <span class="text-sm uppercase tracking-[0.2em] text-foreground group-hover:text-neutral-200 dark:group-hover:text-neutral-600">Brand</span>
+            <span class="text-xl font-semibold">Louis Vuitton</span>
+          </div>
+        </section>
+      </div>
 
       <div class="mb-12 rounded-2xl border py-6 md:px-6">
         <div class="mb-6 flex items-end justify-between gap-2">

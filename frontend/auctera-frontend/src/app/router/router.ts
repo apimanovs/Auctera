@@ -32,7 +32,7 @@ const routes = isDev
             component: HomePage,
           },
           {
-            path: 'profile',
+            path: 'profile/:username',
             component: UserProfilePage,
           },
           {

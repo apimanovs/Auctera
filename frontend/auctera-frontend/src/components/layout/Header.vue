@@ -1,12 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { storeToRefs } from 'pinia'
+
+
 import Container from '@/components/ui/Container.vue'
 import Input from '@/components/ui/input/Input.vue'
 import ModeToggle from '@/components/theme/ModeToggle.vue'
 import Categories from '@/components/layout/CategoriesNavbar.vue'
+import UserProfileIcon from '../ui/icons/UserProfileIcon.vue'
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
 
 const searchQuery = ref('')
+const authStore = useAuthStore()
+const { user, isAuthenticated } = storeToRefs(authStore)
 
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
@@ -71,19 +87,41 @@ const handleKeyPress = (event: KeyboardEvent) => {
         </div>
 
         <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+
           <RouterLink
+            to="/register"
+            class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 inline-flex"
+          >
+            Sell with us
+          </RouterLink>
+
+          <RouterLink
+            v-if="!isAuthenticated"
             to="/login"
-            class="hidden rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground sm:inline-flex"
+            class="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground inline-flex"
           >
             Sign in
           </RouterLink>
 
-          <RouterLink
-            to="/register"
-            class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
-          >
-            Sell with us
-          </RouterLink>
+          <div v-if="isAuthenticated" >
+            <Select>
+              <SelectTrigger class="h-10 w-full rounded-full border border-border bg-background px-3 text-sm">
+                <SelectValue>
+                  <UserProfileIcon />
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem>
+                  <RouterLink :to="`/profile/${user?.username}`">
+                    Profile
+                  </RouterLink>
+                </SelectItem>
+                <SelectItem @click="authStore.logout()">
+                   Logout
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
           <ModeToggle />
         </div>
