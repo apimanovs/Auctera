@@ -7,12 +7,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Auctera.Identity.Infrastructure.Claims;
 
 namespace Auctera.Identity.API.Controllers;
 
 [ApiController]
 [Route("api/auth")]
-[EnableRateLimiting("AuthPolicy")]
+[EnableRateLimiting("AuthLoginPolicy")]
 /// <summary>
 /// Represents the auth controller class.
 /// </summary>
@@ -23,6 +24,7 @@ public sealed class AuthController(IMediator mediator, ICookieFactory cookieFact
 
     [HttpPost("register")]
     [AllowAnonymous]
+    [EnableRateLimiting("AuthLoginPolicy")]
     /// <summary>
     /// Performs the register operation.
     /// </summary>
@@ -41,6 +43,7 @@ public sealed class AuthController(IMediator mediator, ICookieFactory cookieFact
 
     [HttpPost("login")]
     [AllowAnonymous]
+    [EnableRateLimiting("AuthLoginPolicy")]
     /// <summary>
     /// Performs the login operation.
     /// </summary>
@@ -71,12 +74,32 @@ public sealed class AuthController(IMediator mediator, ICookieFactory cookieFact
     }
 
     [HttpPost("refresh")]
-    public async Task<ActionResult<AuthResult>> Refresh([FromBody] RefreshTokenCommand command, CancellationToken cancellationToken)
+    [EnableRateLimiting("AuthRefreshPolicy")]
+    public async Task<ActionResult<AuthResult>> Refresh(CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(command, cancellationToken);
+        var refreshToken = Request.Cookies["refresh_token"];
+
+        if (string.IsNullOrWhiteSpace(refreshToken))
+        {
+            return Unauthorized();
+        }
+
+        var result = await _mediator.Send(new RefreshTokenCommand(refreshToken), cancellationToken);
 
         _cookieFactory.SetAccessTokenCookie(Response, result.AccessToken);
         _cookieFactory.SetRefreshTokenCookie(Response, result.RefreshToken);
+
+        return Ok(result);
+    }
+
+    [HttpGet("me")]
+    [Authorize]
+    [EnableRateLimiting("AuthMePolicy")]
+    public async Task<ActionResult<AuthResult>> CurrentUser(CancellationToken cancellationToken)
+    {
+        var user = User.Claims.GetUserId();
+
+        var result = await _mediator.Send(new CurrentUserCommand(user), cancellationToken);
 
         return Ok(result);
     }

@@ -18,7 +18,9 @@ using Auctera.Identity.Infrastructure.Repository;
 using Auctera.Items.API.Controllers;
 using Auctera.Items.Application.Interfaces;
 using Auctera.Items.Infrastructure.Repository;
+using Auctera.Orders.Application.Interfaces;
 using Auctera.Orders.Infrastructure.Options;
+using Auctera.Orders.Infrastructure.Repository;
 using Auctera.Persistance;
 using Auctera.Realtime.Extensions;
 using Auctera.Shared.Domain.Time;
@@ -71,16 +73,49 @@ builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-    options.AddPolicy("AuthPolicy", httpContext =>
+    options.AddPolicy("AuthLoginPolicy", httpContext =>
         RateLimitPartition.GetFixedWindowLimiter(
             partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
             factory: _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 10,
+                PermitLimit = 5,
                 Window = TimeSpan.FromMinutes(1),
                 QueueLimit = 0,
                 AutoReplenishment = true
             }));
+
+    options.AddPolicy("AuthRefreshPolicy", httpContext =>
+    {
+        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: $"refresh:{ip}",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 30,
+                Window = TimeSpan.FromSeconds(30),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
+
+    options.AddPolicy("AuthMePolicy", httpContext =>
+    {
+        var userId = httpContext.User.FindFirst("sub")?.Value
+            ?? httpContext.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value
+            ?? httpContext.Connection.RemoteIpAddress?.ToString()
+            ?? "unknown";
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: $"me:{userId}",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
 
     options.AddPolicy("BidsPolicy", httpContext =>
     {
@@ -122,7 +157,20 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Items.Application.Marker.MediatRAssemblyMarker).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Bids.Application.Marker.MediatRAssemblyMarker).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Auctions.Application.Marker.MediatRAssemblyMarker).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Auctera.Orders.Application.Marker.MediatRAssemblyMarker).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Identity.Application.Handlers.LoginCommandHandler).Assembly);
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
 });
 
 builder.Services.AddAuthorization();
@@ -132,6 +180,7 @@ builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<ILotRepository, LotRepository>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 builder.Services.AddScoped<ICookieFactory, CookieFactory>();
+builder.Services.AddScoped<IOrderRepository, OrdersRepository>();
 
 builder.Services.AddSingleton<IClock, SystemClock>();
 

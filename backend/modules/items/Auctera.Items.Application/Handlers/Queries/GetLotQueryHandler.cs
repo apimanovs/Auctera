@@ -47,6 +47,7 @@ public sealed class GetLotQueryHandler(ILotRepository lotRepository) : IRequestH
             Brand = lot.Brand,
             Condition = lot.Condition,
             Color = lot.Color,
+            Status = lot.Status,
             Media = lot.Media.Select(m => new LotMediaDto
             {
                 Key = m.Key, // url

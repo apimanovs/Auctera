@@ -46,6 +46,11 @@ public sealed class EditLotCommandHandler : IRequestHandler<EditLotCommand>
             throw new KeyNotFoundException($"Lot {request.id} not found.");
         }
 
+        if (lot.Status != LotStatus.Draft)
+        {
+            throw new Exception("You can edit only draft lots");
+        }
+
         lot.Edit(request.sellerId,
             request.title,
             request.description,

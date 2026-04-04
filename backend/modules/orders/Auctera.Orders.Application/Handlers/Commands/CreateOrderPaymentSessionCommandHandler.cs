@@ -5,6 +5,8 @@ using Auctera.Orders.Infrastructure.Options;
 
 using MediatR;
 
+using Microsoft.Extensions.Options;
+
 using Stripe.Checkout;
 
 /// <summary>
@@ -15,13 +17,16 @@ public sealed class CreateOrderPaymentSessionCommandHandler
 {
     private readonly StripeOptions _stripeOptions;
     private readonly IOrderRepository _orders;
+    private readonly SessionService _sessionService;
 
     public CreateOrderPaymentSessionCommandHandler(
-        StripeOptions stripeOptions,
-        IOrderRepository orders)
+        IOptions<StripeOptions> stripeOptions,
+        IOrderRepository orders,
+        SessionService sessionService)
     {
-        _stripeOptions = stripeOptions;
+        _stripeOptions = stripeOptions.Value;
         _orders = orders;
+        _sessionService = sessionService;
     }
 
     public async Task<CreateOrderPaymentSessionResult> Handle(
@@ -53,13 +58,11 @@ public sealed class CreateOrderPaymentSessionCommandHandler
             SuccessUrl = _stripeOptions.SuccessUrl + "?session_id={CHECKOUT_SESSION_ID}",
             CancelUrl = _stripeOptions.CancelUrl,
             ClientReferenceId = order.Id.ToString(),
-
             Metadata = new Dictionary<string, string>
             {
                 ["orderId"] = order.Id.ToString(),
                 ["buyerId"] = order.BuyerId.ToString()
             },
-
             LineItems = new List<SessionLineItemOptions>
             {
                 new()
@@ -78,8 +81,7 @@ public sealed class CreateOrderPaymentSessionCommandHandler
             }
         };
 
-        var service = new SessionService();
-        var session = await service.CreateAsync(options, cancellationToken: ct);
+        var session = await _sessionService.CreateAsync(options, cancellationToken: ct);
 
         if (string.IsNullOrWhiteSpace(session.Url))
         {

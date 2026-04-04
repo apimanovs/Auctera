@@ -64,7 +64,7 @@ public static class DependencyInjection
                 {
                     OnMessageReceived = context =>
                     {
-                        var token = context.Request.Cookies["token"];
+                        var token = context.Request.Cookies["access_token"];
 
                         if (!string.IsNullOrWhiteSpace(token))
                         {

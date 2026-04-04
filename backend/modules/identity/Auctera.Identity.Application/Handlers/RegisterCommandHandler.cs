@@ -41,19 +41,18 @@ public sealed class RegisterCommandHandler(
 
         if (string.IsNullOrEmpty(request.username))
         {
-            throw new ArgumentException("Email is required");
+            throw new ArgumentException("username is required");
         }
 
         if (string.IsNullOrEmpty(request.password))
         {
-            throw new ArgumentException("Email is required");
+            throw new ArgumentException("password is required");
         }
 
         if (string.IsNullOrEmpty(request.confirmPassword))
         {
-            throw new ArgumentException("Email is required");
+            throw new ArgumentException("password is required");
         }
-
 
         if (request.password != request.confirmPassword)
         {

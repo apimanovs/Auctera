@@ -1,4 +1,5 @@
 ﻿using Auctera.Items.Domain.Enums;
+using Auctera.Shared.Domain.Enums;
 
 using static Auctera.Items.Domain.Lot;
 
@@ -60,6 +61,8 @@ public sealed class LotDto
     /// Gets or sets the color used by this type.
     /// </summary>
     public string? Color { get; set; }
+
+    public LotStatus Status { get; set; }
 
     /// <summary>
     /// Gets or sets the media used by this type.

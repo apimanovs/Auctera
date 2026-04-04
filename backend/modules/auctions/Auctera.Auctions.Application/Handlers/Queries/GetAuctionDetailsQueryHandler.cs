@@ -25,10 +25,8 @@ public sealed class GetAuctionDetailsQueryHandler
         _context = context;
     }
 
-    public async Task<AuctionDetailsDto> Handle(
-    GetAuctionDetailsQuery request,
-    CancellationToken cancellationToken)
-    {
+    public async Task<AuctionDetailsDto> Handle(GetAuctionDetailsQuery request, CancellationToken cancellationToken)
+    {    
         var dto = await _context.Auctions
             .AsNoTracking()
             .Where(a => a.Id == request.AuctionId)
@@ -48,7 +46,7 @@ public sealed class GetAuctionDetailsQueryHandler
                 StartsAt = a.StartDate,
                 EndsAt = a.EndDate,
 
-                LotId = a.LotId,
+                LotId = a.LotId
             })
             .SingleOrDefaultAsync(cancellationToken);
 

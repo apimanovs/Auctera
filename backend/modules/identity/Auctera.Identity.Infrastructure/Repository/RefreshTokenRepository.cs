@@ -14,7 +14,7 @@ public sealed class RefreshTokenRepository(AucteraDbContext context) : IRefreshT
 
     public Task SaveRefreshTokenAsync(RefreshToken refreshToken)
     {
-        _context.RefreshTokens.Add(refreshToken);
+        _context.RefreshTokens.Update(refreshToken);
         return _context.SaveChangesAsync();
     }
 

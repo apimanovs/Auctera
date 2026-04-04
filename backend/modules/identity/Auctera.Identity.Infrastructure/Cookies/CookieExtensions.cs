@@ -10,7 +10,7 @@ public class CookieFactory : ICookieFactory
         // Adds a cookie to the HTTP response.
         // The browser will store it and automatically send it back
         // on future requests if the cookie rules allow it.
-        response.Cookies.Append("token", token, new CookieOptions
+        response.Cookies.Append("access_token", token, new CookieOptions
         {
             // Prevents JavaScript from accessing the cookie via document.cookie.
             // This is important for security because it helps protect the token
@@ -23,11 +23,11 @@ public class CookieFactory : ICookieFactory
 
             // Controls when the cookie is sent in cross-site requests.
             // Lax is a balanced default: safer than None, but less strict than Strict.
-            SameSite = SameSiteMode.Lax,
+            SameSite = SameSiteMode.None,
 
             // Sets the exact expiration date and time of the cookie.
             // After this moment, the browser should remove it.
-            Expires = DateTimeOffset.UtcNow.AddDays(7),
+            Expires = DateTimeOffset.UtcNow.AddMinutes(30),
 
             // Makes the cookie available for the entire website.
             // It will be sent for all routes such as /api, /profile, /orders, etc.
@@ -41,9 +41,9 @@ public class CookieFactory : ICookieFactory
         {
             HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Lax,
+            SameSite = SameSiteMode.None,
             Expires = DateTimeOffset.UtcNow.AddDays(7),
-            Path = "/auth"
+            Path = "/"
         });
     }
 
@@ -52,9 +52,12 @@ public class CookieFactory : ICookieFactory
         // Deletes the cookie with the given name.
         // Path should match the original cookie path,
         // otherwise the browser may not remove the correct cookie.
-        response.Cookies.Delete("token", new CookieOptions
+        response.Cookies.Delete("access_token", new CookieOptions
         {
-            Path = "/"
+            Path = "/",
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            HttpOnly = true
         });
     }
 
@@ -62,7 +65,10 @@ public class CookieFactory : ICookieFactory
     {
         response.Cookies.Delete("refresh_token", new CookieOptions
         {
-            Path = "/auth"
+            Path = "/",
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            HttpOnly = true
         });
     }
 }

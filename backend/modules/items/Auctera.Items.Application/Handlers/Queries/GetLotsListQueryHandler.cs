@@ -41,7 +41,7 @@ public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<Lo
     {
         var query = _lotRepository.GetQueryable();
 
-        query = query.Where(x => x.Status == LotStatus.Listed);
+        query = query.Where(x => x.Status == LotStatus.Published || x.Status == LotStatus.Sold);
 
         if (request.Category.HasValue)
         {

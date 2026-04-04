@@ -48,9 +48,9 @@ public sealed class RefreshCommandHandler(
 
         existingRefreshToken.Revoke(newRefreshTokenValue);
 
-        var newRefreshToken = RefreshToken.Create(user.Id, newRefreshTokenValue, DateTime.Now.AddDays(7));
+        var newRefreshToken = RefreshToken.Create(user.Id, newRefreshTokenValue, DateTime.UtcNow.AddDays(7));
 
-        await _refreshTokenRepository.SaveRefreshTokenAsync(newRefreshToken);
+        await _refreshTokenRepository.AddRefreshToken(newRefreshToken);
 
         return new AuthResult(newAccessToken, newRefreshTokenValue);
     }
