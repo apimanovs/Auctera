@@ -11,6 +11,8 @@ namespace Auctera.Shared.Domain.Enums;
 /// </summary>
 public enum LotStatus
 {
+    Pending,
+    Rejected,
     Draft,
     Published,
     Listed,

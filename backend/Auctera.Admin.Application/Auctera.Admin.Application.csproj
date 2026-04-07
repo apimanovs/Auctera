@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Auctera.Admin.Domain\Auctera.Admin.Domain.csproj" />
+    <ProjectReference Include="..\modules\identity\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
+    <ProjectReference Include="..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
+    <ProjectReference Include="..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
+    <ProjectReference Include="..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
+  </ItemGroup>
+
+</Project>

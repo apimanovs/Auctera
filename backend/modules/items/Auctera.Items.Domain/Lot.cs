@@ -117,7 +117,7 @@ public sealed class Lot : Entity<Guid>
         Brand = brand.Trim();
         Condition = condition;
         Color = string.IsNullOrWhiteSpace(color) ? null : color.Trim();
-        Status = LotStatus.Draft;
+        Status = LotStatus.Pending;
     }
 
     public void Edit(
@@ -223,6 +223,16 @@ public sealed class Lot : Entity<Guid>
         }
 
         Media.Add(new LotMedia(normalizedKey, "photo"));
+    }
+
+    public void Accept()
+    {
+        Status = LotStatus.Draft;
+    }
+
+    public void Reject()
+    {
+        Status = LotStatus.Rejected;
     }
 
     /// <summary>

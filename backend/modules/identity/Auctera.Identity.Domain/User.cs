@@ -1,4 +1,6 @@
-﻿namespace Auctera.Identity.Domain;
+﻿using Auctera.Identity.Domain.Enums;
+
+namespace Auctera.Identity.Domain;
 
 /// <summary>
 /// Represents the user class.
@@ -29,6 +31,8 @@ public sealed class User
     /// Gets or sets the is admin used by this type.
     /// </summary>
     public bool IsAdmin { get; private set; }
+
+    public UserRoles[] Roles { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="User"/> class.
