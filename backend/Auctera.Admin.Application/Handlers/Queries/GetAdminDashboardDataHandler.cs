@@ -24,6 +24,11 @@ public sealed class GetAdminDashboardDataHandler : IRequestHandler<GetAdminDashb
         var activeAuctionsCount = _context.Auctions.AsNoTracking().Where(a => a.Status == Shared.Domain.Enums.AuctionStatus.Active).Count();
         var pendingLotsCount = _context.Lots.AsNoTracking().Where(a => a.Status == LotStatus.Pending).Count();
 
-        return new AdminDashboardDto { UsersCount = activeAuctionsCount, ActiveAuctionsCount = activeAuctionsCount, PendingLotsCount = pendingLotsCount };
+        return new AdminDashboardDto
+        {
+            UsersCount = activeUsersCount,
+            ActiveAuctionsCount = activeAuctionsCount,
+            PendingLotsCount = pendingLotsCount
+        };
     }
 }
