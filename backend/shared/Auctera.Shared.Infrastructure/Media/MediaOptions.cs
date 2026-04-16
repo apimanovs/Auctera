@@ -13,8 +13,10 @@ public sealed class MediaOptions
     /// <param name="guid">Identifier of gu.</param>
     /// <param name="extenstion">Extenstion.</param>
     /// <returns>The operation result.</returns>
-    public string key(Guid guid, string extenstion) { return $"lots/{guid}{extenstion}"; }
-
+    public string BuildKey(Guid guid, string extension)
+    {
+        return $"lots/{guid}{extension}";
+    }
     /// <summary>
     /// Gets or sets the bucket name used by this type.
     /// </summary>
@@ -22,9 +24,12 @@ public sealed class MediaOptions
     /// <summary>
     /// Gets or sets the public url used by this type.
     /// </summary>
-    public string PublicUrl { get; set; } = default!;
+    public string PublicBaseUrl { get; set; } = default!;
     /// <summary>
     /// Gets or sets the access url used by this type.
     /// </summary>
-    public string AccessUrl { get; set; } = default!;
+    public string AccessKeyId { get; set; } = default!;
+    public string SecretAccessKey { get; set; } = default!;
+    public string AccountId { get; set; } = default!;
+    public string ServiceUrl { get; set; } = default!;
 }

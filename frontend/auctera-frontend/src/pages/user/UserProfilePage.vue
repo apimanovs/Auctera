@@ -1,4 +1,39 @@
 <script setup lang="ts">
+
+import { computed, onMounted, ref } from "vue"
+import { useRoute } from "vue-router"
+import { ProfileService } from "@/app/services/profileService"
+import type { UserProfileDto } from "@/types/userProfile"
+
+const route = useRoute()
+const profileService = ProfileService()
+
+const profile = ref<UserProfileDto | null>(null)
+const isLoading = ref(true)
+const errorMessage = ref("")
+
+const loadProfile = async () => {
+  try 
+  {
+    isLoading.value = true
+    errorMessage.value = ""
+
+    const username = route.params.username as string
+    profile.value = await profileService.getUserProfile(username)
+  } 
+  catch (error) 
+  {
+    console.error("Failed to load profile", error)
+    errorMessage.value = "Failed to load profile."
+  } 
+  finally 
+  {
+    isLoading.value = false
+  }
+}
+
+onMounted(loadProfile)
+
 const user = {
   name: 'Artjoms Archive',
   username: '@artjoms',
@@ -112,40 +147,32 @@ const reviews = [
     <section class="overflow-hidden rounded-[32px] bg-background px-6 py-8 md:px-8 md:py-10">
       <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
         <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
-          <div class="h-28 w-28 shrink-0 overflow-hidden rounded-full bg-background ring-1 ring-black/10 sm:h-32 sm:w-32">
-            <img
-              :src="user.avatar"
-              :alt="user.name"
-              class="h-full w-full object-cover"
-            />
-          </div>
-
           <div class="max-w-2xl">
             <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/40">
-              Seller profile
+              User profile
             </p>
 
             <h1 class="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              {{ user.name }}
+              {{ profile?.name }}
             </h1>
 
             <div class="mt-3 flex flex-wrap gap-2">
               <span class="rounded-full border bg-background px-3 py-1 text-sm text-foreground/70">
-                {{ user.username }}
+                @{{ profile?.username }}
               </span>
-              <span class="rounded-full border bg-background px-3 py-1 text-sm text-foreground/70">
+              <!-- <span class="rounded-full border bg-background px-3 py-1 text-sm text-foreground/70">
                 {{ user.location }}
               </span>
               <span class="rounded-full border bg-background px-3 py-1 text-sm text-foreground/70">
                 {{ user.joined }}
-              </span>
+              </span> -->
             </div>
 
-            <p class="mt-4 max-w-xl text-sm leading-6 text-foreground/70 sm:text-base">
+            <!-- <p class="mt-4 max-w-xl text-sm leading-6 text-foreground/70 sm:text-base">
               {{ user.bio }}
-            </p>
+            </p> -->
 
-            <div class="mt-5 flex flex-wrap gap-3 text-sm text-foreground/60">
+            <!-- <div class="mt-5 flex flex-wrap gap-3 text-sm text-foreground/60">
               <span class="rounded-full bg-background px-3 py-1.5">
                 Rating {{ user.rating }} / 5
               </span>
@@ -155,7 +182,7 @@ const reviews = [
               <span class="rounded-full bg-background px-3 py-1.5">
                 {{ user.responseTime }}
               </span>
-            </div>
+            </div> -->
           </div>
         </div>
 

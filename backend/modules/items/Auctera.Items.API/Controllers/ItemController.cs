@@ -3,11 +3,14 @@
 using Auctera.Identity.Infrastructure.Claims;
 using Auctera.Items.Application.Commands;
 using Auctera.Items.Application.Queries;
+using Auctera.Items.Application.Requests;
 
 using MediatR;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Auctera.Items.API.Controllers;
 
@@ -37,9 +40,26 @@ public sealed class ItemController : ControllerBase
     /// <param name="command">Input data for the operation.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public async Task<ActionResult<Guid>> CreateLot([FromBody] CreateLotCommand command, CancellationToken cancellationToken)
+    public async Task<ActionResult<Guid>> CreateLot([FromBody] CreateLotRequest command, CancellationToken cancellationToken)
     {
-        var lotId = await _mediator.Send(command, cancellationToken);
+        var sellerId = User.Claims.GetUserId();
+
+        var request = new CreateLotCommand(
+            sellerId,
+            command.Title,
+            command.Description,
+            command.Amount,
+            command.Currency,
+            command.Category,
+            command.Gender,
+            command.Size,
+            command.Brand,
+            command.Condition,
+            command.Color,
+            command.PhotoKeys
+        );
+
+        var lotId = await _mediator.Send(request, cancellationToken);
         return Ok(lotId);
     }
 

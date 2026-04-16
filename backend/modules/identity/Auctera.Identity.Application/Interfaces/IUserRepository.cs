@@ -1,15 +1,25 @@
-﻿using Auctera.Identity.Domain;
+﻿using Auctera.Identity.Application.Models;
+using Auctera.Identity.Domain;
 
 namespace Auctera.Identity.Application.Interfaces;
 
 /// <summary>
-/// Represents the i user repository interface.
+/// Represents the user repository interface.
 /// </summary>
 public interface IUserRepository
 {
-    Task<User> GetUserByEmailAsync(string email);
-    Task<User> GetUserByIdAsync(Guid id);
+    Task<User?> GetUserByEmailAsync(string email);
+    Task<User?> GetUserByIdAsync(Guid id);
+    Task<User?> GetUserByUsernameAsync(string username);
+
     Task AddUserAsync(User user);
     Task UpdateUserAsync(User user);
     Task DeleteUserAsync(User user);
+
+    Task<int> GetUsersBidsPlacedCount(Guid userId);
+    Task<int> GetUserActiveLotsCountAsync(Guid userId);
+    Task<int> GetUserSoldLotsCountAsync(Guid userId);
+
+    Task<List<UserProfileListingDto>> GetUserActiveLotsAsync(Guid userId, int take = 4);
+    Task<List<UserProfileListingDto>> GetUserSoldLotsAsync(Guid userId, int take = 4);
 }

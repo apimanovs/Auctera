@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
+    <ProjectReference Include="..\..\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
+    <ProjectReference Include="..\..\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
     <ProjectReference Include="..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
   </ItemGroup>
 

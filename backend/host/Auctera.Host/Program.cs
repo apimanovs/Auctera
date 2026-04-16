@@ -1,5 +1,6 @@
 using System.Threading.RateLimiting;
 
+using Amazon.Runtime;
 using Amazon.S3;
 
 using Auctera.Auctions.API.Controllers;
@@ -32,6 +33,28 @@ using Auctera.Shared.Infrastructure.Time;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<MediaOptions>(
+    builder.Configuration.GetSection(MediaOptions.SectionName));
+
+var mediaOptions = builder.Configuration
+    .GetSection(MediaOptions.SectionName)
+    .Get<MediaOptions>() ?? throw new InvalidOperationException("R2 configuration is missing.");
+
+builder.Services.AddSingleton<IAmazonS3>(_ =>
+{
+    var credentials = new BasicAWSCredentials(
+        mediaOptions.AccessKeyId,
+        mediaOptions.SecretAccessKey);
+
+    var config = new AmazonS3Config
+    {
+        ServiceURL = mediaOptions.ServiceUrl,
+        ForcePathStyle = true
+    };
+
+    return new AmazonS3Client(credentials, config);
+});
 
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(AuctionsController).Assembly)
@@ -185,20 +208,6 @@ builder.Services.AddScoped<IOrderRepository, OrdersRepository>();
 builder.Services.AddSingleton<IClock, SystemClock>();
 
 builder.Services.AddHostedService<AuctionAutoStopBackgroundService>();
-
-builder.Services.AddSingleton<IAmazonS3>(_ =>
-{
-    var config = new AmazonS3Config
-    {
-        ServiceURL = builder.Configuration["CloudflareR2:ServiceUrl"],
-        ForcePathStyle = true
-    };
-
-    return new AmazonS3Client(
-        builder.Configuration["CloudflareR2:AccessKey"],
-        builder.Configuration["CloudflareR2:SecretKey"],
-        config);
-});
 
 builder.Services.AddScoped<IMediaUploader, MediaUploader>();
 

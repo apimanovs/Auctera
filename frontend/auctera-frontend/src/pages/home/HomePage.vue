@@ -239,58 +239,17 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
 
           <div class="mt-7 flex flex-wrap gap-3">
             <button
-              class="rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 dark:bg-white dark:text-black"
+              class="rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 dark:bg-white dark:text-black cursor-pointer"
             >
               Explore auctions
             </button>
 
             <button
-              class="rounded-full border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+              class="cursor-pointer rounded-full border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
             >
               Browse brands
             </button>
           </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <article class="overflow-hidden rounded-[24px] border bg-background">
-            <img
-              src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80"
-              alt="Luxury fashion"
-              class="h-48 w-full object-cover md:h-56"
-            />
-          </article>
-
-          <article class="overflow-hidden rounded-[24px] border bg-background">
-            <img
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80"
-              alt="Designer accessories"
-              class="h-48 w-full object-cover md:h-56"
-            />
-          </article>
-
-          <article class="col-span-2 rounded-[24px] border bg-background p-6">
-            <div class="grid gap-6 sm:grid-cols-3">
-              <div>
-                <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/45">
-                  Focus
-                </p>
-                <p class="mt-2 text-lg font-medium">Curated fashion</p>
-              </div>
-              <div>
-                <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/45">
-                  Marketplace
-                </p>
-                <p class="mt-2 text-lg font-medium">Auctions & discovery</p>
-              </div>
-              <div>
-                <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/45">
-                  Experience
-                </p>
-                <p class="mt-2 text-lg font-medium">Refined and collectible</p>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -317,31 +276,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
       </div>
 
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <article
-          class="group relative overflow-hidden rounded-[28px] border bg-black lg:col-span-2 lg:row-span-2"
-        >
-          <img
-            :src="exploreCollections[0].imageUrl"
-            :alt="exploreCollections[0].title"
-            class="h-[380px] w-full object-cover opacity-80 transition duration-700 group-hover:scale-[1.04] group-hover:opacity-100 lg:h-full"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-          <div class="absolute bottom-0 left-0 p-6 sm:p-8">
-            <p class="text-[11px] uppercase tracking-[0.24em] text-white/60">
-              {{ exploreCollections[0].label }}
-            </p>
-            <h3 class="mt-2 text-3xl font-semibold text-white sm:text-4xl">
-              {{ exploreCollections[0].title }}
-            </h3>
-            <p class="mt-3 max-w-md text-sm leading-6 text-white/75">
-              {{ exploreCollections[0].subtitle }}
-            </p>
-            <div class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white">
-              Explore now
-              <span class="transition duration-300 group-hover:translate-x-1">→</span>
-            </div>
-          </div>
-        </article>
+        
 
         <article
           v-for="collection in exploreCollections.slice(1)"
@@ -427,7 +362,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
       </Carousel>
     </section>
 
-    <section class="grid gap-6 lg:grid-cols-2">
+    <section class="">
       <div>
         <p class="text-[11px] uppercase tracking-[0.24em] text-foreground/50">
           Categories
@@ -440,7 +375,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
         </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+      <div class="grid grid-cols-5 gap-4 sm:grid-cols-3 lg:grid-cols-5 mt-5">
         <article
           v-for="category in categories"
           :key="category"
@@ -469,7 +404,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
         </p>
       </div>
 
-      <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div class="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
         <article class="rounded-[24px] border bg-background px-7 py-8">
           <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-100 text-foreground/70 dark:bg-neutral-800">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -574,7 +509,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
       </Carousel>
     </section>
 
-    <section class="grid gap-6 lg:grid-cols-2">
+    <section class="">
       <div>
         <p class="text-[11px] uppercase tracking-[0.24em] text-foreground/50">
           Brands
@@ -587,7 +522,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
         </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+      <div class="mt-5 grid grid-cols-5 gap-4">
         <article
           v-for="brand in brands"
           :key="brand"
@@ -658,7 +593,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
     </section>
 
     <section class="mx-auto max-w-3xl border-t pt-10 text-center">
-      <p class="text-sm leading-7 text-foreground/65 sm:text-base">
+      <p class="text-xs leading-7 text-foreground/65 sm:text-base">
         Coutera is an online auction marketplace focused on rare fashion, designer clothing,
         and collectible pieces. Browse curated listings, place bids with confidence, and discover
         items that feel distinctive, memorable, and worth owning.
