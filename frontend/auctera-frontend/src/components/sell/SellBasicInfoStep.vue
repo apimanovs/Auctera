@@ -1,17 +1,19 @@
 <script setup lang="ts">
+import type { NumericOption } from "@/features/lots/create-lot/options"
+
 type BasicInfoForm = {
   title: string
   brand: string
-  category: string
-  gender: string
-  size: string
+  category: number | null
+  gender: number | null
+  size: number | null
 }
 
 const props = defineProps<{
   form: BasicInfoForm
-  categoryOptions: string[]
-  genderOptions: string[]
-  sizeOptions: string[]
+  categoryOptions: NumericOption[]
+  genderOptions: NumericOption[]
+  sizeOptions: NumericOption[]
 }>()
 </script>
 
@@ -58,13 +60,15 @@ const props = defineProps<{
           v-model="props.form.category"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
-          <option disabled value="">Select category</option>
+          <option :value="null" disabled>
+            Select category
+          </option>
           <option
             v-for="category in categoryOptions"
-            :key="category"
-            :value="category"
+            :key="category.value"
+            :value="category.value"
           >
-            {{ category }}
+            {{ category.label }}
           </option>
         </select>
       </div>
@@ -75,13 +79,15 @@ const props = defineProps<{
           v-model="props.form.gender"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
-          <option disabled value="">Select gender</option>
+          <option :value="null" disabled>
+            Select gender
+          </option>
           <option
             v-for="gender in genderOptions"
-            :key="gender"
-            :value="gender"
+            :key="gender.value"
+            :value="gender.value"
           >
-            {{ gender }}
+            {{ gender.label }}
           </option>
         </select>
       </div>
@@ -92,13 +98,15 @@ const props = defineProps<{
           v-model="props.form.size"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
-          <option disabled value="">Select size</option>
+          <option :value="null" disabled>
+            Select size
+          </option>
           <option
             v-for="size in sizeOptions"
-            :key="size"
-            :value="size"
+            :key="size.value"
+            :value="size.value"
           >
-            {{ size }}
+            {{ size.label }}
           </option>
         </select>
       </div>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import type { NumericOption } from "@/features/lots/create-lot/options"
+
 type ConditionForm = {
-  condition: string
+  condition: number | null
   color: string
 }
 
 defineProps<{
   form: ConditionForm
-  conditionOptions: string[]
+  conditionOptions: NumericOption[]
 }>()
 </script>
 
@@ -33,13 +35,15 @@ defineProps<{
           v-model="form.condition"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
-          <option disabled value="">Select condition</option>
+          <option :value="null" disabled>
+            Select condition
+          </option>
           <option
             v-for="option in conditionOptions"
-            :key="option"
-            :value="option"
+            :key="option.value"
+            :value="option.value"
           >
-            {{ option }}
+            {{ option.label }}
           </option>
         </select>
       </div>
