@@ -25,6 +25,11 @@ public sealed class ProfileController : ControllerBase
     {
         var result = await _mediator.Send(new GetUserProfileQuery(username), cancellationToken);
 
+        if (result is null)
+        {
+            return NotFound();
+        }
+
         return Ok(result);
     }
 }

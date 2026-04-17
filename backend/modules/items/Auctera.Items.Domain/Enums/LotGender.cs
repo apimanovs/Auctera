@@ -10,7 +10,7 @@ namespace Auctera.Items.Domain.Enums;
 /// </summary>
 public enum LotGender
 {
-    Woman,
-    Men,
-    Unisex
+    Woman = 1,
+    Men = 2,
+    Unisex = 3
 }

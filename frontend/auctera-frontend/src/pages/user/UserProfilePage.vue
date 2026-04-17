@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { computed, onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 import { ProfileService } from "@/app/services/profileService"
@@ -13,133 +12,40 @@ const isLoading = ref(true)
 const errorMessage = ref("")
 
 const loadProfile = async () => {
-  try 
-  {
+  try {
     isLoading.value = true
     errorMessage.value = ""
 
     const username = route.params.username as string
     profile.value = await profileService.getUserProfile(username)
-  } 
-  catch (error) 
-  {
+  } catch (error) {
     console.error("Failed to load profile", error)
     errorMessage.value = "Failed to load profile."
-  } 
-  finally 
-  {
+  } finally {
     isLoading.value = false
   }
 }
 
 onMounted(loadProfile)
 
-const user = {
-  name: 'Artjoms Archive',
-  username: '@artjoms',
-  location: 'Riga, Latvia',
-  joined: 'Member since March 2026',
-  bio: 'Collector of archive designer fashion, understated essentials, and pieces with strong silhouette. Focused on quality, rarity, and clean presentation.',
-  avatar:
-    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop',
-  rating: '4.9',
-  reviewsCount: 38,
-  responseTime: 'Usually replies in 1 hour',
-  stats: {
-    activeListings: 12,
-    soldItems: 47,
-    followers: 132,
-    following: 58,
-  },
+const activeListings = computed(() => profile.value?.activeListings ?? [])
+const soldListings = computed(() => profile.value?.soldListings ?? [])
+
+function formatPrice(amount: number, currency: string): string {
+  return new Intl.NumberFormat("en", {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
+  }).format(amount)
 }
 
-const activeListings = [
-  {
-    id: 1,
-    title: 'Rick Owens Jumbo Lace Puffer',
-    price: '€820',
-    timeLeft: '1 day 12 hours',
-    image:
-      'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P0.jpg',
-  },
-  {
-    id: 2,
-    title: 'Vintage Leather Camera Bag',
-    price: '€180',
-    timeLeft: '2 days 5 hours',
-    image:
-      'https://media-photos.depop.com/b1/448068812/3474488748_5e0e9243711c4cbcb6dce7afdff37d6d/P0.jpg',
-  },
-  {
-    id: 3,
-    title: 'Maison Margiela Archive Knit',
-    price: '€310',
-    timeLeft: '3 days 2 hours',
-    image:
-      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: 4,
-    title: 'Prada Technical Overshirt',
-    price: '€460',
-    timeLeft: '5 days 9 hours',
-    image:
-      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop',
-  },
-]
+function resolveImageUrl(path: string | null | undefined): string {
+  if (!path) {
+    return "/placeholder-image.jpg"
+  }
 
-const soldListings = [
-  {
-    id: 1,
-    title: 'Chrome Hearts Ring',
-    soldPrice: 'Sold for €290',
-    soldDate: 'Sold 3 days ago',
-    image:
-      'https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: 2,
-    title: 'Helmut Lang Bomber Jacket',
-    soldPrice: 'Sold for €560',
-    soldDate: 'Sold 1 week ago',
-    image:
-      'https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: 3,
-    title: 'Prada Leather Derby Shoes',
-    soldPrice: 'Sold for €420',
-    soldDate: 'Sold 2 weeks ago',
-    image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: 4,
-    title: 'Vintage Silver Chain',
-    soldPrice: 'Sold for €150',
-    soldDate: 'Sold 3 weeks ago',
-    image:
-      'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca1?q=80&w=1200&auto=format&fit=crop',
-  },
-]
-
-const reviews = [
-  {
-    id: 1,
-    author: 'Marek',
-    text: 'Fast communication, item exactly as described, and shipping was handled properly.',
-  },
-  {
-    id: 2,
-    author: 'Elina',
-    text: 'Very clean presentation and trustworthy seller. Would buy again.',
-  },
-  {
-    id: 3,
-    author: 'Daniel',
-    text: 'Great experience overall. The piece arrived in excellent condition.',
-  },
-]
+  return `https://your-public-r2-url/${path}`
+}
 </script>
 
 <template>
@@ -205,23 +111,28 @@ const reviews = [
     <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <div class="rounded-[24px] border bg-background p-5">
         <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Active listings</p>
-        <p class="mt-3 text-3xl font-semibold text-foreground">{{ user.stats.activeListings }}</p>
+        <p class="mt-3 text-3xl font-semibold text-foreground">{{ profile?.stats.activeListingsCount }}</p>
       </div>
 
       <div class="rounded-[24px] border bg-background p-5">
         <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Sold items</p>
-        <p class="mt-3 text-3xl font-semibold text-foreground">{{ user.stats.soldItems }}</p>
+        <p class="mt-3 text-3xl font-semibold text-foreground">{{ profile?.stats.soldItemsCount }}</p>
       </div>
 
       <div class="rounded-[24px] border bg-background p-5">
+        <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Bids placed</p>
+        <p class="mt-3 text-3xl font-semibold text-foreground">{{ profile?.stats.bidsPlaced }}</p>
+      </div>
+
+      <!-- <div class="rounded-[24px] border bg-background p-5">
         <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Followers</p>
-        <p class="mt-3 text-3xl font-semibold text-foreground">{{ user.stats.followers }}</p>
+        <p class="mt-3 text-3xl font-semibold text-foreground">{{ profile.stats.followersCount }}</p>
       </div>
 
       <div class="rounded-[24px] border bg-background p-5">
         <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Following</p>
-        <p class="mt-3 text-3xl font-semibold text-foreground">{{ user.stats.following }}</p>
-      </div>
+        <p class="mt-3 text-3xl font-semibold text-foreground">{{ profile.stats.followingCount }}</p>
+      </div> -->
     </section>
 
     <section class="mt-10 grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
@@ -239,12 +150,12 @@ const reviews = [
               </p>
             </div>
 
-            <div>
+            <!-- <div>
               <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Based in</p>
               <p class="mt-2 text-sm leading-6 text-foreground/70">
                 {{ user.location }}
               </p>
-            </div>
+            </div> -->
 
             <div>
               <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">Account status</p>
@@ -263,7 +174,7 @@ const reviews = [
           </div>
         </div>
 
-        <div class="rounded-[28px] border bg-background px-6 py-6">
+        <!-- <div class="rounded-[28px] border bg-background px-6 py-6">
           <div class="flex items-end justify-between gap-3">
             <div>
               <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/40">
@@ -293,7 +204,7 @@ const reviews = [
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="space-y-6">
@@ -316,15 +227,15 @@ const reviews = [
             </button>
           </div>
 
-          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <div v-if="activeListings.length" class="mt-6 grid gap-4 sm:grid-cols-2">
             <article
               v-for="listing in activeListings"
-              :key="listing.id"
+              :key="listing.lotId"
               class="group overflow-hidden rounded-[24px] bg-background"
             >
               <div class="overflow-hidden">
                 <img
-                  :src="listing.image"
+                  :src="resolveImageUrl(listing.thumbnailUrl)"
                   :alt="listing.title"
                   class="h-72 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 />
@@ -335,9 +246,17 @@ const reviews = [
                   {{ listing.title }}
                 </h3>
 
+                <p class="mt-2 text-sm text-foreground/60">
+                  {{ listing.brand || 'No brand' }}
+                </p>
+
                 <div class="mt-4 flex items-center justify-between gap-3">
-                  <span class="text-sm font-semibold text-foreground">{{ listing.price }}</span>
-                  <span class="text-sm text-foreground/50">{{ listing.timeLeft }}</span>
+                  <span class="text-sm font-semibold text-foreground">
+                    {{ formatPrice(listing.currentPrice, listing.currency) }}
+                  </span>
+                  <span class="text-sm text-foreground/50">
+                    Active
+                  </span>
                 </div>
               </div>
             </article>
@@ -363,15 +282,15 @@ const reviews = [
             </button>
           </div>
 
-          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <div v-if="soldListings.length" class="mt-6 grid gap-4 sm:grid-cols-2">
             <article
               v-for="listing in soldListings"
-              :key="listing.id"
+              :key="listing.lotId"
               class="group overflow-hidden rounded-[24px] bg-background"
             >
               <div class="relative overflow-hidden">
                 <img
-                  :src="listing.image"
+                  :src="resolveImageUrl(listing.thumbnailUrl)"
                   :alt="listing.title"
                   class="h-72 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 />
@@ -385,9 +304,17 @@ const reviews = [
                   {{ listing.title }}
                 </h3>
 
+                <p class="mt-2 text-sm text-foreground/60">
+                  {{ listing.brand || 'No brand' }}
+                </p>
+
                 <div class="mt-4 flex items-center justify-between gap-3">
-                  <span class="text-sm font-semibold text-foreground">{{ listing.soldPrice }}</span>
-                  <span class="text-sm text-foreground/50">{{ listing.soldDate }}</span>
+                  <span class="text-sm font-semibold text-foreground">
+                    {{ formatPrice(listing.currentPrice, listing.currency) }}
+                  </span>
+                  <span class="text-sm text-foreground/50">
+                    Sold
+                  </span>
                 </div>
               </div>
             </article>

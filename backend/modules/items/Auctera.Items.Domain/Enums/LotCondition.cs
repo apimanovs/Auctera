@@ -10,7 +10,7 @@ namespace Auctera.Items.Domain.Enums;
 /// </summary>
 public enum LotCondition
 {
-    New,
-    Worn,
-    Refurbished
+    New = 0,
+    Worn = 1,
+    Refurbished = 2
 }

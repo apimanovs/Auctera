@@ -11,10 +11,10 @@ namespace Auctera.Items.Domain.Enums;
 /// </summary>
 public enum LotCategory
 {
-    Tops,
-    Bottoms,
-    Outerwear,
-    Footwear,
-    Accessories,
-    Other
+    Tops = 0,
+    Bottoms = 1,
+    Outerwear = 2,
+    Footwear = 3,
+    Accessories = 4,
+    Other = 5
 }

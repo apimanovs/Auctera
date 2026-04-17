@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
 
+const router = useRouter()
 
 import Container from '@/components/ui/Container.vue'
 import Input from '@/components/ui/input/Input.vue'
@@ -23,6 +24,18 @@ import {
 const searchQuery = ref('')
 const authStore = useAuthStore()
 const { user, isAuthenticated } = storeToRefs(authStore)
+
+function handleLogout() {
+  try
+  {
+    authStore.logout()
+    router.push('/home')    
+  }
+  catch (error)
+  {
+    console.error('Logout failed:', error)
+  }
+}
 
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
@@ -87,9 +100,17 @@ const handleKeyPress = (event: KeyboardEvent) => {
         </div>
 
         <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+          <RouterLink
+            v-if="!isAuthenticated"
+            to="/login"
+            class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 inline-flex"
+          >
+            Sell with us
+          </RouterLink>
 
           <RouterLink
-            to="/register"
+            v-if="isAuthenticated"
+            to="/sell"
             class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 inline-flex"
           >
             Sell with us
@@ -116,7 +137,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
                     Profile
                   </RouterLink>
                 </SelectItem>
-                <SelectItem @click="authStore.logout()">
+                <SelectItem @click="handleLogout()">
                    Logout
                 </SelectItem>
               </SelectContent>

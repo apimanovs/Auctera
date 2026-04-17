@@ -51,6 +51,10 @@ export const useAuthStore = defineStore('auth', () => {
     {
       console.error('Logout failed:', error)
     }
+    finally
+    {
+      
+    }
   }
 
   async function checkAuth(): Promise<boolean> {
