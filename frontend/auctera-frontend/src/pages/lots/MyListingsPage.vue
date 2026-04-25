@@ -46,8 +46,12 @@ const myListings = computed(() =>
   listings.value.filter((lot) => {
     const candidateSellerId = lot.sellerId ?? lot.seller?.id
 
-    if (!candidateSellerId || !user.value?.id) {
+    if (!user.value?.id) {
       return false
+    }
+
+    if (!candidateSellerId) {
+      return true
     }
 
     return candidateSellerId === user.value.id
@@ -63,13 +67,11 @@ const canPublish = (normalizedStatus: string) => normalizedStatus === 'draft' ||
 const canStartAuction = (lot: LotPreview, normalizedStatus: string) => {
   const auction = getAuctionByLotId(lot.id)
 
-  if (!auction?.auctionId) {
-    return false
-  }
-
-  const auctionStatus = String(auction.status ?? '').toLowerCase()
-  if (['active', 'sold', 'expired'].includes(auctionStatus)) {
-    return false
+  if (auction?.auctionId) {
+    const auctionStatus = String(auction.status ?? '').toLowerCase()
+    if (['active', 'sold', 'expired'].includes(auctionStatus)) {
+      return false
+    }
   }
 
   return ['draft', 'approved', 'active', 'rejected'].includes(normalizedStatus)
