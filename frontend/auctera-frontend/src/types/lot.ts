@@ -1,23 +1,59 @@
+export type LotStatusLabel =
+  | 'Draft'
+  | 'Pending'
+  | 'Approved'
+  | 'Active'
+  | 'Rejected'
+  | 'Sold'
+  | 'Expired'
+  | 'Unknown'
+
 export type Lot = {
-    id: string
-    title: string
-    description: string
-    price: number
-    currency: string
-    category: number
-    categoryName: string
-    gender: number
-    genderName: string
-    size: number
-    sizeName: string
-    brand: string
-    condition: number
-    conditionName: string
-    color: string
-    status: number
-    statusName: string
-    media: LotMedia[]
-    seller: LotSeller
+  id: string
+  title: string
+  description: string
+  price: number
+  currency: string
+  category: number
+  categoryName: string
+  gender: number
+  genderName: string
+  size: number
+  sizeName: string
+  brand: string
+  condition: number
+  conditionName: string
+  color: string
+  status?: number | string
+  statusName?: string
+  media: LotMedia[]
+  seller: LotSeller
+  sellerId?: string
+  createdAt?: string
+}
+
+export type LotPreview = {
+  id: string
+  title: string
+  price: number
+  currency: string
+  category?: number
+  categoryName?: string
+  gender?: number
+  genderName?: string
+  size?: number
+  sizeName?: string
+  brand: string
+  condition?: number
+  conditionName?: string
+  color?: string
+  status?: number | string
+  statusName?: string
+  media: LotMedia[]
+  sellerId?: string
+  seller?: LotSeller
+  createdAt?: string
+  auctionId?: string
 }
 
 export type LotMedia = {
