@@ -17,6 +17,8 @@ import CatalogPage from '@/pages/catalog/CatalogPage.vue'
 import CreateLotPage from '@/pages/lots/CreateLotPage.vue'
 import MyListingsPage from '@/pages/lots/MyListingsPage.vue'
 import EditLotPage from '@/pages/lots/EditLotPage.vue'
+import OrdersPage from '@/pages/orders/OrdersPage.vue'
+import OrderDetailsPage from '@/pages/orders/OrderDetailsPage.vue'
 
 const isDev = import.meta.env.DEV
 
@@ -77,6 +79,14 @@ const routes = isDev
           {
             path: 'my-listings',
             component: MyListingsPage,
+          },
+          {
+            path: 'orders',
+            component: OrdersPage,
+          },
+          {
+            path: 'orders/:id',
+            component: OrderDetailsPage,
           },
         ],
       },
