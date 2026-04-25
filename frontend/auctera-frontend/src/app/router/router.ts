@@ -15,6 +15,10 @@ import UserProfilePage from '@/pages/user/UserProfilePage.vue'
 import NotFoundPage from '@/pages/errors/NotFoundPage.vue'
 import CatalogPage from '@/pages/catalog/CatalogPage.vue'
 import CreateLotPage from '@/pages/lots/CreateLotPage.vue'
+import MyListingsPage from '@/pages/lots/MyListingsPage.vue'
+import EditLotPage from '@/pages/lots/EditLotPage.vue'
+import OrdersPage from '@/pages/orders/OrdersPage.vue'
+import OrderDetailsPage from '@/pages/orders/OrderDetailsPage.vue'
 
 const isDev = import.meta.env.DEV
 
@@ -41,6 +45,14 @@ const routes = isDev
             component: LotPage,
           },
           {
+            path: 'lots/:id',
+            component: LotPage,
+          },
+          {
+            path: 'lots/:id/edit',
+            component: EditLotPage,
+          },
+          {
             path: 'about',
             component: AboutPage,
           },
@@ -63,6 +75,18 @@ const routes = isDev
           {
             path: 'sell',
             component: CreateLotPage,
+          },
+          {
+            path: 'my-listings',
+            component: MyListingsPage,
+          },
+          {
+            path: 'orders',
+            component: OrdersPage,
+          },
+          {
+            path: 'orders/:id',
+            component: OrderDetailsPage,
           },
         ],
       },
