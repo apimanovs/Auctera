@@ -19,10 +19,12 @@ type ReviewForm = {
   color: string
 }
 
-defineProps<{
+const props = defineProps<{
   form: ReviewForm
   photos: UploadedPhoto[]
 }>()
+
+console.log(props);
 </script>
 
 <template>
@@ -94,7 +96,7 @@ defineProps<{
 
             <div class="flex items-start justify-between gap-4">
               <span>Gender</span>
-              <span class="text-right text-foreground">{{ form.gender || "-" }}</span>
+              <span class="text-right text-foreground">{{ props.form.gender || "-" }}</span>
             </div>
 
             <div class="flex items-start justify-between gap-4">

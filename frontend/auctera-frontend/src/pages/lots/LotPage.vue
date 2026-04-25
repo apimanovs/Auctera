@@ -1,68 +1,71 @@
 <script setup lang="ts">
-const lot = {
-  id: 1,
-  title: 'Rick Owens Jumbo Lace Puffer Jacket',
-  brand: 'Rick Owens',
-  category: 'Designer',
-  condition: 'Very good',
-  size: 'M',
-  color: 'Black',
-  seller: 'Coutera Archive',
-  location: 'Riga, Latvia',
-  currentBid: '€820',
-  startingPrice: '€500',
-  buyNowPrice: '€1,150',
-  bidsCount: 14,
-  timeLeft: '1 day 12 hours',
-  description:
-    'A standout Rick Owens puffer jacket with oversized proportions and signature silhouette. Clean overall condition with light signs of wear. Ideal for collectors and anyone building a strong designer wardrobe.',
-  images: [
-    'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P0.jpg',
-    'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P1.jpg',
-    'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P2.jpg',
-    'https://media-photos.depop.com/b1/40086058/3512274199_d42fb73add7043d586f1be825bfb1f68/P3.jpg',
-  ],
+import { useRoute } from "vue-router"
+import { computed, onMounted, ref } from "vue"
+import { LotPageService } from "@/app/services/lotPageService.ts"
+import type { Lot } from "@/types/lot"
+
+const route = useRoute()
+const lotService = LotPageService()
+
+const lot = ref<Lot | null>(null)
+const isLoading = ref(true)
+const errorMessage = ref("")
+
+const loadLotInformation = async () => {
+  try 
+  {
+    isLoading.value = true
+    errorMessage.value = ""
+
+    const lotId = route.params.lotId as string
+    const response = await lotService.getlotInformation(lotId)
+    lot.value = response
+
+    console.log(lot.value.media)
+  } 
+  catch (error) 
+  {
+    console.error('Error loading lot information:', error)
+    errorMessage.value = "Failed to load profile."
+  }
+  finally 
+  {
+    isLoading.value = false
+  }
 }
 
-const specifications = [
-  { label: 'Brand', value: lot.brand },
-  { label: 'Category', value: lot.category },
-  { label: 'Condition', value: lot.condition },
-  { label: 'Size', value: lot.size },
-  { label: 'Color', value: lot.color },
-  { label: 'Location', value: lot.location },
-]
+onMounted(loadLotInformation)
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+  <div v-if="lot" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
     <div class="mb-6 text-sm text-foreground/60">
       <span class="cursor-pointer transition hover:text-black">Home</span>
       <span class="mx-2">/</span>
       <span class="cursor-pointer transition hover:text-black">Auctions</span>
       <span class="mx-2">/</span>
-      <span class="text-foreground">{{ lot.title }}</span>
+      <span class="text-foreground">{{ lot?.title }}</span>
     </div>
 
     <section class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
       <div>
         <div class="overflow-hidden rounded-[28px] bg-background">
           <img
-            :src="lot.images[0]"
-            :alt="lot.title"
+            :src="lot?.media[0]?.url"
+            :alt="lot?.title"
             class="h-[420px] w-full object-cover md:h-[560px]"
           />
         </div>
 
         <div class="mt-4 grid grid-cols-4 gap-3">
           <div
-            v-for="(image, index) in lot.images"
+            v-for="(image, index) in lot?.media"
             :key="index"
             class="overflow-hidden rounded-2xl bg-background"
           >
             <img
-              :src="image"
-              :alt="`${lot.title} image ${index + 1}`"
+              :src="image.url"
+              :alt="`${ lot?.title} image ${index + 1}`"
               class="h-24 w-full object-cover md:h-32"
             />
           </div>
@@ -72,61 +75,61 @@ const specifications = [
       <div class="flex flex-col gap-5">
         <div class="rounded-[28px] bg-background px-6 py-6 md:px-7">
           <p class="text-[11px] uppercase tracking-[0.24em] text-foreground/40">
-            {{ lot.brand }}
+            {{ lot?.brand }}
           </p>
 
           <h1 class="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            {{ lot.title }}
+            {{ lot?.title }}
           </h1>
 
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="rounded-full border border-foreground/20 bg-background px-3 py-1 text-sm text-foreground/70">
-              {{ lot.category }}
+              {{ lot?.categoryName }}
             </span>
             <span class="rounded-full border border-foreground/20 bg-background px-3 py-1 text-sm text-foreground/70">
-              Size {{ lot.size }}
+              Size {{ lot?.sizeName }}
             </span>
             <span class="rounded-full border border-foreground/20 bg-background px-3 py-1 text-sm text-foreground/70">
-              {{ lot.condition }}
+              {{ lot?.conditionName }}
             </span>
           </div>
 
           <div class="mt-6 grid grid-cols-2 gap-3">
-            <div class="rounded-2xl bg-background p-4">
+            <!-- <div class="rounded-2xl bg-background p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">
                 Current bid
               </p>
               <p class="mt-2 text-2xl font-semibold text-foreground">
-                {{ lot.currentBid }}
+                {{ lot?.currentBid }}
               </p>
-            </div>
+            </div> -->
 
-            <div class="rounded-2xl bg-background p-4">
+            <!-- <div class="rounded-2xl bg-background p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">
                 Time left
               </p>
               <p class="mt-2 text-2xl font-semibold text-foreground">
-                {{ lot.timeLeft }}
+                {{ lot?.timeLeft }}
               </p>
-            </div>
+            </div> -->
 
-            <div class="rounded-2xl bg-background p-4">
+            <!-- <div class="rounded-2xl bg-background p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">
                 Starting price
               </p>
               <p class="mt-2 text-lg font-medium text-foreground">
-                {{ lot.startingPrice }}
+                {{ lot?.startingPrice }}
               </p>
-            </div>
+            </div> -->
 
-            <div class="rounded-2xl bg-background p-4">
+            <!-- <div class="rounded-2xl bg-background p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-foreground/40">
                 Total bids
               </p>
               <p class="mt-2 text-lg font-medium text-foreground">
-                {{ lot.bidsCount }}
+                {{ lot?.bidsCount }}
               </p>
-            </div>
+            </div> -->
           </div>
 
           <div class="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -144,9 +147,9 @@ const specifications = [
           </div>
 
           <button
-            class="mt-3 w-full rounded-full border bg-background px-5 py-3 text-sm font-medium text-foreground transition cursor-pointer hover:bg-white/10"
+            class="disabled mt-3 w-full  rounded-full border bg-background px-5 py-3 text-sm font-medium text-foreground transition cursor-pointer hover:bg-white/10"
           >
-            Buy now for {{ lot.buyNowPrice }}
+            Buy now for
           </button>
         </div>
 
@@ -157,11 +160,14 @@ const specifications = [
                 Seller
               </p>
               <h2 class="mt-2 text-lg font-semibold text-foreground">
-                {{ lot.seller }}
+                {{ lot?.seller?.name }}
               </h2>
               <p class="mt-1 text-sm text-foreground/60">
-                Based in {{ lot.location }}
+                @{{ lot?.seller?.username }}
               </p>
+              <!-- <p class="mt-1 text-sm text-foreground/60">
+                Based in {{ lot.location }}
+              </p> -->
             </div>
 
             <button
@@ -191,13 +197,21 @@ const specifications = [
         </h2>
 
         <div class="mt-6 divide-y divide-foreground/20">
-          <div
-            v-for="item in specifications"
-            :key="item.label"
-            class="flex items-center justify-between gap-4 py-4"
-          >
-            <span class="text-sm text-foreground/50">{{ item.label }}</span>
-            <span class="text-sm font-medium text-foreground">{{ item.value }}</span>
+          <div class="flex items-center justify-between gap-4 py-4">
+            <span class="text-sm text-foreground/50">Brand</span>
+            <span class="text-sm font-medium text-foreground">{{ lot?.brand }}</span>
+            
+            <span class="text-sm text-foreground/50">Size</span>
+            <span class="text-sm font-medium text-foreground">{{ lot?.sizeName }}</span>
+
+            <span class="text-sm text-foreground/50">Condition</span>
+            <span class="text-sm font-medium text-foreground">{{ lot?.conditionName }}</span>
+
+            <span class="text-sm text-foreground/50">Color</span>
+            <span class="text-sm font-medium text-foreground">{{ lot?.color }}</span>
+
+            <span class="text-sm text-foreground/50">Category</span>
+            <span class="text-sm font-medium text-foreground">{{ lot?.categoryName }}</span>
           </div>
         </div>
       </div>
@@ -208,7 +222,7 @@ const specifications = [
         </h2>
 
         <p class="mt-4 max-w-3xl text-sm leading-7 text-foreground/70 sm:text-base">
-          {{ lot.description }}
+          {{  lot?.description }}
         </p>
 
         <div class="mt-8 grid gap-4 sm:grid-cols-2 border rounded-2xl">
@@ -273,7 +287,7 @@ const specifications = [
         >
           <div class="overflow-hidden">
             <img
-              :src="lot.images[(n - 1) % lot.images.length]"
+              :src="lot?.media[(n - 1) % lot?.media.length]?.url"
               alt="Similar lot"
               class="h-64 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
             />

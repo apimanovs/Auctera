@@ -11,6 +11,7 @@ import Input from '@/components/ui/input/Input.vue'
 import ModeToggle from '@/components/theme/ModeToggle.vue'
 import Categories from '@/components/layout/CategoriesNavbar.vue'
 import UserProfileIcon from '../ui/icons/UserProfileIcon.vue'
+import Heart from '../ui/icons/HeartIcon.vue'
 
 import {
   Select,
@@ -124,6 +125,8 @@ const handleKeyPress = (event: KeyboardEvent) => {
             Sign in
           </RouterLink>
 
+          <Heart v-if="isAuthenticated" class="h-5 w-5 text-foreground cursor-pointer" />
+
           <div v-if="isAuthenticated" >
             <Select>
               <SelectTrigger class="h-10 w-full rounded-full border border-border bg-background px-3 text-sm">
@@ -137,8 +140,23 @@ const handleKeyPress = (event: KeyboardEvent) => {
                     Profile
                   </RouterLink>
                 </SelectItem>
+                <SelectItem>
+                  <RouterLink :to="`/`">
+                    Your Orders
+                  </RouterLink>
+                </SelectItem>
+                <SelectItem>
+                  <RouterLink :to="`/`">
+                    Your Listings
+                  </RouterLink>
+                </SelectItem>
+                <SelectItem>
+                  <RouterLink :to="`/`">
+                    Settings
+                  </RouterLink>
+                </SelectItem>
                 <SelectItem @click="handleLogout()">
-                   Logout
+                   Log out
                 </SelectItem>
               </SelectContent>
             </Select>

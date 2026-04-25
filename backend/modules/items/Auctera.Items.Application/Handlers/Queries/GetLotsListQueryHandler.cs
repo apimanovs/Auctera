@@ -12,23 +12,26 @@ using Auctera.Shared.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 using MediatR;
+using Auctera.Identity.Application.Interfaces;
 
 namespace Auctera.Items.Application.Handlers.Queries;
 
 /// <summary>
 /// Represents the get lots list query handler class.
 /// </summary>
-public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<LotDto>>
+public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<LotPreviewDto>>
 {
     private readonly ILotRepository _lotRepository;
+    private readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GetLotsListQueryHandler"/> class.
     /// </summary>
     /// <param name="lotRepository">Lot repository.</param>
-    public GetLotsListQueryHandler(ILotRepository lotRepository)
+    public GetLotsListQueryHandler(ILotRepository lotRepository, IUserRepository userRepository)
     {
         _lotRepository = lotRepository;
+        _userRepository = userRepository;
     }
 
     /// <summary>
@@ -37,7 +40,7 @@ public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<Lo
     /// <param name="request">Input data for the operation.</param>
     /// <param name="cancellationToken">Cancellation token for the operation.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public async Task<List<LotDto>> Handle(GetLotsListQuery request, CancellationToken cancellationToken)
+    public async Task<List<LotPreviewDto>> Handle(GetLotsListQuery request, CancellationToken cancellationToken)
     {
         var query = _lotRepository.GetQueryable();
 
@@ -65,19 +68,21 @@ public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<Lo
         }
 
         return await query
-            .Select(lot => new LotDto
+            .Select(lot => new LotPreviewDto
             {
                 Id = lot.Id,
-                SellerId = lot.SellerId,
                 Title = lot.Title,
-                Description = lot.Description,
                 Price = lot.Price.Amount,
                 Currency = lot.Price.Currency,
                 Category = lot.Category,
+                CategoryName = lot.Category.ToString(),
                 Gender = lot.Gender,
+                GenderName = lot.Gender.ToString(),
                 Size = lot.Size,
+                SizeName = lot.Size.ToString(),
                 Brand = lot.Brand,
                 Condition = lot.Condition,
+                ConditionName = lot.Condition.ToString(),
                 Color = lot.Color,
                 Media = lot.Media.Select(m => new LotMediaDto
                 {

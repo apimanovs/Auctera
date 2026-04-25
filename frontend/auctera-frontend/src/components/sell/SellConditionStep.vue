@@ -32,7 +32,7 @@ defineProps<{
       <div>
         <label class="block text-sm font-medium">Condition</label>
         <select
-          v-model="form.condition"
+          v-model.number="form.condition"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
           <option :value="null" disabled>

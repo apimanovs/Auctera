@@ -1,27 +1,25 @@
-﻿using Auctera.Items.Domain.Enums;
-using Auctera.Shared.Domain.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using static Auctera.Items.Domain.Lot;
+using Auctera.Items.Domain.Enums;
+using Auctera.Shared.Domain.Enums;
 
 namespace Auctera.Items.Application.Models;
 
-/// <summary>
-/// Represents the lot dto class.
-/// </summary>
-public sealed class LotDto
+public class LotPreviewDto
 {
     /// <summary>
     /// Gets or sets the id used by this type.
     /// </summary>
     public Guid Id { get; set; }
+
     /// <summary>
     /// Gets or sets the title used by this type.
     /// </summary>
     public string Title { get; set; }
-    /// <summary>
-    /// Gets or sets the description used by this type.
-    /// </summary>
-    public string Description { get; set; }
 
     /// <summary>
     /// Gets or sets the price used by this type.
@@ -31,7 +29,6 @@ public sealed class LotDto
     /// Gets or sets the currency used by this type.
     /// </summary>
     public string Currency { get; set; }
-
     /// <summary>
     /// Gets or sets the category used by this type.
     /// </summary>
@@ -67,6 +64,4 @@ public sealed class LotDto
     /// Gets or sets the media used by this type.
     /// </summary>
     public List<LotMediaDto> Media { get; set; } = new();
-
-    public LotSellerDto Seller { get; set; }
 }

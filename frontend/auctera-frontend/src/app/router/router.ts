@@ -37,7 +37,7 @@ const routes = isDev
             component: UserProfilePage,
           },
           {
-            path: 'lot',
+            path: 'lot/:lotId',
             component: LotPage,
           },
           {

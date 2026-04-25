@@ -13,4 +13,6 @@ public sealed class LotMediaDto
     /// Gets or sets the type used by this type.
     /// </summary>
     public string Type { get; set; } = null!;
+
+    public string Url { get; set; } = null!;
 }

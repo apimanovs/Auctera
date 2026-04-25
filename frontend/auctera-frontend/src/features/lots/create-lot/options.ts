@@ -3,7 +3,7 @@ export type NumericOption = {
   value: number
 }
 
-export const CATEGORY_OPTIONS: NumericOption[] = [
+export const CATEGORY_OPTIONS = [
   { label: "Tops", value: 0 },
   { label: "Bottoms", value: 1 },
   { label: "Outerwear", value: 2 },
@@ -12,13 +12,13 @@ export const CATEGORY_OPTIONS: NumericOption[] = [
   { label: "Other", value: 5 },
 ]
 
-export const GENDER_OPTIONS: NumericOption[] = [
+export const GENDER_OPTIONS = [
   { label: "Women", value: 1 },
   { label: "Men", value: 2 },
   { label: "Unisex", value: 3 },
 ]
 
-export const SIZE_OPTIONS: NumericOption[] = [
+export const SIZE_OPTIONS = [
   { label: "XXS", value: 0 },
   { label: "XS", value: 1 },
   { label: "S", value: 2 },
@@ -28,7 +28,7 @@ export const SIZE_OPTIONS: NumericOption[] = [
   { label: "XXL", value: 6 },
 ]
 
-export const CONDITION_OPTIONS: NumericOption[] = [
+export const CONDITION_OPTIONS = [
   { label: "New", value: 0 },
   { label: "Worn", value: 1 },
   { label: "Refurbished", value: 2 },

@@ -57,7 +57,7 @@ const props = defineProps<{
       <div>
         <label class="block text-sm font-medium">Category</label>
         <select
-          v-model="props.form.category"
+          v-model.number="props.form.category"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
           <option :value="null" disabled>
@@ -76,7 +76,7 @@ const props = defineProps<{
       <div>
         <label class="block text-sm font-medium">Gender</label>
         <select
-          v-model="props.form.gender"
+          v-model.number="props.form.gender"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
           <option :value="null" disabled>
@@ -95,7 +95,7 @@ const props = defineProps<{
       <div>
         <label class="block text-sm font-medium">Size</label>
         <select
-          v-model="props.form.size"
+          v-model.number="props.form.size"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-foreground/20"
         >
           <option :value="null" disabled>

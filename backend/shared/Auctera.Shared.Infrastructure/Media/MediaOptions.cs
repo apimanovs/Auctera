@@ -15,7 +15,7 @@ public sealed class MediaOptions
     /// <returns>The operation result.</returns>
     public string BuildKey(Guid guid, string extension)
     {
-        return $"lots/{guid}{extension}";
+        return $"{guid}{extension}";
     }
     /// <summary>
     /// Gets or sets the bucket name used by this type.

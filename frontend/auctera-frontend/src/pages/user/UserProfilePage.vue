@@ -208,7 +208,7 @@ function resolveImageUrl(path: string | null | undefined): string {
       </div>
 
       <div class="space-y-6">
-        <div class="rounded-[28px] bg-background px-6 py-6">
+        <div class="rounded-[28px] border border-black/10 bg-background px-6 py-6">
           <div class="flex items-end justify-between gap-3">
             <div>
               <p class="text-[11px] uppercase tracking-[0.22em] text-foreground/40">
@@ -233,7 +233,7 @@ function resolveImageUrl(path: string | null | undefined): string {
               :key="listing.lotId"
               class="group overflow-hidden rounded-[24px] bg-background"
             >
-              <div class="overflow-hidden">
+              <div class="overflow-hidden rounded-[20px]">
                 <img
                   :src="resolveImageUrl(listing.thumbnailUrl)"
                   :alt="listing.title"
@@ -260,6 +260,36 @@ function resolveImageUrl(path: string | null | undefined): string {
                 </div>
               </div>
             </article>
+          </div>
+
+          <div
+            v-else
+            class="mt-6 flex min-h-[240px] flex-col items-center justify-center rounded-[24px] border border-dashed border-black/10 px-6 py-10 text-center"
+          >
+            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-foreground/5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-foreground/40"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M20 13V7a2 2 0 0 0-2-2h-3l-1-2H10L9 5H6a2 2 0 0 0-2 2v6m16 0v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4m16 0H4"
+                />
+              </svg>
+            </div>
+
+            <h3 class="mt-4 text-base font-semibold text-foreground">
+              No active listings yet
+            </h3>
+
+            <p class="mt-2 max-w-sm text-sm leading-6 text-foreground/60">
+              This seller does not have any live lots at the moment. New listings will appear here once they go live.
+            </p>
           </div>
         </div>
 
@@ -288,13 +318,13 @@ function resolveImageUrl(path: string | null | undefined): string {
               :key="listing.lotId"
               class="group overflow-hidden rounded-[24px] bg-background"
             >
-              <div class="relative overflow-hidden">
+              <div class="relative overflow-hidden rounded-[20px]">
                 <img
                   :src="resolveImageUrl(listing.thumbnailUrl)"
                   :alt="listing.title"
                   class="h-72 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 />
-                <div class="absolute left-3 top-3 rounded-full bg-background px-3 py-1 text-xs font-medium text-foreground/70">
+                <div class="absolute left-3 top-3 rounded-full bg-background px-3 py-1 text-xs font-medium text-foreground/70 shadow-sm">
                   Sold
                 </div>
               </div>
@@ -319,15 +349,45 @@ function resolveImageUrl(path: string | null | undefined): string {
               </div>
             </article>
           </div>
+
+          <div
+            v-else
+            class="mt-6 flex min-h-[240px] flex-col items-center justify-center rounded-[24px] border border-dashed border-black/10 px-6 py-10 text-center"
+          >
+            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-foreground/5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-foreground/40"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12l2 2 4-4m5-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <h3 class="mt-4 text-base font-semibold text-foreground">
+              No sold items yet
+            </h3>
+
+            <p class="mt-2 max-w-sm text-sm leading-6 text-foreground/60">
+              Nothing has been sold through this profile yet. Completed sales will appear here once transactions are closed.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="my-16 flex flex-col items-center justify-center gap-2 py-10 text-center text-foreground/60">
-      <h2 class="max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">
+      <h2 class="max-w-3xl text-3xl font-semibold text-foreground sm:text-4xl">
         Clean profile. Strong inventory. Real history.
       </h2>
-      <p class="mt-2 max-w-2xl text-sm text-foreground/70 sm:text-base">
+      <p class="mt-2 max-w-2xl text-sm text-foreground sm:text-base">
         A seller page should show not just taste, but proof of activity and trust.
       </p>
     </section>

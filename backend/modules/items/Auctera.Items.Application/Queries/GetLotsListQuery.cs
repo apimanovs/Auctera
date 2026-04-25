@@ -13,4 +13,4 @@ public sealed record GetLotsListQuery(
     LotGender? Gender,
     LotSize? Size,
     string? Brand
-) : IRequest<List<LotDto>>;
+) : IRequest<List<LotPreviewDto>>;
