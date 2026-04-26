@@ -111,22 +111,6 @@ const handleKeyPress = (event: KeyboardEvent) => {
 
           <RouterLink
             v-if="isAuthenticated"
-            to="/my-listings"
-            class="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground inline-flex"
-          >
-            My Listings
-          </RouterLink>
-
-          <RouterLink
-            v-if="isAuthenticated"
-            to="/orders"
-            class="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground inline-flex"
-          >
-            Orders
-          </RouterLink>
-
-          <RouterLink
-            v-if="isAuthenticated"
             to="/sell"
             class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 inline-flex"
           >
@@ -151,26 +135,26 @@ const handleKeyPress = (event: KeyboardEvent) => {
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="profile">
-                  <RouterLink :to="`/profile/${user?.username}`">
+                <RouterLink :to="`/profile/${user?.username}`">
+                  <SelectItem value="profile">
                     Profile
-                  </RouterLink>
-                </SelectItem>
-                <SelectItem value="orders">
-                  <RouterLink to="/orders">
+                  </SelectItem>
+                </RouterLink>
+                <RouterLink to="/orders">
+                  <SelectItem value="orders">
                     Your Orders
-                  </RouterLink>
-                </SelectItem>
-                <SelectItem value="my-listings">
-                  <RouterLink to="/my-listings">
+                  </SelectItem>
+                </RouterLink>
+                <RouterLink  to="/my-listings">
+                  <SelectItem value="my-listings">
                     My Listings
-                  </RouterLink>
-                </SelectItem>
-                <SelectItem value="settings">
-                  <RouterLink :to="`/`">
+                  </SelectItem>
+                </RouterLink>
+                <RouterLink :to="`/`">
+                  <SelectItem value="settings">
                     Settings
-                  </RouterLink>
-                </SelectItem>
+                  </SelectItem>
+                </RouterLink>
                 <SelectItem value="logout" @click="handleLogout()">
                    Log out
                 </SelectItem>

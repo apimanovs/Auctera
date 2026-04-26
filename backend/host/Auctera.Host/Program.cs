@@ -3,6 +3,8 @@ using System.Threading.RateLimiting;
 using Amazon.Runtime;
 using Amazon.S3;
 
+using Auctera.Admin.API;
+using Auctera.Admin.Application.Queries;
 using Auctera.Auctions.API.Controllers;
 using Auctera.Auctions.Application.Interfaces;
 using Auctera.Auctions.Infrastructure.Repository;
@@ -19,6 +21,7 @@ using Auctera.Identity.Infrastructure.Repository;
 using Auctera.Items.API.Controllers;
 using Auctera.Items.Application.Interfaces;
 using Auctera.Items.Infrastructure.Repository;
+using Auctera.Orders.API.Controllers;
 using Auctera.Orders.Application.Interfaces;
 using Auctera.Orders.Infrastructure.Options;
 using Auctera.Orders.Infrastructure.Repository;
@@ -61,6 +64,8 @@ builder.Services.AddControllers()
     .AddApplicationPart(typeof(EngineController).Assembly)
     .AddApplicationPart(typeof(ItemController).Assembly)
     .AddApplicationPart(typeof(BidsController).Assembly)
+    .AddApplicationPart(typeof(AdminController).Assembly)
+    .AddApplicationPart(typeof(OrdersController).Assembly)
     .AddApplicationPart(typeof(AuthController).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -182,6 +187,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Auctions.Application.Marker.MediatRAssemblyMarker).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Orders.Application.Marker.MediatRAssemblyMarker).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Auctera.Identity.Application.Handlers.LoginCommandHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetAdminDashboardData).Assembly);
 });
 
 builder.Services.AddCors(options =>

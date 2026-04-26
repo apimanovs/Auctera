@@ -1,5 +1,6 @@
 ﻿using Auctera.Items.Application.Models;
 using Auctera.Items.Domain.Enums;
+using Auctera.Shared.Domain.Enums;
 
 using MediatR;
 
@@ -11,6 +12,7 @@ namespace Auctera.Items.Application.Queries;
 public sealed record GetLotsListQuery(
     LotCategory? Category,
     LotGender? Gender,
+    LotStatus? Status,
     LotSize? Size,
     string? Brand
 ) : IRequest<List<LotPreviewDto>>;

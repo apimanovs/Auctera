@@ -68,18 +68,38 @@ const loadOrders = async () => {
   try {
     isLoading.value = true
     errorMessage.value = ''
+    rows.value = []
 
-    const orders = await orderService.getMyOrders()
+    const result = await orderService.getMyOrders()
+
+    const orders = Array.isArray(result)
+      ? result
+      : Array.isArray(result?.data)
+        ? result.data
+        : []
+
+    if (orders.length === 0) {
+      rows.value = []
+      return
+    }
 
     const auctions = await auctionService.getAuctions().catch(() => [])
+
     const lotIdByAuctionId = new Map<string, string>()
+
     for (const auction of auctions) {
       if (auction.auctionId && auction.lotId) {
         lotIdByAuctionId.set(String(auction.auctionId), String(auction.lotId))
       }
     }
 
-    const lotIds = Array.from(new Set(orders.map((order) => lotIdByAuctionId.get(String(order.auctionId ?? ''))).filter(Boolean))) as string[]
+    const lotIds = Array.from(
+      new Set(
+        orders
+          .map((order) => lotIdByAuctionId.get(String(order.auctionId ?? '')))
+          .filter(Boolean),
+      ),
+    ) as string[]
 
     const lotMap = new Map<string, { title: string; imageUrl: string }>()
 
@@ -87,8 +107,9 @@ const loadOrders = async () => {
       lotIds.map(async (lotId) => {
         try {
           const lot = await itemService.getLot(lotId)
+
           lotMap.set(lotId, {
-            title: lot.title,
+            title: lot.title ?? 'Untitled',
             imageUrl: lot.media?.[0]?.url ?? '',
           })
         } catch (error) {
@@ -112,6 +133,7 @@ const loadOrders = async () => {
     })
   } catch (error) {
     console.error(error)
+    rows.value = []
     errorMessage.value = 'Failed to load orders.'
   } finally {
     isLoading.value = false

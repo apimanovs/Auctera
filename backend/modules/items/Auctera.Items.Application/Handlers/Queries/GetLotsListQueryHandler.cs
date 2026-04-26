@@ -51,6 +51,11 @@ public class GetLotsListQueryHandler : IRequestHandler<GetLotsListQuery, List<Lo
             query = query.Where(x => x.Category == request.Category.Value);
         }
 
+        if (request.Status.HasValue)
+        {
+            query = query.Where(x => x.Status == request.Status.Value);
+        }
+
         if (request.Gender.HasValue)
         {
             query = query.Where(x => x.Gender == request.Gender.Value);

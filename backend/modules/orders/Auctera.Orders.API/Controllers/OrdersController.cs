@@ -23,6 +23,7 @@ public sealed class OrdersController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     [Authorize]
+    [Route("my")]
     /// <summary>
     /// Gets orders for user.
     /// </summary>

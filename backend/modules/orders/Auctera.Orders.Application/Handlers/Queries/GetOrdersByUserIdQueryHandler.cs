@@ -37,14 +37,13 @@ public sealed class GetOrdersByUserIdQueryHandler : IRequestHandler<GetOrdersByU
     /// <returns>A task that returns the operation result.</returns>
     public async Task<IReadOnlyList<OrderListItemDto>> Handle(GetOrdersByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var ordersAsBuyerTask = _orderRepository.GetOrdersByBuyerId(request.userId, cancellationToken);
+        var ordersAsBuyerTask = await _orderRepository.GetOrdersByBuyerId(request.userId, cancellationToken);
 
-        var ordersAsSellerTask = _orderRepository.GetOrdersBySellerId(request.userId, cancellationToken);
+        var ordersAsSellerTask = await _orderRepository.GetOrdersBySellerId(request.userId, cancellationToken);
 
-        await Task.WhenAll(ordersAsBuyerTask, ordersAsSellerTask);
 
-        var allOrders = ordersAsBuyerTask.Result
-                   .Concat(ordersAsSellerTask.Result)
+        var allOrders = ordersAsBuyerTask
+                   .Concat(ordersAsSellerTask)
                    .GroupBy(o => o.Id)
                    .Select(g => g.First())
                    .OrderByDescending(o => o.PaidAtUtc)
