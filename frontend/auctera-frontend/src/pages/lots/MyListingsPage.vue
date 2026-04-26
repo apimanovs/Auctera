@@ -42,21 +42,7 @@ const statusBadgeClass = (normalizedStatus: string) => {
   return 'bg-zinc-100 text-zinc-700 border-zinc-300'
 }
 
-const myListings = computed(() =>
-  listings.value.filter((lot) => {
-    const candidateSellerId = lot.sellerId ?? lot.seller?.id
-
-    if (!user.value?.id) {
-      return false
-    }
-
-    if (!candidateSellerId) {
-      return true
-    }
-
-    return candidateSellerId === user.value.id
-  }),
-)
+const myListings = computed(() => listings.value)
 
 const getAuctionByLotId = (lotId: string) => auctions.value.find((auction) => auction.lotId === lotId)
 
@@ -83,7 +69,7 @@ const loadData = async () => {
     errorMessage.value = ''
 
     const [lotsResponse, auctionsResponse] = await Promise.all([
-      itemService.getLots(),
+      itemService.getMyLots(),
       auctionService.getAuctions().catch(() => []),
     ])
 
