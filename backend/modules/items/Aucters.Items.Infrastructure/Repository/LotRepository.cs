@@ -35,6 +35,16 @@ public class LotRepository : ILotRepository
         return await _context.Lots.AsNoTracking().Include(l => l.Media).FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
     }
 
+    public async Task<IReadOnlyList<Lot>> GetLotsBySellerIdAsync(Guid sellerId, CancellationToken cancellationToken)
+    {
+        return await _context.Lots
+            .AsNoTracking()
+            .Include(l => l.Media)
+            .Where(l => l.SellerId == sellerId)
+            .OrderByDescending(l => l.Id)
+            .ToListAsync(cancellationToken);
+    }
+
     /// <summary>
     /// Performs the save lot async operation.
     /// </summary>

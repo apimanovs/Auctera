@@ -9,4 +9,6 @@ npm install
 npm run dev
 ```
 
-Default route redirects to `/admin/pending`.
+Routes:
+- `/admin/pending`
+- `/admin/dashboard`

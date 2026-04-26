@@ -111,6 +111,22 @@ const handleKeyPress = (event: KeyboardEvent) => {
 
           <RouterLink
             v-if="isAuthenticated"
+            to="/my-listings"
+            class="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground inline-flex"
+          >
+            My Listings
+          </RouterLink>
+
+          <RouterLink
+            v-if="isAuthenticated"
+            to="/orders"
+            class="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground inline-flex"
+          >
+            Orders
+          </RouterLink>
+
+          <RouterLink
+            v-if="isAuthenticated"
             to="/sell"
             class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 inline-flex"
           >

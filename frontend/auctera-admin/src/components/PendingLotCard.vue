@@ -22,6 +22,8 @@ const priceLabel = (lot: LotPreview) => {
   const amount = lot.price ?? lot.amount ?? 0
   return `${lot.currency ?? 'EUR'} ${amount}`
 }
+
+const statusLabel = (lot: LotPreview) => String(lot.statusName ?? lot.status ?? 'Unknown')
 </script>
 
 <template>
@@ -30,7 +32,12 @@ const priceLabel = (lot: LotPreview) => {
       <img :src="imageUrl(lot)" :alt="lot.title ?? 'Lot image'" class="h-24 w-24 rounded-lg border object-cover" />
 
       <div>
-        <h2 class="text-lg font-semibold">{{ lot.title ?? 'Untitled lot' }}</h2>
+        <div class="flex items-center gap-2">
+          <h2 class="text-lg font-semibold">{{ lot.title ?? 'Untitled lot' }}</h2>
+          <span class="rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-xs text-amber-800">
+            {{ statusLabel(lot) }}
+          </span>
+        </div>
         <p class="text-sm text-slate-600">{{ lot.brand ?? 'Unknown brand' }}</p>
         <p class="text-sm text-slate-700">{{ priceLabel(lot) }}</p>
         <p class="text-xs text-slate-500">Seller: {{ lot.sellerId ?? '—' }}</p>

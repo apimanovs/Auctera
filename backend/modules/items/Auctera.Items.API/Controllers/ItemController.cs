@@ -133,6 +133,16 @@ public sealed class ItemController : ControllerBase
     }
 
     [HttpGet]
+    [Route("my")]
+    [Authorize]
+    public async Task<ActionResult> GetMyLots(CancellationToken cancellationToken)
+    {
+        var userId = User.Claims.GetUserId();
+        var result = await _mediator.Send(new GetLotsByUserIdQuery(userId), cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpGet]
     /// <summary>
     /// Gets lots filtered list.
     /// </summary>

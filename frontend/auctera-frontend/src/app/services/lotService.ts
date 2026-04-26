@@ -37,6 +37,11 @@ export const itemService = {
     return response.data
   },
 
+  async getMyLots(): Promise<LotPreview[]> {
+    const response = await api.get<LotPreview[]>('/api/items/my')
+    return response.data
+  },
+
   async updateLot(id: string, payload: EditLotPayload): Promise<void> {
     await api.patch(`/api/items/${id}/update`, payload)
   },
