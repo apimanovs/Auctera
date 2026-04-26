@@ -15,5 +15,6 @@ public enum LotStatus
     Published,
     Listed,
     Sold,
-    Removed
+    Removed,
+    Pending
 }

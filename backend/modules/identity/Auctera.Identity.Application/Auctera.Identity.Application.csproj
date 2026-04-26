@@ -8,14 +8,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
-    <ProjectReference Include="..\..\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
-    <ProjectReference Include="..\..\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
     <ProjectReference Include="..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="14.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.9" />
   </ItemGroup>
 
 </Project>

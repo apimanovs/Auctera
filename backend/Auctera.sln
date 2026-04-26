@@ -73,6 +73,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.API", "modules\orders\Auctera.Orders.API\Auctera.Orders.API.csproj", "{D596C203-0245-D2D7-2E15-4BCB98321407}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{11651468-BE08-452C-8B28-244AD81E2F0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.API", "..\..\..\..\..\Desktop\Auctera.Admin.API\Auctera.Admin.API.csproj", "{8F074A88-6A5E-F59A-A57D-D30A78770EE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Application", "..\..\..\..\..\Desktop\Auctera.Admin.Application\Auctera.Admin.Application.csproj", "{EEE2768E-5A15-9657-18F1-5ED62AF770AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Domain", "..\..\..\..\..\Desktop\Auctera.Admin.Domain\Auctera.Admin.Domain.csproj", "{9992313A-1191-DA94-506B-A2E566C1965D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Infrastructure", "..\..\..\..\..\Desktop\Auctera.Admin.Infrastructure\Auctera.Admin.Infrastructure.csproj", "{EC99AF7F-C654-C86C-198F-C23E4559F28A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +189,22 @@ Global
 		{D596C203-0245-D2D7-2E15-4BCB98321407}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D596C203-0245-D2D7-2E15-4BCB98321407}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D596C203-0245-D2D7-2E15-4BCB98321407}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F074A88-6A5E-F59A-A57D-D30A78770EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F074A88-6A5E-F59A-A57D-D30A78770EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F074A88-6A5E-F59A-A57D-D30A78770EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F074A88-6A5E-F59A-A57D-D30A78770EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE2768E-5A15-9657-18F1-5ED62AF770AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE2768E-5A15-9657-18F1-5ED62AF770AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE2768E-5A15-9657-18F1-5ED62AF770AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE2768E-5A15-9657-18F1-5ED62AF770AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9992313A-1191-DA94-506B-A2E566C1965D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9992313A-1191-DA94-506B-A2E566C1965D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9992313A-1191-DA94-506B-A2E566C1965D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9992313A-1191-DA94-506B-A2E566C1965D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC99AF7F-C654-C86C-198F-C23E4559F28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC99AF7F-C654-C86C-198F-C23E4559F28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC99AF7F-C654-C86C-198F-C23E4559F28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC99AF7F-C654-C86C-198F-C23E4559F28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +240,11 @@ Global
 		{1641B1A3-A006-4924-A46C-A0A4E0D30BD4} = {BF77071F-3AE2-4D42-865D-11F88887554B}
 		{46CFCDD3-D2D2-4C94-98E6-1D579C300221} = {BF77071F-3AE2-4D42-865D-11F88887554B}
 		{D596C203-0245-D2D7-2E15-4BCB98321407} = {BF77071F-3AE2-4D42-865D-11F88887554B}
+		{11651468-BE08-452C-8B28-244AD81E2F0E} = {D14CB777-D128-45EA-884F-9EC94417807F}
+		{8F074A88-6A5E-F59A-A57D-D30A78770EE6} = {11651468-BE08-452C-8B28-244AD81E2F0E}
+		{EEE2768E-5A15-9657-18F1-5ED62AF770AF} = {11651468-BE08-452C-8B28-244AD81E2F0E}
+		{9992313A-1191-DA94-506B-A2E566C1965D} = {11651468-BE08-452C-8B28-244AD81E2F0E}
+		{EC99AF7F-C654-C86C-198F-C23E4559F28A} = {11651468-BE08-452C-8B28-244AD81E2F0E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74147B40-0A0B-4005-AD7C-C397D28E57C1}

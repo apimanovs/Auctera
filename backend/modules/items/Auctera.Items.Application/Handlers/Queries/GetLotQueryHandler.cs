@@ -13,8 +13,6 @@ using Auctera.Shared.Infrastructure.Media;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.Options;
 
 namespace Auctera.Items.Application.Handlers.Queries;
