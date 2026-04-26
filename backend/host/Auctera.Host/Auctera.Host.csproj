@@ -9,6 +9,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AWSSDK.S3" Version="4.0.18.6" />
 		<PackageReference Include="MediatR" Version="14.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12" />
 		<PackageReference Include="Stripe.net" Version="50.4.0" />
@@ -23,17 +24,11 @@
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Infrastructure\Auctera.Auctions.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.API\Auctera.Bids.API.csproj" />
 	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Application\Auctera.Bids.Application.csproj" />
-	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Domain\Auctera.Bids.Domain.csproj" />
 	  <ProjectReference Include="..\..\modules\bids\Auctera.Bids.Infrastructure\Auctera.Bids.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.API\Auctera.Identity.API.csproj" />
-	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Application\Auctera.Identity.Application.csproj" />
-	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
 	  <ProjectReference Include="..\..\modules\identity\Auctera.Identity.Infrastructure\Auctera.Identity.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Auctera.Items.API\Auctera.Items.API.csproj" />
-	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Application\Auctera.Items.Application.csproj" />
-	  <ProjectReference Include="..\..\modules\items\Auctera.Items.Domain\Auctera.Items.Domain.csproj" />
 	  <ProjectReference Include="..\..\modules\items\Aucters.Items.Infrastructure\Auctera.Items.Infrastructure.csproj" />
-	  <ProjectReference Include="..\..\modules\orders\Auctera.Orders.API\Auctera.Orders.API.csproj" />
 	  <ProjectReference Include="..\..\modules\orders\Auctera.Orders.Application\Auctera.Orders.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\orders\Auctera.Orders.Domain\Auctera.Orders.Domain.csproj" />
 	  <ProjectReference Include="..\..\modules\orders\Auctera.Orders.Infrastructure\Auctera.Orders.Infrastructure.csproj" />

@@ -225,6 +225,24 @@ public sealed class Lot : Entity<Guid>
         Media.Add(new LotMedia(normalizedKey, "photo"));
     }
 
+    public void Reject()
+    {
+        if (Status != LotStatus.Published)
+        {
+            throw new InvalidOperationException("Only published lots can be rejected.");
+        }
+        Status = LotStatus.Rejected;
+    }
+
+    public void Accept()
+    {
+        if (Status != LotStatus.Published)
+        {
+            throw new InvalidOperationException("Only published lots can be accepted.");
+        }
+        Status = LotStatus.Draft;
+    }
+
     /// <summary>
     /// Represents the lot media class.
     /// </summary>
