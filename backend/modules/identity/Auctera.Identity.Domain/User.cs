@@ -25,8 +25,6 @@ public sealed class User
     /// Gets or sets the user name used by this type.
     /// </summary>
     public string UserName { get; private set; }
-    public string? City { get; private set; }
-    public string? Country { get; private set; }
     /// <summary>
     /// Gets or sets the is admin used by this type.
     /// </summary>
@@ -85,40 +83,5 @@ public sealed class User
             passwordHash,
             userName,
             false);
-    }
-
-    public void UpdateProfile(string name, string userName, string? city, string? country)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException("Name cannot be empty");
-        }
-
-        if (string.IsNullOrWhiteSpace(userName))
-        {
-            throw new ArgumentException("Username cannot be empty");
-        }
-
-        Name = name.Trim();
-        UserName = userName.Trim();
-        City = NormalizeOptional(city, 100, "City");
-        Country = NormalizeOptional(country, 100, "Country");
-    }
-
-    private static string? NormalizeOptional(string? value, int maxLength, string fieldName)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return null;
-        }
-
-        var normalized = value.Trim();
-
-        if (normalized.Length > maxLength)
-        {
-            throw new ArgumentException($"{fieldName} must be {maxLength} characters or fewer.");
-        }
-
-        return normalized;
     }
 }

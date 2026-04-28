@@ -40,11 +40,11 @@ public sealed class GetLotQueryHandler(ILotRepository lotRepository, IUserReposi
             throw new KeyNotFoundException($"Lot is null");
         }
 
-        var seller = await _userRepository.GetUserByIdAsync(lot.SellerId);
+        var seller = _userRepository.GetUserByIdAsync(lot.SellerId);
 
-        if (seller is null)
+        if (lot is null)
         {
-            throw new KeyNotFoundException($"Seller with id {lot.SellerId} not found.");
+            throw new KeyNotFoundException($"Lot with id {request.lotId} not found.");
         }
 
         return new LotDto
@@ -64,7 +64,6 @@ public sealed class GetLotQueryHandler(ILotRepository lotRepository, IUserReposi
             Condition = lot.Condition,
             ConditionName = lot.Condition.ToString(),
             Color = lot.Color,
-            Year = lot.Year,
             Status = lot.Status,
             StatusName = lot.Status.ToString(),
             Media = lot.Media.Select(m => new LotMediaDto
@@ -76,11 +75,9 @@ public sealed class GetLotQueryHandler(ILotRepository lotRepository, IUserReposi
             .ToList(),
             Seller = new LotSellerDto
             {
-                Id = seller.Id,
-                Name = seller.Name,
-                Username = seller.UserName,
-                City = seller.City,
-                Country = seller.Country
+                Id = seller.Result.Id,
+                Name = seller.Result.Name,
+                Username = seller.Result.UserName,
             }
         };
     }

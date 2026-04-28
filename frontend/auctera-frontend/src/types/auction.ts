@@ -4,8 +4,6 @@ export type AuctionDetails = {
   auctionId: string
   status: AuctionStatus
   currentPrice: number | null
-  minimumBid: number | null
-  bidCount: number
   currency: string | null
   startsAt: string | null
   endsAt: string | null

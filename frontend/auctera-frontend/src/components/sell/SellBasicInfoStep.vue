@@ -7,7 +7,6 @@ type BasicInfoForm = {
   category: number | null
   gender: number | null
   size: number | null
-  year: number | null
 }
 
 const props = defineProps<{
@@ -51,18 +50,6 @@ const props = defineProps<{
           v-model="props.form.brand"
           type="text"
           placeholder="e.g. Rick Owens"
-          class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition placeholder:text-foreground/40 focus:ring-2 focus:ring-foreground/20"
-        />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium">Year</label>
-        <input
-          v-model.number="props.form.year"
-          type="number"
-          min="1900"
-          :max="new Date().getFullYear()"
-          placeholder="e.g. 1998"
           class="mt-2 w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-none transition placeholder:text-foreground/40 focus:ring-2 focus:ring-foreground/20"
         />
       </div>

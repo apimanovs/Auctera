@@ -56,7 +56,6 @@ public sealed class ItemController : ControllerBase
             command.Brand,
             command.Condition,
             command.Color,
-            command.Year,
             command.PhotoKeys
         );
 
@@ -81,8 +80,7 @@ public sealed class ItemController : ControllerBase
             return BadRequest("Lot ID in the URL does not match Lot ID in the body.");
         }
 
-        var sellerId = User.Claims.GetUserId();
-        await _mediator.Send(command with { sellerId = sellerId }, cancellationToken);
+        await _mediator.Send(command, cancellationToken);
         return Ok();
     }
 

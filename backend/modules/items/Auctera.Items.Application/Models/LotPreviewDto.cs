@@ -15,7 +15,6 @@ public class LotPreviewDto
     /// Gets or sets the id used by this type.
     /// </summary>
     public Guid Id { get; set; }
-    public Guid SellerId { get; set; }
 
     /// <summary>
     /// Gets or sets the title used by this type.
@@ -58,12 +57,9 @@ public class LotPreviewDto
     /// Gets or sets the color used by this type.
     /// </summary>
     public string? Color { get; set; }
-    public int? Year { get; set; }
 
     public LotStatus Status { get; set; }
     public string StatusName { get; set; }
-    public string? SellerCity { get; set; }
-    public string? SellerCountry { get; set; }
     /// <summary>
     /// Gets or sets the media used by this type.
     /// </summary>

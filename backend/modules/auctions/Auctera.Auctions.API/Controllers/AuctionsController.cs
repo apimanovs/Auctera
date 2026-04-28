@@ -29,27 +29,11 @@ public sealed class AuctionsController : ControllerBase
 
     [HttpGet("{auctionId:guid}")]
     [AllowAnonymous]
-    public async Task<ActionResult<AuctionDetailsDto>> GetAuctionDetails(
+    public async Task<ActionResult<IReadOnlyList<AuctionDetailsDto>>> GetAuctionDetails(
         [FromRoute] GetAuctionDetailsQuery getAuctionDetailsQuery,
         CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(getAuctionDetailsQuery, cancellationToken);
-
-        return Ok(result);
-    }
-
-    [HttpGet("by-lot/{lotId:guid}")]
-    [AllowAnonymous]
-    public async Task<ActionResult<AuctionDetailsDto?>> GetAuctionByLotId(
-        Guid lotId,
-        CancellationToken cancellationToken)
-    {
-        var result = await _mediator.Send(new GetAuctionByLotIdQuery(lotId), cancellationToken);
-
-        if (result is null)
-        {
-            return NotFound();
-        }
 
         return Ok(result);
     }

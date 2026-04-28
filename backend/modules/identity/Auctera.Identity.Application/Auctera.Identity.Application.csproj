@@ -9,7 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\persistance\Auctera.Persistance\Auctera.Persistance.csproj" />
     <ProjectReference Include="..\..\..\shared\Auctera.Shared.Domain\Auctera.Shared.Domain.csproj" />
-    <ProjectReference Include="..\..\..\shared\Auctera.Shared.Infrastructure\Auctera.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Auctera.Identity.Domain\Auctera.Identity.Domain.csproj" />
   </ItemGroup>
 

@@ -190,7 +190,7 @@ public sealed class Auction : AggregateRoot<Guid>
 
         if (CurrentPrice != null)
         {
-            if (amount.Amount <= CurrentPrice.Amount)
+            if (!amount.GreatherThan(CurrentPrice))
             {
                 throw new InvalidOperationException("Bid must be higher than current price.");
             }
@@ -223,6 +223,10 @@ public sealed class Auction : AggregateRoot<Guid>
         );
 
         _bids.Add(bid);
+
+        Console.WriteLine($"_bids count = {_bids.Count}");
+        Console.WriteLine($"Bids count = {Bids.Count}");
+        Console.WriteLine($"Added bid id = {bid.Id}");
 
         CurrentPrice = currentPriceAmount;
 

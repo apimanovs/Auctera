@@ -42,48 +42,4 @@ public sealed class MediaUploader(IOptions<MediaOptions> options, IAmazonS3 s3) 
 
         return key;
     }
-
-    public async Task DeleteAsync(string key, CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(key))
-        {
-            return;
-        }
-
-        await _s3.DeleteObjectAsync(new DeleteObjectRequest
-        {
-            BucketName = _mediaOptions.BucketName,
-            Key = key.Trim()
-        }, cancellationToken);
-    }
-
-    public async Task DeleteManyAsync(IEnumerable<string> keys, CancellationToken cancellationToken)
-    {
-        var normalizedKeys = keys
-            .Where(key => !string.IsNullOrWhiteSpace(key))
-            .Select(key => key.Trim())
-            .Distinct(StringComparer.Ordinal)
-            .ToList();
-
-        if (normalizedKeys.Count == 0)
-        {
-            return;
-        }
-
-        if (normalizedKeys.Count == 1)
-        {
-            await DeleteAsync(normalizedKeys[0], cancellationToken);
-            return;
-        }
-
-        var request = new DeleteObjectsRequest
-        {
-            BucketName = _mediaOptions.BucketName,
-            Objects = normalizedKeys
-                .Select(key => new KeyVersion { Key = key })
-                .ToList()
-        };
-
-        await _s3.DeleteObjectsAsync(request, cancellationToken);
-    }
 }

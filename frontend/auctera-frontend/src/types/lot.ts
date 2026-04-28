@@ -24,7 +24,6 @@ export type Lot = {
   condition: number
   conditionName: string
   color: string
-  year?: number | null
   status?: number | string
   statusName?: string
   media: LotMedia[]
@@ -48,14 +47,11 @@ export type LotPreview = {
   condition?: number
   conditionName?: string
   color?: string
-  year?: number | null
   status?: number | string
   statusName?: string
   media: LotMedia[]
   sellerId?: string
   seller?: LotSeller
-  sellerCity?: string | null
-  sellerCountry?: string | null
   createdAt?: string
   auctionId?: string
 }
@@ -70,6 +66,4 @@ export type LotSeller = {
   id: string
   username: string
   name: string
-  city?: string | null
-  country?: string | null
 }

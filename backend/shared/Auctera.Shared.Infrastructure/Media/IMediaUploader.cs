@@ -11,6 +11,4 @@ namespace Auctera.Shared.Infrastructure.Media;
 public interface IMediaUploader
 {
     Task<string> UploadAsync(Stream stream, string fileName ,string contentType);
-    Task DeleteAsync(string key, CancellationToken cancellationToken);
-    Task DeleteManyAsync(IEnumerable<string> keys, CancellationToken cancellationToken);
 }

@@ -22,6 +22,5 @@ public sealed record CreateLotRequest
     string Brand,
     LotCondition Condition,
     string? Color,
-    int? Year,
     IReadOnlyList<string>? PhotoKeys
 ) : IRequest<Guid>;

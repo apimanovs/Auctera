@@ -47,9 +47,9 @@ export const useAuthStore = defineStore('auth', () => {
       await api.post('/api/auth/logout')
       clearAuth()
     } 
-    catch
+    catch (error) 
     {
-      clearAuth()
+      console.error('Logout failed:', error)
     }
     finally
     {

@@ -81,26 +81,6 @@ public class LotRepository : ILotRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IReadOnlyList<string>> GetMediaKeysUsedByOtherLotsAsync(
-        Guid lotId,
-        IReadOnlyCollection<string> keys,
-        CancellationToken cancellationToken)
-    {
-        if (keys.Count == 0)
-        {
-            return [];
-        }
-
-        return await _context.Lots
-            .AsNoTracking()
-            .Where(l => l.Id != lotId)
-            .SelectMany(l => l.Media)
-            .Where(m => keys.Contains(m.Key))
-            .Select(m => m.Key)
-            .Distinct()
-            .ToListAsync(cancellationToken);
-    }
-
     /// <summary>
     /// Gets queryable.
     /// </summary>

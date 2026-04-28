@@ -26,19 +26,21 @@ const searchQuery = ref('')
 const authStore = useAuthStore()
 const { user, isAuthenticated } = storeToRefs(authStore)
 
-async function handleLogout() {
-  await authStore.logout()
-  router.push('/home')
+function handleLogout() {
+  try
+  {
+    authStore.logout()
+    router.push('/home')    
+  }
+  catch (error)
+  {
+    console.error('Logout failed:', error)
+  }
 }
 
 const handleSearch = () => {
-  const search = searchQuery.value.trim()
-
-  if (search) {
-    router.push({
-      path: '/auctions',
-      query: { search },
-    })
+  if (searchQuery.value.trim()) {
+    console.log('Searching for:', searchQuery.value)
   }
 }
 
@@ -148,7 +150,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
                     My Listings
                   </SelectItem>
                 </RouterLink>
-                <RouterLink to="/settings/profile">
+                <RouterLink :to="`/`">
                   <SelectItem value="settings">
                     Settings
                   </SelectItem>

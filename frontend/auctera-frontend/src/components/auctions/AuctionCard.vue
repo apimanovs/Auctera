@@ -8,8 +8,6 @@ defineProps<{
     currency?: string
     imageUrl: string | string[]
     timeLeft: string
-    location?: string
-    year?: number | null
 }>()
 </script>
 
@@ -20,10 +18,10 @@ defineProps<{
             <!-- Image Section -->
             <div class="relative h-64 overflow-hidden rounded-lg bg-background">
                 <img
-                    v-if="typeof imageUrl === 'string' && imageUrl"
+                    v-if="typeof imageUrl === 'string'"
                     :src="imageUrl"
                     alt="Auction lot image"
-                    class="h-full w-full object-cover"
+                    class="object-coverh h-full w-full"
                 />
                 <div v-else class="flex h-full items-center justify-center text-foreground text-sm">
                     No image
@@ -36,7 +34,7 @@ defineProps<{
                     {{ brand }}
                 </p>
                 <!-- Title -->
-                <h3 class="mb-3 min-h-[2.5rem] line-clamp-2 text-lg font-medium text-foreground">
+                <h3 class="mb-3 line-clamp-2 text-lg font-medium text-foreground min-h-2.5rem">
                     {{ title }}
                 </h3>
 
@@ -50,11 +48,7 @@ defineProps<{
                 </div>
 
                 <!-- Time Left -->
-                <div class="mt-3 space-y-1 text-sm text-foreground/60">
-                    <span class="block">{{ timeLeft }}</span>
-                    <span v-if="location" class="block truncate">{{ location }}</span>
-                    <span v-if="year" class="block">{{ year }}</span>
-                </div>
+                <span class="text-sm text-foreground/60">{{ timeLeft }}</span>
             </div>
         </div>
     </div>

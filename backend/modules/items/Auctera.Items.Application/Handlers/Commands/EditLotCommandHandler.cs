@@ -60,8 +60,7 @@ public sealed class EditLotCommandHandler : IRequestHandler<EditLotCommand>
             request.size,
             request.brand,
             request.condition,
-            request.color,
-            request.year
+            request.color
         );
 
         await _lotRepository.SaveLotAsync(lot, cancellationToken);

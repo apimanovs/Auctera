@@ -53,8 +53,6 @@ public sealed class GlobalExceptionMiddleware(
         {
             UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, "Unauthorized"),
             ArgumentException => (StatusCodes.Status400BadRequest, "Bad Request"),
-            InvalidOperationException => (StatusCodes.Status400BadRequest, "Bad Request"),
-            KeyNotFoundException => (StatusCodes.Status404NotFound, "Not Found"),
             _ => (StatusCodes.Status500InternalServerError, "Internal Server Error")
         };
 

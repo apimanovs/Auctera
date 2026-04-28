@@ -5,7 +5,7 @@ export type AdminDashboardData = Record<string, string | number | null>
 export const adminService = {
   async getDashboard(): Promise<AdminDashboardData> {
     try {
-      const response = await api.get<AdminDashboardData>('/api/admin/dashboard')
+      const response = await api.get<AdminDashboardData>('/api/admin/dashbaord')
       return response.data
     } catch (error: any) {
       if (error?.response?.status === 404) {

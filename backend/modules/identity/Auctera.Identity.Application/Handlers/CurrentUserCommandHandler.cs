@@ -14,15 +14,17 @@ public sealed class CurrentUserCommandHandler : IRequestHandler<CurrentUserComma
         _userRepository = userRepository;
     }
 
-    public async Task<UserDto> Handle(CurrentUserCommand command, CancellationToken ct)
+    public Task<UserDto> Handle(CurrentUserCommand command, CancellationToken ct)
     {
-        var user = await _userRepository.GetUserByIdAsync(command.userId);
+        var user = _userRepository.GetUserByIdAsync(command.userId);
 
         if (user is null)
         {
             throw new UnauthorizedAccessException("No user is currently authenticated.");
         }
 
-        return new UserDto(user.Id, user.UserName, user.Email);
+        var userDto = new UserDto(user.Result.Id, user.Result.UserName, user.Result.Email);
+
+        return Task.FromResult(userDto);
     }
 }

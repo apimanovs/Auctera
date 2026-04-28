@@ -21,7 +21,6 @@ public sealed class MyLotListItemDto
     public LotCondition Condition { get; init; }
     public string ConditionName { get; init; } = default!;
     public string? Color { get; init; }
-    public int? Year { get; init; }
     public LotStatus Status { get; init; }
     public string StatusName { get; init; } = default!;
     public Guid? AuctionId { get; init; }

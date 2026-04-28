@@ -12,6 +12,5 @@ public interface ILotRepository
     Task SaveLotAsync(Lot lot, CancellationToken cancellationToken);
     Task AddLotAsync(Lot lot, CancellationToken cancellationToken);
     Task DeleteLotAsync(Lot lot, CancellationToken cancellationToken);
-    Task<IReadOnlyList<string>> GetMediaKeysUsedByOtherLotsAsync(Guid lotId, IReadOnlyCollection<string> keys, CancellationToken cancellationToken);
     IQueryable<Lot> GetQueryable();
 }

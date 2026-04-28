@@ -25,7 +25,6 @@ export type CreateLotPayload = {
   brand: string
   condition: number
   color: string
-  year: number | null
   photoKeys: string[]
 }
 
@@ -42,7 +41,6 @@ export type CreateLotFormState = {
   brand: string
   condition: number | null
   color: string
-  year: number | null
   photoKeys: string[]
 }
 
@@ -67,6 +65,5 @@ export const DEFAULT_CREATE_LOT_FORM: CreateLotFormState = {
   brand: "",
   condition: null,
   color: "",
-  year: null,
   photoKeys: [],
 }

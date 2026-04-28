@@ -1,19 +1,14 @@
 using Auctera.Items.Application.Interfaces;
 using Auctera.Items.Application.Models;
 using Auctera.Items.Application.Queries;
-using Auctera.Shared.Infrastructure.Media;
-
 using MediatR;
-
-using Microsoft.Extensions.Options;
 
 namespace Auctera.Items.Application.Handlers.Queries;
 
-public sealed class GetLotsByUserIdQueryHandler(ILotRepository lotRepository, IOptions<MediaOptions> mediaOptions)
+public sealed class GetLotsByUserIdQueryHandler(ILotRepository lotRepository)
     : IRequestHandler<GetLotsByUserIdQuery, IReadOnlyList<MyLotListItemDto>>
 {
     private readonly ILotRepository _lotRepository = lotRepository;
-    private readonly string _publicBaseUrl = mediaOptions.Value.PublicBaseUrl;
 
     public async Task<IReadOnlyList<MyLotListItemDto>> Handle(GetLotsByUserIdQuery request, CancellationToken cancellationToken)
     {
@@ -38,7 +33,6 @@ public sealed class GetLotsByUserIdQueryHandler(ILotRepository lotRepository, IO
                 Condition = lot.Condition,
                 ConditionName = lot.Condition.ToString(),
                 Color = lot.Color,
-                Year = lot.Year,
                 Status = lot.Status,
                 StatusName = lot.Status.ToString(),
                 AuctionId = null,
@@ -47,7 +41,6 @@ public sealed class GetLotsByUserIdQueryHandler(ILotRepository lotRepository, IO
                 {
                     Key = m.Key,
                     Type = m.Type,
-                    Url = $"{_publicBaseUrl}{m.Key}"
                 }).ToList(),
             })
             .ToList();

@@ -3,12 +3,12 @@ import Container from '@/components/ui/Container.vue'
 import { RouterLink } from 'vue-router'
 
 const navItems = [
-  { label: 'Women', to: '/auctions?gender=1' },
-  { label: 'Men', to: '/auctions?gender=2' },
-  { label: 'Accessories', to: '/auctions?category=4' },
-  { label: 'Brands', to: '/auctions' },
-  { label: 'Trending', to: '/auctions?status=Published' },
-  { label: 'Ending Soon', to: '/auctions?status=Listed' },
+  { label: 'Women', to: '/?category=women' },
+  { label: 'Men', to: '/?category=men' },
+  { label: 'Accessories', to: '/?category=accessories' },
+  { label: 'Brands', to: '/?category=brands' },
+  { label: 'Trending', to: '/?sort=trending' },
+  { label: 'Ending Soon', to: '/?sort=ending-soon' },
 ]
 </script>
 

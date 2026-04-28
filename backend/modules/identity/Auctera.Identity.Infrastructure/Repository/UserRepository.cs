@@ -62,56 +62,12 @@ public class UserRepository(AucteraDbContext context) : IUserRepository
         return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == username);
     }
 
-    public async Task<IReadOnlyList<User>> GetUsersByIdsAsync(IReadOnlyCollection<Guid> ids, CancellationToken cancellationToken)
-    {
-        if (ids.Count == 0)
-        {
-            return [];
-        }
-
-        return await _context.Users
-            .AsNoTracking()
-            .Where(u => ids.Contains(u.Id))
-            .ToListAsync(cancellationToken);
-    }
-
-    public async Task<IReadOnlyList<Guid>> GetUserIdsByLocationAsync(
-        string? city,
-        string? country,
-        string? location,
-        CancellationToken cancellationToken)
-    {
-        var query = _context.Users.AsNoTracking().AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(city))
-        {
-            var normalizedCity = city.Trim().ToLower();
-            query = query.Where(u => u.City != null && u.City.ToLower().Contains(normalizedCity));
-        }
-
-        if (!string.IsNullOrWhiteSpace(country))
-        {
-            var normalizedCountry = country.Trim().ToLower();
-            query = query.Where(u => u.Country != null && u.Country.ToLower().Contains(normalizedCountry));
-        }
-
-        if (!string.IsNullOrWhiteSpace(location))
-        {
-            var normalizedLocation = location.Trim().ToLower();
-            query = query.Where(u =>
-                (u.City != null && u.City.ToLower().Contains(normalizedLocation)) ||
-                (u.Country != null && u.Country.ToLower().Contains(normalizedLocation)));
-        }
-
-        return await query.Select(u => u.Id).ToListAsync(cancellationToken);
-    }
-
     /// <summary>
     /// Gets user by id async.
     /// </summary>
     /// <param name="id">Entity identifier.</param>
     /// <returns>A task that returns the operation result.</returns>
-    public Task<User?> GetUserByIdAsync(Guid id)
+    public Task<User> GetUserByIdAsync(Guid id)
     {
         return _context.Users.FindAsync(id).AsTask();
     }
@@ -124,7 +80,7 @@ public class UserRepository(AucteraDbContext context) : IUserRepository
 
     public Task<int> GetUserActiveLotsCountAsync(Guid id)
     {
-        return _context.Lots.CountAsync(l => l.SellerId == id && l.Status == Shared.Domain.Enums.LotStatus.Published);
+        return _context.Lots.CountAsync(l => l.SellerId == id);
     }
 
     public Task<int> GetUserSoldLotsCountAsync(Guid id)
@@ -135,7 +91,7 @@ public class UserRepository(AucteraDbContext context) : IUserRepository
     public Task<List<UserProfileListingDto>> GetUserActiveLotsAsync(Guid userId, int take = 4)
     {
         return _context.Lots.AsNoTracking()
-            .Where(l => l.SellerId == userId && l.Status == Shared.Domain.Enums.LotStatus.Published)
+            .Where(l => l.SellerId == userId)
             .Take(take)
             .Select(l => new UserProfileListingDto
             {

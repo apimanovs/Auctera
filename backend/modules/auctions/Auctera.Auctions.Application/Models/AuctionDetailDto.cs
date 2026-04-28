@@ -23,8 +23,6 @@ public sealed class AuctionDetailsDto
     /// Gets or sets the current price used by this type.
     /// </summary>
     public decimal? CurrentPrice { get; init; }
-    public decimal? MinimumBid { get; init; }
-    public int BidCount { get; init; }
     /// <summary>
     /// Gets or sets the currency used by this type.
     /// </summary>
