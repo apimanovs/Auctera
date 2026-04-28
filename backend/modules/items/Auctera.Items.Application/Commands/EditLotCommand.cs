@@ -26,6 +26,7 @@ public record EditLotCommand
     LotCategory category,
     LotGender gender,
     LotCondition condition,
-    string? color
+    string? color,
+    int? year
 )
     : IRequest;

@@ -17,14 +17,13 @@ type ReviewForm = {
   brand: string
   condition: string
   color: string
+  year: number | null
 }
 
 const props = defineProps<{
   form: ReviewForm
   photos: UploadedPhoto[]
 }>()
-
-console.log(props);
 </script>
 
 <template>
@@ -112,6 +111,11 @@ console.log(props);
             <div class="flex items-start justify-between gap-4">
               <span>Color</span>
               <span class="text-right text-foreground">{{ form.color || "-" }}</span>
+            </div>
+
+            <div class="flex items-start justify-between gap-4">
+              <span>Year</span>
+              <span class="text-right text-foreground">{{ form.year || "-" }}</span>
             </div>
 
             <div class="flex items-start justify-between gap-4">

@@ -19,8 +19,7 @@ const loadDashboard = async () => {
     isLoading.value = true
     errorMessage.value = ''
     dashboard.value = await adminService.getDashboard()
-  } catch (error) {
-    console.error(error)
+  } catch {
     errorMessage.value = 'Failed to load dashboard.'
   } finally {
     isLoading.value = false
@@ -52,7 +51,7 @@ onMounted(loadDashboard)
     <div v-else class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       <article v-for="[key, value] in entries" :key="key" class="rounded-xl border bg-white p-4">
         <p class="text-xs uppercase tracking-wide text-slate-500">{{ key }}</p>
-        <p class="mt-2 text-xl font-semibold">{{ value ?? '—' }}</p>
+        <p class="mt-2 text-xl font-semibold">{{ value ?? '-' }}</p>
       </article>
     </div>
   </section>

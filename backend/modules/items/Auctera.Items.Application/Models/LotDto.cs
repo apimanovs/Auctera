@@ -60,6 +60,7 @@ public sealed class LotDto
     /// Gets or sets the color used by this type.
     /// </summary>
     public string? Color { get; set; }
+    public int? Year { get; set; }
 
     public LotStatus Status { get; set; }
     public string StatusName { get; set; }

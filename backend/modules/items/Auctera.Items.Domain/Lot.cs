@@ -57,6 +57,7 @@ public sealed class Lot : Entity<Guid>
     /// Gets or sets the color used by this type.
     /// </summary>
     public string? Color { get; private set; }
+    public int? Year { get; private set; }
 
     /// <summary>
     /// Gets or sets the media used by this type.
@@ -79,7 +80,8 @@ public sealed class Lot : Entity<Guid>
         LotSize size,
         string brand,
         LotCondition condition,
-        string? color
+        string? color,
+        int? year
     ) : base(id)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -117,6 +119,7 @@ public sealed class Lot : Entity<Guid>
         Brand = brand.Trim();
         Condition = condition;
         Color = string.IsNullOrWhiteSpace(color) ? null : color.Trim();
+        Year = ValidateYear(year);
         Status = LotStatus.Draft;
     }
 
@@ -130,7 +133,8 @@ public sealed class Lot : Entity<Guid>
         LotSize size,
         string brand,
         LotCondition condition,
-        string? color)
+        string? color,
+        int? year)
     {
         if (Status == LotStatus.Draft)
         {
@@ -189,6 +193,24 @@ public sealed class Lot : Entity<Guid>
         Brand = brand.Trim();
         Condition = condition;
         Color = color.Trim();
+        Year = ValidateYear(year);
+    }
+
+    private static int? ValidateYear(int? year)
+    {
+        if (!year.HasValue)
+        {
+            return null;
+        }
+
+        var currentYear = DateTime.UtcNow.Year;
+
+        if (year.Value < 1900 || year.Value > currentYear)
+        {
+            throw new ArgumentException($"Year must be between 1900 and {currentYear}.");
+        }
+
+        return year.Value;
     }
 
     /// <summary>

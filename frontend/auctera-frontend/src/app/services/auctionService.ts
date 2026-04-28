@@ -20,6 +20,19 @@ export const auctionService = {
     return response.data
   },
 
+  async getAuctionByLotId(lotId: string): Promise<AuctionDetails | null> {
+    try {
+      const response = await api.get<AuctionDetails>(`/api/auctions/by-lot/${lotId}`)
+      return response.data
+    } catch (error: any) {
+      if (error?.response?.status === 404) {
+        return null
+      }
+
+      throw error
+    }
+  },
+
   async getAuctions(filters?: Record<string, string | number | undefined>): Promise<AuctionListItem[]> {
     const response = await api.get<AuctionListItem[]>('/api/auctions', {
       params: filters,
@@ -49,8 +62,8 @@ export async function getAuctions(): Promise<Auction[]> {
   const items = await auctionService.getAuctions()
   return items.map((item, index) => ({
     id: index + 1,
-    brand: 'Auction',
-    title: `Auction ${index + 1}`,
+    brand: 'Coutera',
+    title: item.lotId ? `Auction ${item.lotId.slice(0, 8)}` : `Auction ${index + 1}`,
     price: item.currentPrice ?? 0,
     imageUrl: '',
     timeLeft: item.endDate ? new Date(item.endDate).toLocaleString() : item.status,

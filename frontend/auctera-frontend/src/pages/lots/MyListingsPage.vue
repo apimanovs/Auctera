@@ -4,13 +4,15 @@ import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@/stores/authStore'
+import { getApiErrorMessage } from '@/app/helpers/apiError'
 import { itemService } from '@/app/services/lotService'
 import { auctionService } from '@/app/services/auctionService'
+import { toast } from '@/components/ui/toast'
 import type { LotPreview } from '@/types/lot'
 import type { AuctionListItem, StartAuctionDuration } from '@/types/auction'
 
 const authStore = useAuthStore()
-const { user, isAuthenticated } = storeToRefs(authStore)
+const { isAuthenticated } = storeToRefs(authStore)
 
 const listings = ref<LotPreview[]>([])
 const auctions = ref<AuctionListItem[]>([])
@@ -19,6 +21,7 @@ const selectedDurationByLot = ref<Record<string, StartAuctionDuration>>({})
 const isLoading = ref(true)
 const errorMessage = ref('')
 const successMessage = ref('')
+const confirmingDeleteLotId = ref<string | null>(null)
 
 const normalizeStatus = (lot: LotPreview) => {
   const raw = String(lot.statusName ?? lot.status ?? '').toLowerCase()
@@ -46,9 +49,9 @@ const myListings = computed(() => listings.value)
 
 const getAuctionByLotId = (lotId: string) => auctions.value.find((auction) => auction.lotId === lotId)
 
-const canEdit = (normalizedStatus: string) => normalizedStatus === 'draft' || normalizedStatus === 'rejected'
-const canDelete = (normalizedStatus: string) => ['draft', 'rejected', 'pending'].includes(normalizedStatus)
-const canPublish = (normalizedStatus: string) => normalizedStatus === 'draft' || normalizedStatus === 'rejected'
+const canEdit = (normalizedStatus: string) => normalizedStatus === 'draft'
+const canDelete = (normalizedStatus: string) => normalizedStatus === 'draft'
+const canPublish = (normalizedStatus: string) => normalizedStatus === 'draft'
 
 const canStartAuction = (lot: LotPreview, normalizedStatus: string) => {
   const auction = getAuctionByLotId(lot.id)
@@ -60,7 +63,7 @@ const canStartAuction = (lot: LotPreview, normalizedStatus: string) => {
     }
   }
 
-  return ['draft', 'approved', 'active', 'rejected'].includes(normalizedStatus)
+  return normalizedStatus === 'approved'
 }
 
 const loadData = async () => {
@@ -80,25 +83,30 @@ const loadData = async () => {
       selectedDurationByLot.value[lot.id] = selectedDurationByLot.value[lot.id] ?? '7'
     }
   } catch (error) {
-    console.error(error)
-    errorMessage.value = 'Failed to load your listings.'
+    errorMessage.value = getApiErrorMessage(error, 'Failed to load your listings.')
   } finally {
     isLoading.value = false
   }
 }
 
 const deleteLot = async (lot: LotPreview) => {
-  const confirmed = window.confirm(`Delete listing \"${lot.title}\"?`)
-  if (!confirmed) return
+  if (confirmingDeleteLotId.value !== lot.id) {
+    confirmingDeleteLotId.value = lot.id
+    return
+  }
 
   try {
     await itemService.deleteLot(lot.id)
     listings.value = listings.value.filter((item) => item.id !== lot.id)
-    successMessage.value = 'Listing deleted.'
+    confirmingDeleteLotId.value = null
+    successMessage.value = 'Lot deleted successfully'
     errorMessage.value = ''
-  } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Delete failed. This lot may no longer be deletable.'
+    toast({ title: 'Lot deleted successfully', variant: 'success' })
+  } catch (error) {
+    confirmingDeleteLotId.value = null
+    errorMessage.value = getApiErrorMessage(error, 'Failed to delete lot')
     successMessage.value = ''
+    toast({ title: 'Failed to delete lot', description: errorMessage.value, variant: 'error' })
   }
 }
 
@@ -107,10 +115,12 @@ const publishLot = async (lotId: string) => {
     await itemService.publishLot(lotId)
     successMessage.value = 'Listing submitted for review.'
     errorMessage.value = ''
+    toast({ title: 'Listing submitted for review', variant: 'success' })
     await loadData()
-  } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Failed to submit listing.'
+  } catch (error) {
+    errorMessage.value = getApiErrorMessage(error, 'Failed to submit listing.')
     successMessage.value = ''
+    toast({ title: 'Failed to submit listing', description: errorMessage.value, variant: 'error' })
   }
 }
 
@@ -127,10 +137,12 @@ const startAuctionForLot = async (lot: LotPreview) => {
 
     successMessage.value = 'Auction started successfully.'
     errorMessage.value = ''
+    toast({ title: 'Auction started successfully', variant: 'success' })
     await loadData()
-  } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Failed to start auction.'
+  } catch (error) {
+    errorMessage.value = getApiErrorMessage(error, 'Failed to start auction.')
     successMessage.value = ''
+    toast({ title: 'Failed to start auction', description: errorMessage.value, variant: 'error' })
   }
 }
 
@@ -172,7 +184,10 @@ onMounted(async () => {
       <div v-else class="space-y-4">
         <div v-for="lot in myListings" :key="lot.id" class="rounded-2xl border p-4">
           <div class="grid gap-4 md:grid-cols-[100px_1fr_auto] md:items-center">
-            <img :src="lot.media?.[0]?.url" :alt="lot.title" class="h-24 w-24 rounded-xl object-cover border" />
+            <div class="flex h-24 w-24 overflow-hidden rounded-xl border bg-foreground/5">
+              <img v-if="lot.media?.[0]?.url" :src="lot.media[0].url" :alt="lot.title" class="h-full w-full object-cover" />
+              <span v-else class="m-auto text-xs text-foreground/50">No image</span>
+            </div>
 
             <div>
               <div class="flex flex-wrap items-center gap-2">
@@ -181,8 +196,8 @@ onMounted(async () => {
                   {{ lot.statusName ?? normalizeStatus(lot) }}
                 </span>
               </div>
-              <p class="mt-1 text-sm text-foreground/70">{{ lot.brand }} · {{ lot.currency }} {{ lot.price }}</p>
-              <p class="text-xs text-foreground/50">Created: {{ lot.createdAt ? new Date(lot.createdAt).toLocaleDateString() : '—' }}</p>
+              <p class="mt-1 text-sm text-foreground/70">{{ lot.brand }} / {{ lot.currency }} {{ lot.price }}</p>
+              <p class="text-xs text-foreground/50">{{ lot.year ? `Year: ${lot.year}` : 'Year not specified' }}</p>
             </div>
 
             <div class="flex flex-wrap gap-2">
@@ -202,7 +217,7 @@ onMounted(async () => {
                 :disabled="!canDelete(normalizeStatus(lot))"
                 @click="deleteLot(lot)"
               >
-                Delete
+                {{ confirmingDeleteLotId === lot.id ? 'Confirm delete' : 'Delete' }}
               </button>
 
               <button

@@ -17,6 +17,7 @@ export type EditLotPayload = {
   gender: number
   condition: number
   color: string
+  year: number | null
 }
 
 export const itemService = {

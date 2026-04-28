@@ -32,6 +32,12 @@ public sealed class UsersConfigurations : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(50);
 
+        builder.Property(user => user.City)
+            .HasMaxLength(100);
+
+        builder.Property(user => user.Country)
+            .HasMaxLength(100);
+
         builder.Property(user => user.PasswordHash)
             .IsRequired();
 

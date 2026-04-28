@@ -39,6 +39,12 @@ public sealed class GetAuctionDetailsQueryHandler
                     ? a.CurrentPrice.Amount
                     : 0m,
 
+                MinimumBid = a.CurrentPrice != null
+                    ? a.CurrentPrice.Amount + 1m
+                    : 1m,
+
+                BidCount = a.Bids.Count,
+
                 Currency = a.CurrentPrice != null
                     ? a.CurrentPrice.Currency
                     : null,

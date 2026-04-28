@@ -58,6 +58,9 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
         builder.Property(l => l.Color)
             .HasMaxLength(50);
 
+        builder.Property(l => l.Year)
+            .HasColumnName("year");
+
         builder.OwnsOne(lot => lot.Price, money =>
         {
             money.Property(m => m.Amount)

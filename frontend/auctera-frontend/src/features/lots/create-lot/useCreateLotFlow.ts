@@ -1,5 +1,6 @@
 import { computed, reactive, ref } from "vue"
 
+import { getApiErrorMessage } from "@/app/helpers/apiError"
 import { mediaService } from "@/app/services/mediaService"
 import { itemService } from "@/app/services/lotService"
 import {
@@ -79,9 +80,7 @@ export const useCreateLotFlow = () => {
           if (targetPhoto) {
             targetPhoto.key = response.key
           }
-        } catch (error) {
-          console.error("Failed to upload photo", error)
-
+        } catch {
           const failedPhoto = photos.value.find((photo) => photo.id === photoId)
 
           if (failedPhoto) {
@@ -158,6 +157,15 @@ export const useCreateLotFlow = () => {
         if (form.size === null) {
           errorMessage.value = "Size is required."
           return false
+        }
+
+        if (form.year !== null) {
+          const nextYear = new Date().getFullYear()
+
+          if (form.year < 1900 || form.year > nextYear) {
+            errorMessage.value = `Year must be between 1900 and ${nextYear}.`
+            return false
+          }
         }
 
         return true
@@ -258,14 +266,14 @@ export const useCreateLotFlow = () => {
         brand: form.brand.trim(),
         condition: form.condition,
         color: form.color.trim(),
+        year: form.year,
         photoKeys: uploadedPhotoKeys.value,
       }
 
       const lotId = await itemService.createLot(payload)
       successMessage.value = `Listing created successfully. Lot ID: ${lotId}`
     } catch (error) {
-      console.error("Failed to create listing", error)
-      errorMessage.value = "Failed to submit listing."
+      errorMessage.value = getApiErrorMessage(error, "Failed to submit listing.")
     } finally {
       isSubmitting.value = false
     }

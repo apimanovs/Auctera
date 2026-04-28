@@ -72,11 +72,7 @@ const loadOrders = async () => {
 
     const result = await orderService.getMyOrders()
 
-    const orders = Array.isArray(result)
-      ? result
-      : Array.isArray(result?.data)
-        ? result.data
-        : []
+    const orders: OrderItem[] = Array.isArray(result) ? result : []
 
     if (orders.length === 0) {
       rows.value = []
@@ -96,7 +92,7 @@ const loadOrders = async () => {
     const lotIds = Array.from(
       new Set(
         orders
-          .map((order) => lotIdByAuctionId.get(String(order.auctionId ?? '')))
+          .map((order: OrderItem) => lotIdByAuctionId.get(String(order.auctionId ?? '')))
           .filter(Boolean),
       ),
     ) as string[]
@@ -118,7 +114,7 @@ const loadOrders = async () => {
       }),
     )
 
-    rows.value = orders.map((order) => {
+    rows.value = orders.map((order: OrderItem) => {
       const auctionId = String(order.auctionId ?? '')
       const lotId = lotIdByAuctionId.get(auctionId)
       const lotInfo = lotId ? lotMap.get(lotId) : undefined

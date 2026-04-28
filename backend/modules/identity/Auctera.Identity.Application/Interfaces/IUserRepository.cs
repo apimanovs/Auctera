@@ -11,6 +11,8 @@ public interface IUserRepository
     Task<User?> GetUserByEmailAsync(string email);
     Task<User?> GetUserByIdAsync(Guid id);
     Task<User?> GetUserByUsernameAsync(string username);
+    Task<IReadOnlyList<User>> GetUsersByIdsAsync(IReadOnlyCollection<Guid> ids, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Guid>> GetUserIdsByLocationAsync(string? city, string? country, string? location, CancellationToken cancellationToken);
 
     Task AddUserAsync(User user);
     Task UpdateUserAsync(User user);

@@ -1,17 +1,25 @@
-﻿using Auctera.Items.Application.Commands;
+using Auctera.Items.Application.Commands;
 using Auctera.Items.Application.Interfaces;
 using Auctera.Shared.Domain.Enums;
+using Auctera.Shared.Infrastructure.Media;
 
 using MediatR;
+
+using Microsoft.Extensions.Logging;
 
 namespace Auctera.Items.Application.Handlers.Commands;
 
 /// <summary>
 /// Represents the delete lot command handler class.
 /// </summary>
-public sealed class DeleteLotCommandHandler(ILotRepository lotRepository) : IRequestHandler<DeleteLotCommand>
+public sealed class DeleteLotCommandHandler(
+    ILotRepository lotRepository,
+    IMediaUploader mediaUploader,
+    ILogger<DeleteLotCommandHandler> logger) : IRequestHandler<DeleteLotCommand>
 {
     private readonly ILotRepository _lotRepository = lotRepository;
+    private readonly IMediaUploader _mediaUploader = mediaUploader;
+    private readonly ILogger<DeleteLotCommandHandler> _logger = logger;
 
     /// <summary>
     /// Handles the operation.
@@ -38,6 +46,39 @@ public sealed class DeleteLotCommandHandler(ILotRepository lotRepository) : IReq
             throw new InvalidOperationException("Only draft lots can be deleted.");
         }
 
+        var mediaKeys = lotToDelete.Media
+            .Where(media => media.Type == "photo")
+            .Select(media => media.Key)
+            .Where(key => !string.IsNullOrWhiteSpace(key))
+            .Distinct(StringComparer.Ordinal)
+            .ToList();
+
+        var keysUsedByOtherLots = await _lotRepository.GetMediaKeysUsedByOtherLotsAsync(
+            lotToDelete.Id,
+            mediaKeys,
+            cancellationToken);
+
+        var keysToDelete = mediaKeys
+            .Except(keysUsedByOtherLots, StringComparer.Ordinal)
+            .ToList();
+
         await _lotRepository.DeleteLotAsync(lotToDelete, cancellationToken);
+
+        try
+        {
+            await _mediaUploader.DeleteManyAsync(keysToDelete, cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(
+                exception,
+                "Failed to delete media from storage for lot {LotId}. Keys: {MediaKeys}",
+                lotToDelete.Id,
+                keysToDelete);
+        }
     }
 }

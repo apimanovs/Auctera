@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { Toaster } from '@/components/ui/toast'
 
 const authStore = useAuthStore()
 
@@ -12,4 +13,5 @@ onMounted(async () => {
 
 <template>
   <RouterView />
+  <Toaster />
 </template>

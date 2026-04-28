@@ -12,6 +12,7 @@ import LandingPage from '@/pages/Landing.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import LotPage from '@/pages/lots/LotPage.vue'
 import UserProfilePage from '@/pages/user/UserProfilePage.vue'
+import ProfileSettingsPage from '@/pages/user/ProfileSettingsPage.vue'
 import NotFoundPage from '@/pages/errors/NotFoundPage.vue'
 import CatalogPage from '@/pages/catalog/CatalogPage.vue'
 import CreateLotPage from '@/pages/lots/CreateLotPage.vue'
@@ -35,6 +36,14 @@ const routes = isDev
           {
             path: 'home',
             component: HomePage,
+          },
+          {
+            path: 'profile/settings',
+            component: ProfileSettingsPage,
+          },
+          {
+            path: 'settings/profile',
+            component: ProfileSettingsPage,
           },
           {
             path: 'profile/:username',
