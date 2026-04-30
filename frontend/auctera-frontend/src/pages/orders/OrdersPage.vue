@@ -74,8 +74,8 @@ const loadOrders = async () => {
 
     const orders = Array.isArray(result)
       ? result
-      : Array.isArray(result?.data)
-        ? result.data
+      : Array.isArray(result)
+        ? result
         : []
 
     if (orders.length === 0) {
@@ -96,7 +96,7 @@ const loadOrders = async () => {
     const lotIds = Array.from(
       new Set(
         orders
-          .map((order) => lotIdByAuctionId.get(String(order.auctionId ?? '')))
+          .map((order: OrderItem) => lotIdByAuctionId.get(String(order.auctionId ?? '')))
           .filter(Boolean),
       ),
     ) as string[]
