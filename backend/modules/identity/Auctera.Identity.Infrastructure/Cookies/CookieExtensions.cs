@@ -23,7 +23,7 @@ public class CookieFactory : ICookieFactory
 
             // Controls when the cookie is sent in cross-site requests.
             // Lax is a balanced default: safer than None, but less strict than Strict.
-            SameSite = SameSiteMode.None,
+            SameSite = SameSiteMode.Lax,
 
             // Sets the exact expiration date and time of the cookie.
             // After this moment, the browser should remove it.
@@ -41,7 +41,7 @@ public class CookieFactory : ICookieFactory
         {
             HttpOnly = true,
             Secure = false,
-            SameSite = SameSiteMode.None,
+            SameSite = SameSiteMode.Lax,
             Expires = DateTimeOffset.UtcNow.AddDays(7),
             Path = "/"
         });
@@ -56,7 +56,7 @@ public class CookieFactory : ICookieFactory
         {
             Path = "/",
             Secure = false,
-            SameSite = SameSiteMode.None,
+            SameSite = SameSiteMode.Lax,
             HttpOnly = true
         });
     }
@@ -67,7 +67,7 @@ public class CookieFactory : ICookieFactory
         {
             Path = "/",
             Secure = false,
-            SameSite = SameSiteMode.None,
+            SameSite = SameSiteMode.Lax,
             HttpOnly = true
         });
     }
