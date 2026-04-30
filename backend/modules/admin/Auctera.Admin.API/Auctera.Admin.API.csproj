@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Auctera.Admin.Application\Auctera.Admin.Application.csproj" />
+    <ProjectReference Include="..\Auctera.Admin.Domain\Auctera.Admin.Domain.csproj" />
   </ItemGroup>
 
 </Project>
