@@ -19,7 +19,7 @@ public class CookieFactory : ICookieFactory
 
             // Ensures the cookie is sent only over HTTPS connections.
             // If the site is opened over plain HTTP, this cookie will not be sent.
-            Secure = true,
+            Secure = false,
 
             // Controls when the cookie is sent in cross-site requests.
             // Lax is a balanced default: safer than None, but less strict than Strict.
@@ -40,7 +40,7 @@ public class CookieFactory : ICookieFactory
         response.Cookies.Append("refresh_token", token, new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
+            Secure = false,
             SameSite = SameSiteMode.None,
             Expires = DateTimeOffset.UtcNow.AddDays(7),
             Path = "/"
@@ -55,7 +55,7 @@ public class CookieFactory : ICookieFactory
         response.Cookies.Delete("access_token", new CookieOptions
         {
             Path = "/",
-            Secure = true,
+            Secure = false,
             SameSite = SameSiteMode.None,
             HttpOnly = true
         });
@@ -66,7 +66,7 @@ public class CookieFactory : ICookieFactory
         response.Cookies.Delete("refresh_token", new CookieOptions
         {
             Path = "/",
-            Secure = true,
+            Secure = false,
             SameSite = SameSiteMode.None,
             HttpOnly = true
         });
