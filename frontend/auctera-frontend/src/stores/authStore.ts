@@ -39,6 +39,8 @@ export const useAuthStore = defineStore('auth', () => {
       password,
       confirmPassword,
     })
+
+    await checkAuth()
   }
 
   async function logout(): Promise<void> {
