@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\..\..\..\..\Desktop\Auctera.Admin.API\Auctera.Admin.API.csproj" />
+	  <ProjectReference Include="..\..\modules\admin\Auctera.Admin.API\Auctera.Admin.API.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.API\Auctera.Auctions.API.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Application\Auctera.Auctions.Application.csproj" />
 	  <ProjectReference Include="..\..\modules\auctions\Auctera.Auctions.Domain\Auctera.Auctions.Domain.csproj" />

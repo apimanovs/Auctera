@@ -75,13 +75,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Orders.API", "modul
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{11651468-BE08-452C-8B28-244AD81E2F0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.API", "..\..\..\..\..\Desktop\Auctera.Admin.API\Auctera.Admin.API.csproj", "{8F074A88-6A5E-F59A-A57D-D30A78770EE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.API", "modules\admin\Auctera.Admin.API\Auctera.Admin.API.csproj", "{8F074A88-6A5E-F59A-A57D-D30A78770EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Application", "..\..\..\..\..\Desktop\Auctera.Admin.Application\Auctera.Admin.Application.csproj", "{EEE2768E-5A15-9657-18F1-5ED62AF770AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Application", "modules\admin\Auctera.Admin.Application\Auctera.Admin.Application.csproj", "{EEE2768E-5A15-9657-18F1-5ED62AF770AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Domain", "..\..\..\..\..\Desktop\Auctera.Admin.Domain\Auctera.Admin.Domain.csproj", "{9992313A-1191-DA94-506B-A2E566C1965D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Domain", "modules\admin\Auctera.Admin.Domain\Auctera.Admin.Domain.csproj", "{9992313A-1191-DA94-506B-A2E566C1965D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Infrastructure", "..\..\..\..\..\Desktop\Auctera.Admin.Infrastructure\Auctera.Admin.Infrastructure.csproj", "{EC99AF7F-C654-C86C-198F-C23E4559F28A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctera.Admin.Infrastructure", "modules\admin\Auctera.Admin.Infrastructure\Auctera.Admin.Infrastructure.csproj", "{EC99AF7F-C654-C86C-198F-C23E4559F28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
