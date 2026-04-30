@@ -12,8 +12,18 @@ namespace Auctera.Persistance.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"DELETE FROM lot_media;");
-
+            migrationBuilder.Sql("""
+                                DO $$
+                                BEGIN
+                                    IF EXISTS (
+                                        SELECT FROM information_schema.tables 
+                                        WHERE table_schema = 'public' 
+                                        AND table_name = 'lot_media'
+                                    ) THEN
+                                        DELETE FROM lot_media;
+                                    END IF;
+                                END $$;
+                                """);
             migrationBuilder.DropPrimaryKey(
                 name: "PK_lot_media",
                 table: "lot_media");
