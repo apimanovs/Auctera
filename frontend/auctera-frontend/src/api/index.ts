@@ -5,7 +5,7 @@ interface RetryableRequestConfig extends InternalAxiosRequestConfig {
 }
 
 const api = axios.create({
-  baseURL: 'https://localhost:7001',
+  baseURL: 'https://46.225.237.167:7001',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
