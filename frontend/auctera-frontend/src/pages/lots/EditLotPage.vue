@@ -129,54 +129,266 @@ onMounted(loadLot)
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-    <h1 class="text-3xl font-semibold">Edit Listing</h1>
+  <div class="min-h-screen bg-background text-foreground">
+    <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="mb-8 flex flex-col gap-3">
+        <p class="text-xs uppercase tracking-[0.22em] text-foreground/50">
+          Seller dashboard
+        </p>
 
-    <div v-if="isLoading" class="mt-4 rounded-2xl border p-6 text-sm text-foreground/70">Loading...</div>
+        <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+          Edit listing
+        </h1>
 
-    <div v-else class="mt-4 space-y-4">
-      <div v-if="errorMessage" class="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">{{ errorMessage }}</div>
-      <div v-if="successMessage" class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-300">{{ successMessage }}</div>
-
-      <div v-if="!canEdit" class="rounded-xl border p-4 text-sm text-foreground/70">
-        This listing cannot be edited because it is currently {{ lot?.statusName ?? normalizeStatus }}.
+        <p class="max-w-2xl text-sm leading-6 text-foreground/60">
+          Update your listing details before it is approved and published on Coutera.
+        </p>
       </div>
 
-      <form class="space-y-3 rounded-2xl border p-4" @submit.prevent="submit">
-        <input v-model="form.title" :disabled="!canEdit || isSubmitting" class="h-11 w-full rounded-lg border bg-background px-3" placeholder="Title" />
-        <textarea v-model="form.description" :disabled="!canEdit || isSubmitting" class="min-h-[120px] w-full rounded-lg border bg-background p-3" placeholder="Description" />
+      <div
+        v-if="isLoading"
+        class="rounded-[28px] border bg-background p-8 text-sm text-foreground/60"
+      >
+        Loading listing...
+      </div>
 
-        <div class="grid gap-3 md:grid-cols-2">
-          <input v-model.number="form.amount" type="number" min="0" step="0.01" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3" placeholder="Amount" />
-          <input v-model="form.currency" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3" placeholder="Currency" />
-          <input v-model="form.brand" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3" placeholder="Brand" />
-          <input v-model="form.color" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3" placeholder="Color" />
-
-          <select v-model.number="form.category" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3">
-            <option v-for="option in CATEGORY_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
-          </select>
-
-          <select v-model.number="form.gender" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3">
-            <option v-for="option in GENDER_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
-          </select>
-
-          <select v-model.number="form.size" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3">
-            <option v-for="option in SIZE_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
-          </select>
-
-          <select v-model.number="form.condition" :disabled="!canEdit || isSubmitting" class="h-11 rounded-lg border bg-background px-3">
-            <option v-for="option in CONDITION_OPTIONS" :key="option.value" :value="option.value">{{ option.label }}</option>
-          </select>
+      <div v-else class="space-y-6">
+        <div
+          v-if="errorMessage"
+          class="rounded-[20px] border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+        >
+          {{ errorMessage }}
         </div>
 
-        <button
-          type="submit"
-          class="rounded-lg bg-foreground px-4 py-2 text-sm text-background disabled:cursor-not-allowed disabled:opacity-50"
-          :disabled="!canEdit || isSubmitting"
+        <div
+          v-if="successMessage"
+          class="rounded-[20px] border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300"
         >
-          {{ isSubmitting ? 'Saving...' : 'Save changes' }}
-        </button>
-      </form>
+          {{ successMessage }}
+        </div>
+
+        <div
+          v-if="!canEdit"
+          class="rounded-[24px] border bg-foreground/[0.03] p-5 text-sm text-foreground/70"
+        >
+          This listing cannot be edited because it is currently
+          <span class="font-medium text-foreground">
+            {{ lot?.statusName ?? normalizeStatus }}
+          </span>.
+        </div>
+
+        <form
+          class="overflow-hidden rounded-[32px] border bg-background shadow-sm"
+          @submit.prevent="submit"
+        >
+          <div class="border-b p-6 sm:p-8">
+            <h2 class="text-xl font-semibold tracking-tight">
+              Basic information
+            </h2>
+
+            <p class="mt-2 text-sm leading-6 text-foreground/60">
+              Add the main details buyers will see first.
+            </p>
+
+            <div class="mt-6 grid gap-5">
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Title
+                </label>
+
+                <input
+                  v-model="form.title"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="Example: Rick Owens DRKSHDW hoodie"
+                />
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Description
+                </label>
+
+                <textarea
+                  v-model="form.description"
+                  :disabled="!canEdit || isSubmitting"
+                  class="min-h-[150px] w-full resize-none rounded-2xl border bg-background p-4 text-sm leading-6 outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="Describe condition, fit, material, flaws, authenticity, and anything important."
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="border-b p-6 sm:p-8">
+            <h2 class="text-xl font-semibold tracking-tight">
+              Item details
+            </h2>
+
+            <p class="mt-2 text-sm leading-6 text-foreground/60">
+              Help buyers understand what type of item this is.
+            </p>
+
+            <div class="mt-6 grid gap-5 md:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Brand
+                </label>
+
+                <input
+                  v-model="form.brand"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="Brand name"
+                />
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Color
+                </label>
+
+                <input
+                  v-model="form.color"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="Black, grey, navy..."
+                />
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Category
+                </label>
+
+                <select
+                  v-model.number="form.category"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <option
+                    v-for="option in CATEGORY_OPTIONS"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Gender
+                </label>
+
+                <select
+                  v-model.number="form.gender"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <option
+                    v-for="option in GENDER_OPTIONS"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Size
+                </label>
+
+                <select
+                  v-model.number="form.size"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <option
+                    v-for="option in SIZE_OPTIONS"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Condition
+                </label>
+
+                <select
+                  v-model.number="form.condition"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <option
+                    v-for="option in CONDITION_OPTIONS"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8">
+            <h2 class="text-xl font-semibold tracking-tight">
+              Pricing
+            </h2>
+
+            <p class="mt-2 text-sm leading-6 text-foreground/60">
+              Set the starting price for your listing.
+            </p>
+
+            <div class="mt-6 grid gap-5 md:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Amount
+                </label>
+
+                <input
+                  v-model.number="form.amount"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="0.00"
+                />
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium">
+                  Currency
+                </label>
+
+                <input
+                  v-model="form.currency"
+                  :disabled="!canEdit || isSubmitting"
+                  class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="EUR"
+                />
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-end">
+              <button
+                type="submit"
+                class="inline-flex items-center justify-center rounded-2xl bg-foreground px-6 py-3 text-sm font-medium text-background transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                :disabled="!canEdit || isSubmitting"
+              >
+                {{ isSubmitting ? 'Saving changes...' : 'Save changes' }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

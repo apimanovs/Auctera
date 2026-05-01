@@ -1,4 +1,6 @@
 import { computed, reactive, ref } from "vue"
+import { useRouter  } from "vue-router"
+
 
 import { mediaService } from "@/app/services/mediaService"
 import { itemService } from "@/app/services/lotService"
@@ -10,31 +12,33 @@ import {
   type UploadedPhoto,
 } from "@/types/createLot"
 
+const router = useRouter()
+
 export const useCreateLotFlow = () => {
   const currentStepIndex = ref(0)
   const form = reactive<CreateLotFormState>({
     ...DEFAULT_CREATE_LOT_FORM,
   })
   const photos = ref<UploadedPhoto[]>([])
-
+  
   const isSubmitting = ref(false)
   const isUploadingPhotos = ref(false)
   const errorMessage = ref("")
   const successMessage = ref("")
-
+  
   const currentStep = computed<SellStepKey>(() => SELL_STEPS[currentStepIndex.value] ?? "intro")
   const isFirstStep = computed(() => currentStepIndex.value === 0)
   const isLastStep = computed(() => currentStepIndex.value === SELL_STEPS.length - 1)
-
+  
   const visibleStepNumber = computed(() => (currentStep.value === "intro" ? 0 : currentStepIndex.value))
   const progressPercent = computed(() => {
     if (currentStep.value === "intro") {
       return 0
     }
-
+    
     return Math.round((currentStepIndex.value / (SELL_STEPS.length - 1)) * 100)
   })
-
+  
   const uploadedPhotoKeys = computed(() =>
     photos.value.map((photo) => photo.key).filter((key): key is string => Boolean(key)),
   )
@@ -48,6 +52,18 @@ export const useCreateLotFlow = () => {
     clearMessages()
     currentStepIndex.value = 1
   }
+
+  const createPhotoId = () => {
+  if (
+    typeof window !== "undefined" &&
+    window.crypto &&
+    typeof window.crypto.randomUUID === "function"
+  ) {
+    return window.crypto.randomUUID()
+  }
+
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
 
   const handleFilesSelected = async (files: FileList) => {
     clearMessages()
@@ -63,7 +79,7 @@ export const useCreateLotFlow = () => {
     try {
       for (const file of selectedFiles) {
         const previewUrl = URL.createObjectURL(file)
-        const photoId = crypto.randomUUID()
+        const photoId = createPhotoId()
 
         photos.value.push({
           id: photoId,
@@ -263,10 +279,12 @@ export const useCreateLotFlow = () => {
 
       const lotId = await itemService.createLot(payload)
       successMessage.value = `Listing created successfully. Lot ID: ${lotId}`
+      router.push(`/listings`)
     } catch (error) {
       console.error("Failed to create listing", error)
       errorMessage.value = "Failed to submit listing."
-    } finally {
+    } finally
+    {
       isSubmitting.value = false
     }
   }

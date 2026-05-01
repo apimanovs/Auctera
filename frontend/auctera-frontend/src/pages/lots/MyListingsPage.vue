@@ -9,6 +9,13 @@ import { auctionService } from '@/app/services/auctionService'
 import type { LotPreview } from '@/types/lot'
 import type { AuctionListItem, StartAuctionDuration } from '@/types/auction'
 
+import ConfirmDeleteModal from '@/components/modals/ConfirmDeleteModal.vue'
+import { toast } from "vue-sonner"
+
+const isDeleteModalOpen = ref(false)
+const lotToDeleteId = ref<string | null>(null)
+
+
 const authStore = useAuthStore()
 const { user, isAuthenticated } = storeToRefs(authStore)
 
@@ -87,18 +94,38 @@ const loadData = async () => {
   }
 }
 
-const deleteLot = async (lot: LotPreview) => {
-  const confirmed = window.confirm(`Delete listing \"${lot.title}\"?`)
-  if (!confirmed) return
+const openDeleteModal = (lotId: string) => {
+  lotToDeleteId.value = lotId
+  isDeleteModalOpen.value = true
+}
+
+const closeDeleteModal = () => {
+  lotToDeleteId.value = null
+  isDeleteModalOpen.value = false
+}
+
+const confirmDeleteLot = async () => {
+  if (!lotToDeleteId.value) return
 
   try {
-    await itemService.deleteLot(lot.id)
-    listings.value = listings.value.filter((item) => item.id !== lot.id)
+    await itemService.deleteLot(lotToDeleteId.value)
+
+    listings.value = listings.value.filter(
+      (item) => item.id !== lotToDeleteId.value
+    )
+
     successMessage.value = 'Listing deleted.'
     errorMessage.value = ''
+    toast.success("Your listing has been succesfully deleted.", { position: "bottom-right" })
+
+    closeDeleteModal()
   } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Delete failed. This lot may no longer be deletable.'
+    errorMessage.value =
+      error?.response?.data?.message ??
+      'Delete failed. This lot may no longer be deletable.'
+
     successMessage.value = ''
+    toast.error(errorMessage.value)
   }
 }
 
@@ -160,9 +187,6 @@ onMounted(async () => {
     </div>
 
     <div v-else>
-      <div v-if="successMessage" class="mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-300">{{ successMessage }}</div>
-      <div v-if="errorMessage" class="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">{{ errorMessage }}</div>
-
       <div v-if="isLoading" class="rounded-2xl border p-6 text-sm text-foreground/70">Loading...</div>
 
       <div v-else-if="myListings.length === 0" class="rounded-2xl border p-6 text-sm text-foreground/70">
@@ -200,10 +224,18 @@ onMounted(async () => {
               <button
                 class="rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
                 :disabled="!canDelete(normalizeStatus(lot))"
-                @click="deleteLot(lot)"
+                @click="openDeleteModal(lot.id)"
               >
                 Delete
               </button>
+
+              <ConfirmDeleteModal
+                v-if="isDeleteModalOpen"
+                :title='`Delete "${lot.title}" ?`'
+                message="Are you sure you want to delete this lot? This action cannot be undone."
+                @cancel="closeDeleteModal"
+                @confirm="confirmDeleteLot"
+              />
 
               <button
                 class="rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"

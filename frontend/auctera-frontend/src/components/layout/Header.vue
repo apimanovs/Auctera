@@ -145,8 +145,8 @@ const handleKeyPress = (event: KeyboardEvent) => {
                     Your Orders
                   </SelectItem>
                 </RouterLink>
-                <RouterLink  to="/my-listings">
-                  <SelectItem value="my-listings">
+                <RouterLink  to="/listings">
+                  <SelectItem value="listings">
                     My Listings
                   </SelectItem>
                 </RouterLink>

@@ -522,7 +522,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
         </p>
       </div>
 
-      <div class="mt-5 grid grid-cols-5 gap-4">
+      <div class="grid grid-cols-5 gap-4 sm:grid-cols-3 lg:grid-cols-5 mt-5">
         <article
           v-for="brand in brands"
           :key="brand"

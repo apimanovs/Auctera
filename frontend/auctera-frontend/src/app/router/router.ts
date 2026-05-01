@@ -77,7 +77,7 @@ const routes = isDev
             component: CreateLotPage,
           },
           {
-            path: 'my-listings',
+            path: 'listings',
             component: MyListingsPage,
           },
           {
