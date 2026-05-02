@@ -58,6 +58,28 @@ public sealed class LotConfiguration : IEntityTypeConfiguration<Lot>
         builder.Property(l => l.Color)
             .HasMaxLength(50);
 
+        builder.Property(l => l.Country)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(l => l.City)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(l => l.Style)
+            .HasMaxLength(100)
+            .IsRequired();
+            
+
+        builder.Property(l => l.Age)
+            .HasMaxLength(100)
+            .IsRequired();
+            
+            
+
+        builder.Property(l => l.CreatedAt)
+            .IsRequired();
+
         builder.OwnsOne(lot => lot.Price, money =>
         {
             money.Property(m => m.Amount)

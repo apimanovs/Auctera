@@ -22,5 +22,9 @@ public sealed record CreateLotRequest
     string Brand,
     LotCondition Condition,
     string? Color,
+    string? Country,
+    string? City,
+    string Age,
+    string Style,
     IReadOnlyList<string>? PhotoKeys
 ) : IRequest<Guid>;

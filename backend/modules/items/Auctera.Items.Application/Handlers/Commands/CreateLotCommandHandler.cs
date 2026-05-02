@@ -44,7 +44,11 @@ public sealed class CreateLotCommandHandler : IRequestHandler<CreateLotCommand, 
             request.Size,
             request.Brand,
             request.Condition,
-            request.Color
+            request.Color,
+            request.Country,
+            request.City,
+            request.Age,
+            request.Style
         );
 
         foreach (var key in request.PhotoKeys ?? [])

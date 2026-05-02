@@ -58,6 +58,15 @@ public sealed class Lot : Entity<Guid>
     /// </summary>
     public string? Color { get; private set; }
 
+    public string Country { get; private set; }
+
+    public string? City { get; private set; }
+
+    public string Age { get; private set; }
+    public string Style { get; private set; }
+
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+
     /// <summary>
     /// Gets or sets the media used by this type.
     /// </summary>
@@ -79,7 +88,12 @@ public sealed class Lot : Entity<Guid>
         LotSize size,
         string brand,
         LotCondition condition,
-        string? color
+        string? color,
+        string country,
+        string? city,
+        string age,
+        string style,
+        DateTime? createdAt = null
     ) : base(id)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -117,7 +131,12 @@ public sealed class Lot : Entity<Guid>
         Brand = brand.Trim();
         Condition = condition;
         Color = string.IsNullOrWhiteSpace(color) ? null : color.Trim();
+        Country = string.IsNullOrWhiteSpace(country) ? null : country.Trim();
+        City = string.IsNullOrWhiteSpace(city) ? null : city.Trim();
+        CreatedAt = createdAt ?? DateTime.UtcNow;
         Status = LotStatus.Draft;
+        Age = age;
+        Style = style;
     }
 
     public void Edit(
@@ -130,7 +149,11 @@ public sealed class Lot : Entity<Guid>
         LotSize size,
         string brand,
         LotCondition condition,
-        string? color)
+        string? color,
+        string? country,
+        string? city,        
+        string age,
+        string style)
     {
         if (Status == LotStatus.Draft)
         {
@@ -189,6 +212,10 @@ public sealed class Lot : Entity<Guid>
         Brand = brand.Trim();
         Condition = condition;
         Color = color.Trim();
+        Country = string.IsNullOrWhiteSpace(country) ? null : country.Trim();
+        City = string.IsNullOrWhiteSpace(city) ? null : city.Trim();
+        Age = age;
+        Style = style;
     }
 
     /// <summary>

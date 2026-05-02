@@ -56,6 +56,10 @@ public sealed class ItemController : ControllerBase
             command.Brand,
             command.Condition,
             command.Color,
+            command.Country,
+            command.City,
+            command.Age,
+            command.Style,
             command.PhotoKeys
         );
 

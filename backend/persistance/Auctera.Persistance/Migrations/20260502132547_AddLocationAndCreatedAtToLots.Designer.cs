@@ -3,6 +3,7 @@ using System;
 using Auctera.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Auctera.Persistance.Migrations
 {
     [DbContext(typeof(AucteraDbContext))]
-    partial class AucteraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260502132547_AddLocationAndCreatedAtToLots")]
+    partial class AddLocationAndCreatedAtToLots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,11 +160,6 @@ namespace Auctera.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Age")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasMaxLength(120)
@@ -211,11 +209,6 @@ namespace Auctera.Persistance.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("Style")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Title")
                         .IsRequired()

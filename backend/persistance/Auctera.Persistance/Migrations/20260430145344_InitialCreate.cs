@@ -27,7 +27,9 @@ namespace Auctera.Persistance.Migrations
                     Size = table.Column<int>(type: "integer", maxLength: 20, nullable: false),
                     Brand = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
                     Condition = table.Column<string>(type: "text", nullable: false),
-                    Color = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
+                    Color = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {

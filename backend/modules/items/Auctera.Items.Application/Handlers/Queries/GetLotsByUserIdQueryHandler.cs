@@ -36,7 +36,7 @@ public sealed class GetLotsByUserIdQueryHandler(ILotRepository lotRepository)
                 Status = lot.Status,
                 StatusName = lot.Status.ToString(),
                 AuctionId = null,
-                CreatedAt = null,
+                CreatedAt = lot.CreatedAt,
                 Media = lot.Media.Select(m => new LotMediaDto
                 {
                     Key = m.Key,

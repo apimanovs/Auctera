@@ -66,6 +66,11 @@ public sealed class GetLotQueryHandler(ILotRepository lotRepository, IUserReposi
             Color = lot.Color,
             Status = lot.Status,
             StatusName = lot.Status.ToString(),
+            CreatedAt = lot.CreatedAt,
+            Age = lot.Age,
+            Style = lot.Style,
+            Country = lot.Country,
+            City = lot.City,
             Media = lot.Media.Select(m => new LotMediaDto
             {
                 Key = m.Key, // url
