@@ -161,6 +161,17 @@ const startAuctionForLot = async (lot: LotPreview) => {
   }
 }
 
+const formatDate = (value?: string) => {
+  if (!value) return '—'
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(value))
+}
+
+
 onMounted(async () => {
   if (!isAuthenticated.value) {
     await authStore.checkAuth()
@@ -206,7 +217,7 @@ onMounted(async () => {
                 </span>
               </div>
               <p class="mt-1 text-sm text-foreground/70">{{ lot.brand }} · {{ lot.currency }} {{ lot.price }}</p>
-              <p class="text-xs text-foreground/50">Created: {{ lot.createdAt ? new Date(lot.createdAt).toLocaleDateString() : '—' }}</p>
+              <p class="text-xs text-foreground/50">  Listed {{ formatDate(lot.createdAt) }}</p>
             </div>
 
             <div class="flex flex-wrap gap-2">

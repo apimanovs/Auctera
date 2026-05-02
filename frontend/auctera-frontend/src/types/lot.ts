@@ -29,6 +29,10 @@ export type Lot = {
   media: LotMedia[]
   seller: LotSeller
   sellerId?: string
+  country: string
+  city: string
+  age: string
+  style: string
   createdAt?: string
 }
 
@@ -52,8 +56,12 @@ export type LotPreview = {
   media: LotMedia[]
   sellerId?: string
   seller?: LotSeller
-  createdAt?: string
   auctionId?: string
+  country?: string
+  city?: string
+  age?: string
+  style?: string
+  createdAt?: string
 }
 
 export type LotMedia = {

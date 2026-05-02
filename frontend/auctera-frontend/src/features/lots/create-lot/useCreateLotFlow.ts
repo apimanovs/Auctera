@@ -12,9 +12,9 @@ import {
   type UploadedPhoto,
 } from "@/types/createLot"
 
-const router = useRouter()
 
 export const useCreateLotFlow = () => {
+  const router = useRouter()
   const currentStepIndex = ref(0)
   const form = reactive<CreateLotFormState>({
     ...DEFAULT_CREATE_LOT_FORM,
@@ -215,6 +215,26 @@ export const useCreateLotFlow = () => {
           return false
         }
 
+        if (!form.country.trim()) {
+          errorMessage.value = "Country is required."
+          return false
+        }
+
+        if (!form.city.trim()) {
+          errorMessage.value = "City is required."
+          return false
+        }
+
+        if (!form.age.trim()) {
+          errorMessage.value = "Age is required."
+          return false
+        }
+
+        if (!form.style.trim()) {
+          errorMessage.value = "Style is required."
+          return false
+        }
+
         return true
 
       default:
@@ -254,7 +274,11 @@ export const useCreateLotFlow = () => {
       form.category === null ||
       form.gender === null ||
       form.size === null ||
-      form.condition === null
+      form.condition === null ||
+      form.country === null ||
+      form.city === null ||
+      form.age === null ||
+      form.style === null
     ) {
       errorMessage.value = "Please fill in all required fields before submit."
       return
@@ -263,19 +287,23 @@ export const useCreateLotFlow = () => {
     isSubmitting.value = true
 
     try {
-      const payload = {
-        title: form.title.trim(),
-        description: form.description.trim(),
-        amount: form.amount,
-        currency: form.currency.trim(),
-        category: form.category,
-        gender: form.gender,
-        size: form.size,
-        brand: form.brand.trim(),
-        condition: form.condition,
-        color: form.color.trim(),
-        photoKeys: uploadedPhotoKeys.value,
-      }
+        const payload = {
+          title: form.title.trim(),
+          description: form.description.trim(),
+          amount: form.amount,
+          currency: form.currency.trim(),
+          category: form.category,
+          gender: form.gender,
+          size: form.size,
+          brand: form.brand.trim(),
+          condition: form.condition,
+          color: form.color.trim(),
+          country: form.country.trim(),
+          city: form.city.trim(),
+          age: form.age.trim(),
+          style: form.style.trim(),
+          photoKeys: uploadedPhotoKeys.value,
+        }
 
       const lotId = await itemService.createLot(payload)
       successMessage.value = `Listing created successfully. Lot ID: ${lotId}`

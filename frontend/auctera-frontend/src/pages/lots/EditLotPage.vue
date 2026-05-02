@@ -34,7 +34,13 @@ const form = reactive({
   brand: '',
   condition: 0,
   color: '',
+  country: '',
+  city: '',
+  age: '',
+  style: '',
 })
+
+console.log('EditLotPage initialized with lot ID:', form)
 
 const normalizeStatus = computed(() => {
   const raw = String(lot.value?.statusName ?? lot.value?.status ?? '').toLowerCase()
@@ -68,6 +74,10 @@ const loadLot = async () => {
     form.brand = data.brand
     form.condition = data.condition
     form.color = data.color
+    form.country = data.country
+    form.city = data.city
+    form.age = data.age
+    form.style = data.style
   } catch (error) {
     console.error(error)
     errorMessage.value = 'Failed to load listing for editing.'
@@ -87,12 +97,22 @@ const submit = async () => {
     return
   }
 
-  if (!user.value?.id) {
+  if (!user.value?.userId) {
     errorMessage.value = 'You need to sign in before editing.'
     return
   }
 
-  if (!form.title.trim() || !form.description.trim() || form.amount <= 0 || !form.brand.trim() || !form.color.trim()) {
+  if (
+    !form.title.trim() ||
+    !form.description.trim() ||
+    form.amount <= 0 ||
+    !form.brand.trim() ||
+    !form.color.trim() ||
+    !form.country.trim() ||
+    !form.city.trim() ||
+    !form.age.trim() ||
+    !form.style.trim()
+  ) {
     errorMessage.value = 'Please complete all required fields with valid values.'
     return
   }
@@ -102,7 +122,7 @@ const submit = async () => {
 
     await itemService.updateLot(lot.value.id, {
       id: lot.value.id,
-      sellerId: user.value.id,
+      sellerId: user.value?.userId,
       title: form.title.trim(),
       description: form.description.trim(),
       price: {
@@ -115,6 +135,10 @@ const submit = async () => {
       brand: form.brand.trim(),
       condition: form.condition,
       color: form.color.trim(),
+      country: form.country.trim(),
+      city: form.city.trim(),
+      age: form.age.trim(),
+      style: form.style.trim(),
     })
 
     successMessage.value = 'Listing updated successfully.'
@@ -215,6 +239,70 @@ onMounted(loadLot)
                   class="min-h-[150px] w-full resize-none rounded-2xl border bg-background p-4 text-sm leading-6 outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
                   placeholder="Describe condition, fit, material, flaws, authenticity, and anything important."
                 />
+              </div>
+
+              <div class="border-b p-6 sm:p-8">
+                <h2 class="text-xl font-semibold tracking-tight">
+                  Location and style
+                </h2>
+
+                <p class="mt-2 text-sm leading-6 text-foreground/60">
+                  Tell buyers where the item ships from and what style it belongs to.
+                </p>
+
+                <div class="mt-6 grid gap-5 md:grid-cols-2">
+                  <div>
+                    <label class="mb-2 block text-sm font-medium">
+                      Country
+                    </label>
+
+                    <input
+                      v-model="form.country"
+                      :disabled="!canEdit || isSubmitting"
+                      class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="Latvia"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="mb-2 block text-sm font-medium">
+                      City
+                    </label>
+
+                    <input
+                      v-model="form.city"
+                      :disabled="!canEdit || isSubmitting"
+                      class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="Riga"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="mb-2 block text-sm font-medium">
+                      Age / year
+                    </label>
+
+                    <input
+                      v-model="form.age"
+                      :disabled="!canEdit || isSubmitting"
+                      class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="2020, 90s, vintage..."
+                    />
+                  </div>
+
+                  <div>
+                    <label class="mb-2 block text-sm font-medium">
+                      Style
+                    </label>
+
+                    <input
+                      v-model="form.style"
+                      :disabled="!canEdit || isSubmitting"
+                      class="h-12 w-full rounded-2xl border bg-background px-4 text-sm outline-none transition focus:border-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder="Archive, streetwear, minimalist..."
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
