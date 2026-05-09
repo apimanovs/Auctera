@@ -97,7 +97,7 @@ public sealed class Money : IEquatable<Money>
     /// <returns>True if the operation succeeds; otherwise, false.</returns>
     public bool GreatherThan(Money amount)
     {
-        if (Amount < amount.Amount)
+        if (Amount <= amount.Amount)
         {
             return false;
         }

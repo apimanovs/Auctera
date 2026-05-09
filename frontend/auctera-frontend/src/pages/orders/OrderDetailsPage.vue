@@ -29,7 +29,7 @@ const lotImageUrl = ref('')
 
 const role = computed<OrderUserRole>(() => {
   if (!order.value) return 'unknown'
-  return getUserRoleInOrder(order.value, user.value?.id)
+  return getUserRoleInOrder(order.value, user.value?.userId)
 })
 
 const roleLabel = computed(() => {

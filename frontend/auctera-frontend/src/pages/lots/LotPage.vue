@@ -27,7 +27,7 @@ const bidSuccess = ref('')
 const bidAmount = ref<number | null>(null)
 
 const lotIdParam = computed(() => String(route.params.lotId ?? route.params.id ?? ''))
-const isOwner = computed(() => !!lot.value?.seller?.id && lot.value.seller.id === user.value?.id)
+const isOwner = computed(() => !!lot.value?.seller?.id && lot.value.seller.id === user.value?.userId)
 
 const normalizedLotStatus = computed(() => {
   const raw = String(lot.value?.statusName ?? lot.value?.status ?? '').toLowerCase()

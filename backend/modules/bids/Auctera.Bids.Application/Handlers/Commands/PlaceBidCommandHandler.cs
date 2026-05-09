@@ -54,12 +54,12 @@ public sealed class PlaceBidCommandHandler
 
         var auction = await _auctionRepository.GetAuctionById(request.AuctionId, cancellationToken);
 
-        var lot = await _lotRepository.GetLotById(auction.LotId, cancellationToken);
+        var lot = await _lotRepository.GetLotById(auction?.LotId, cancellationToken);
 
-        //if (lot.SellerId == request.BidderId)
-        //{
-        //    throw new InvalidOperationException("You cant bid on your own auction.");
-        //}
+        if (lot?.SellerId == request.BidderId)
+        {
+           throw new InvalidOperationException("You cant bid on your own auction.");
+        }
 
         if (auction == null)
         {

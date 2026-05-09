@@ -128,7 +128,7 @@ const loadOrders = async () => {
         title: String(order.title ?? order.lotTitle ?? lotInfo?.title ?? 'Untitled'),
         imageUrl: resolveImage(order, lotInfo?.imageUrl),
         createdAt: (order.createdAt ?? order.createdDate ?? order.paymentDeadlineUtc ?? null) as string | null,
-        role: getUserRoleInOrder(order, user.value?.id),
+        role: getUserRoleInOrder(order, user.value?.userId),
       }
     })
   } catch (error) {

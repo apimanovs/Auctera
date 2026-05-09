@@ -125,7 +125,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
             Sign in
           </RouterLink>
 
-          <Heart v-if="isAuthenticated" class="h-5 w-5 text-foreground cursor-pointer" />
+          <!-- <Heart v-if="isAuthenticated" class="h-5 w-5 text-foreground cursor-pointer" /> -->
 
           <div v-if="isAuthenticated" >
             <Select>

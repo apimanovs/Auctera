@@ -23,52 +23,59 @@ const { user, isAuthenticated } = storeToRefs(authStore)
 const exploreCollections = ref([
   {
     id: 1,
-    label: 'Curated Edit',
-    title: 'Archive Fashion',
-    subtitle: 'Rare garments, iconic silhouettes, and collector-worthy pieces with lasting appeal.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1400&q=80',
+    label: 'Archive Direction',
+    title: 'Avant-Garde',
+    subtitle: 'Rick Owens, Margiela, layered silhouettes, and experimental cuts.',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/collections/Avant_Garde_Collection_Photo.png',
+    query: '?style=avant-garde',
   },
   {
     id: 2,
-    label: 'Luxury Selection',
-    title: 'Designer Bags',
-    subtitle: 'Statement pieces, everyday icons, and timeless house classics.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1400&q=80',
+    label: 'Modern Luxury',
+    title: 'Minimal Designer',
+    subtitle: 'Clean lines, neutral tones, Prada-style essentials and refined fits.',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/collections/Minimal_Designer_Collection_Photo.png',
+    query: '?style=minimal',
   },
   {
     id: 3,
-    label: 'Collector Picks',
-    title: 'Sneakers',
-    subtitle: 'Coveted pairs, limited drops, and standout grails worth chasing.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1400&q=80',
-  },
-  {
-    id: 4,
-    label: 'Refined Details',
-    title: 'Jewelry & Accessories',
-    subtitle: 'The finishing layer that turns a look into something memorable.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1400&q=80',
+    label: 'Street Culture',
+    title: 'Elevated Streetwear',
+    subtitle: 'Oversized fits, sneakers, hoodies, and statement everyday pieces.',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/collections/Elevated_Streetwear_Collection_Photo.png',
+    query: '?style=streetwear',
   },
 ])
 
 const categories = ref([
-  'Vintage',
-  'Streetwear',
-  'Designer',
-  'Sneakers',
-  'Accessories',
+  {
+    name: 'Vintage',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/Vintage_Category_Icon.png',
+  },
+  {
+    name: 'Streetwear',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/Streetwear_Category_Icon.png',
+  },
+  {
+    name: 'Designer',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/Designer_Category_Icon.png',
+  },
+  {
+    name: 'Sneakers',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/Shoes_Category_Icon.png',
+  },
+  {
+    name: 'Accessories',
+    imageUrl: 'https://pub-d44c1b06b612479f8e654eedc923ffa1.r2.dev/display/Acessories_Categorie_Icon.png',
+  },
 ])
 
 const brands = ref([
-  'Prada',
-  'Gucci',
-  'Balenciaga',
-  'Vetements',
-  'Louis Vuitton',
+  { name: 'Prada', logo: '/brands/prada-logo.svg' },
+  { name: 'Gucci', logo: '/brands/gucci-logo.svg' },
+  { name: 'Dolce Gabbana', logo: '/brands/dolce-gabbana-logo.svg' },
+  { name: 'Dior', logo: '/brands/dior-logo.svg' },
+  { name: 'Chanel', logo: '/brands/chanel-2-logo.svg' },
 ])
 
 const auctions = ref<Auction[]>([
@@ -276,27 +283,29 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
       </div>
 
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        
-
         <article
-          v-for="collection in exploreCollections.slice(1)"
+          v-for="collection in exploreCollections"
           :key="collection.id"
-          class="group relative overflow-hidden rounded-[28px] border bg-black"
+          class="group relative overflow-hidden rounded-[32px] border bg-black"
         >
           <img
             :src="collection.imageUrl"
             :alt="collection.title"
-            class="h-[220px] w-full object-cover opacity-80 transition duration-700 group-hover:scale-[1.04] group-hover:opacity-100"
+            class="h-[240px] w-full object-cover transition duration-700 group-hover:scale-[1.06]"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-          <div class="absolute bottom-0 left-0 p-5">
-            <p class="text-[11px] uppercase tracking-[0.24em] text-white/60">
+
+          <div class="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-black/80 via-black/30 to-transparent transition duration-300 group-hover:from-black/60" />
+
+          <div class="absolute bottom-0 left-0 p-6">
+            <p class="text-[10px] uppercase tracking-[0.26em] text-white/60">
               {{ collection.label }}
             </p>
-            <h3 class="mt-2 text-2xl font-semibold text-white">
+
+            <h3 class="mt-3 text-2xl font-semibold text-white">
               {{ collection.title }}
             </h3>
-            <p class="mt-2 max-w-sm text-sm leading-6 text-white/70">
+
+            <p class="mt-2 max-w-sm text-sm text-white/70">
               {{ collection.subtitle }}
             </p>
           </div>
@@ -362,7 +371,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
       </Carousel>
     </section>
 
-    <section class="">
+    <section>
       <div>
         <p class="text-[11px] uppercase tracking-[0.24em] text-foreground/50">
           Categories
@@ -375,18 +384,29 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
         </p>
       </div>
 
-      <div class="grid grid-cols-5 gap-4 sm:grid-cols-3 lg:grid-cols-5 mt-5">
+      <div class="mt-5 flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-5">
         <article
           v-for="category in categories"
-          :key="category"
-          class="group flex aspect-square cursor-pointer flex-col justify-between rounded-[24px] border bg-background p-6 transition duration-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+          :key="category.name"
+          class="group relative h-[220px] min-w-[230px] cursor-pointer overflow-hidden rounded-[28px] border bg-neutral-100 dark:bg-neutral-900 sm:min-w-0"
         >
-          <span class="text-[11px] uppercase tracking-[0.22em] text-foreground/55 group-hover:text-white/70 dark:group-hover:text-black/70">
-            Category
-          </span>
-          <span class="text-xl font-semibold">
-            {{ category }}
-          </span>
+          <img
+            :src="category.imageUrl"
+            :alt="category.name"
+            class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+
+          <div class="absolute bottom-0 left-0 right-0 h-[65%] bg-gradient-to-t from-black/70 via-black/25 to-transparent transition duration-300 group-hover:from-black/55" />
+
+          <div class="absolute bottom-0 left-0 p-5">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-white/65 drop-shadow">
+              Category
+            </p>
+
+            <h3 class="mt-2 text-xl font-semibold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]">
+              {{ category.name }}
+            </h3>
+          </div>
         </article>
       </div>
     </section>
@@ -509,7 +529,7 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
       </Carousel>
     </section>
 
-    <section class="">
+    <section>
       <div>
         <p class="text-[11px] uppercase tracking-[0.24em] text-foreground/50">
           Brands
@@ -522,18 +542,20 @@ const endingSoon = computed(() => auctions.value.slice(0, 10))
         </p>
       </div>
 
-      <div class="grid grid-cols-5 gap-4 sm:grid-cols-3 lg:grid-cols-5 mt-5">
-        <article
+        <div class="mt-5 flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 lg:grid-cols-5">        <article
           v-for="brand in brands"
-          :key="brand"
-          class="group flex aspect-square cursor-pointer flex-col justify-between rounded-[24px] border bg-background p-6 transition duration-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+          :key="brand.name"
+          class="group flex aspect-square cursor-pointer flex-col items-center justify-center rounded-[28px] border bg-background p-6 text-center transition duration-300 hover:bg-black dark:hover:bg-white"
         >
-          <span class="text-[11px] uppercase tracking-[0.22em] text-foreground/55 group-hover:text-white/70 dark:group-hover:text-black/70">
+          <img
+            :src="brand.logo"
+            :alt="brand.name"
+            class="max-h-30 max-w-[150px] object-contain transition duration-300  group-hover:invert dark:invert group-hover:dark:invert-0"
+          />
+
+          <p class="mt-5 text-[11px] uppercase tracking-[0.22em] text-foreground/45 group-hover:text-white/60 dark:group-hover:text-black/60">
             Brand
-          </span>
-          <span class="text-xl font-semibold">
-            {{ brand }}
-          </span>
+          </p>
         </article>
       </div>
     </section>

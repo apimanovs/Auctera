@@ -20,107 +20,95 @@ import EditLotPage from '@/pages/lots/EditLotPage.vue'
 import OrdersPage from '@/pages/orders/OrdersPage.vue'
 import OrderDetailsPage from '@/pages/orders/OrderDetailsPage.vue'
 
-const isDev = import.meta.env.DEV
 
-const routes = isDev
-  ? [
+const routes = [
+  {
+    path: '/',
+    component: MainLayout,
+    children: [
       {
-        path: '/',
-        component: MainLayout,
-        children: [
-          {
-            path: '',
-            redirect: '/home',
-          },
-          {
-            path: 'home',
-            component: HomePage,
-          },
-          {
-            path: 'profile/:username',
-            component: UserProfilePage,
-          },
-          {
-            path: 'lot/:lotId',
-            component: LotPage,
-          },
-          {
-            path: 'lots/:id',
-            component: LotPage,
-          },
-          {
-            path: 'lots/:id/edit',
-            component: EditLotPage,
-          },
-          {
-            path: 'about',
-            component: AboutPage,
-          },
-          {
-            path: 'terms',
-            component: TermsPage,
-          },
-          {
-            path: 'privacy-policy',
-            component: PrivacyPolicyPage,
-          },
-          {
-            path: 'how-to-sell',
-            component: HowToSellPage,
-          },
-          {
-            path: 'auctions',
-            component: CatalogPage,
-          },
-          {
-            path: 'sell',
-            component: CreateLotPage,
-          },
-          {
-            path: 'listings',
-            component: MyListingsPage,
-          },
-          {
-            path: 'orders',
-            component: OrdersPage,
-          },
-          {
-            path: 'orders/:id',
-            component: OrderDetailsPage,
-          },
-        ],
+        path: '',
+        component: HomePage,
       },
       {
-        path: '/login',
-        component: LoginPage,
+        path: 'home',
+        redirect: '/',
       },
       {
-        path: '/register',
-        component: RegisterPage,
+        path: 'profile/:username',
+        component: UserProfilePage,
       },
       {
-        path: '/reset-password',
-        component: ResetPasswordPage,
+        path: 'lot/:lotId',
+        component: LotPage,
       },
       {
-        path: '/forgot-password',
-        component: ForgotPasswordPage,
+        path: 'lots/:id',
+        component: LotPage,
       },
       {
-        path: '/:pathMatch(.*)*',
-        component: NotFoundPage,
-      },
-    ]
-  : [
-      {
-        path: '/',
-        component: LandingPage,
+        path: 'lots/:id/edit',
+        component: EditLotPage,
       },
       {
-        path: '/:pathMatch(.*)*',
-        component: NotFoundPage,
+        path: 'about',
+        component: AboutPage,
       },
-    ]
+      {
+        path: 'terms',
+        component: TermsPage,
+      },
+      {
+        path: 'privacy-policy',
+        component: PrivacyPolicyPage,
+      },
+      {
+        path: 'how-to-sell',
+        component: HowToSellPage,
+      },
+      {
+        path: 'auctions',
+        component: CatalogPage,
+      },
+      {
+        path: 'sell',
+        component: CreateLotPage,
+      },
+      {
+        path: 'listings',
+        component: MyListingsPage,
+      },
+      {
+        path: 'orders',
+        component: OrdersPage,
+      },
+      {
+        path: 'orders/:id',
+        component: OrderDetailsPage,
+      },
+    ],
+  },
+  {
+    path: '/login',
+    component: LoginPage,
+  },
+  {
+    path: '/register',
+    component: RegisterPage,
+  },
+  {
+    path: '/reset-password',
+    component: ResetPasswordPage,
+  },
+  {
+    path: '/forgot-password',
+    component: ForgotPasswordPage,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFoundPage,
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(),

@@ -21,7 +21,7 @@ defineProps<{
                     v-if="typeof imageUrl === 'string'"
                     :src="imageUrl"
                     alt="Auction lot image"
-                    class="object-coverh h-full w-full"
+                    class="h-full w-full"
                 />
                 <div v-else class="flex h-full items-center justify-center text-foreground text-sm">
                     No image
